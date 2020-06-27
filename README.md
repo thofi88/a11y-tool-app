@@ -4,11 +4,12 @@ This project is a A11Y-App created with Docker Containers. There are five diffre
 
 The five containers are:
 
-[Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
-[Node.js/Check-Script](https://hub.docker.com/_/node?tab=description) version 12.2.0.
-[Node.js/API-Server](https://hub.docker.com/_/node?tab=description) version 12.2.0.
-[MySQL](https://hub.docker.com/_/mysql) version 5.7.
-[PhpMyAdmin](https://www.github.com/phpmyadmin/docker) version 5.0.2.
+1. [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+2. [Node.js/Check-Script](https://hub.docker.com/_/node?tab=description) version 12.2.0.
+3. [Node.js/API-Server](https://hub.docker.com/_/node?tab=description) version 12.2.0.
+4. [MySQL](https://hub.docker.com/_/mysql) version 5.7.
+5. [PhpMyAdmin](https://www.github.com/phpmyadmin/docker) version 5.0.2.
+
 
 Before you can start you must [install Docker](https://docs.docker.com/get-docker/).
 
