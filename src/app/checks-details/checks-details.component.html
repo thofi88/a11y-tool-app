@@ -1,10 +1,39 @@
-<mat-card *ngIf="check" class="example-card">
+<mat-card *ngIf="check" class="example-card mb-4">
   <mat-card-header>
-    <mat-card-title left>{{this.check.website_name}}</mat-card-title>
-    <mat-card-subtitle>Home-URL:</mat-card-subtitle>
+    <mat-card-title left class="mt-4">{{this.check.website_name}}</mat-card-title>
+
   </mat-card-header>
-   <mat-card-content>
-    <mat-card-subtitle>Website-Checks:</mat-card-subtitle>
+  <mat-card-content class="ml-3">
+
+    <mat-card-subtitle class="mb-2 mt-2">URL:</mat-card-subtitle>
+    <a [href]="this.check.url" target="_blank">{{this.check.url}}</a>
+    <mat-card-subtitle class="mt-4">Website-Checks:</mat-card-subtitle>
+
+    <div *ngIf="this.check" class="mt-4">
+
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="step" (opened)="setStep(0)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+
+            </mat-panel-title>
+            <mat-panel-description>
+              {{this.check.url}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+
+          <mat-action-row class="mat-act">
+
+
+          </mat-action-row>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+
+    </div>
+
+
   </mat-card-content>
   <mat-card-actions>
 
@@ -12,3 +41,13 @@
   </mat-card-actions>
 </mat-card>
 
+<a [routerLink]="['']" class="mt-4">
+  <button type="button" class="btn btn-outline-info">
+    <div>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_back</mat-icon>
+  </div>
+  <div>
+   <span > Zurück zur Übersicht</span>
+  </div>
+  </button>
+</a>

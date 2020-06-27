@@ -15,9 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {FormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -36,10 +35,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatCardModule,
     MatExpansionModule,
     MatIconModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
+    Ng2SearchPipeModule,
     FormsModule,
-    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

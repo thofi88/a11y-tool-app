@@ -12,8 +12,16 @@ import { map, switchMap } from 'rxjs/operators';
 export class ChecksDetailsComponent implements OnInit {
 
   check: Checks;
+  step = 0;
+  oneCheck: JSON;
+
   constructor(private route: ActivatedRoute, private hs: HttpService) {
 
+
+
+  }
+
+  ngOnInit(): void {
     this.route.paramMap.pipe(
       map(params => params.get('checkId')),
       switchMap(checkId => this.hs.getSingleCheck(checkId))
@@ -21,7 +29,15 @@ export class ChecksDetailsComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(){
+    //this.oneCheck = this.check.result[0].violations;
+
+    //console.log(JSON.stringify(this.oneCheck));
+  };
+
+  setStep(index: number) {
+    this.step = index;
+    console.log('setStep:' + this.step);
   }
 
 }

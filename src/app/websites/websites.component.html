@@ -1,37 +1,14 @@
 <h1>A11Y-Tool</h1>
 
 <!-- Search form -->
-<form [formGroup]="stateForm">
-  <mat-form-field  class="form ml-2">
-    <div class="row">
-      <div class="col-sm-10">
-    <input type="text"
-           matInput
-           placeholder="Suche"
-           formControlName="stateGroup"
-           required
-           [matAutocomplete]="autoGroup"
-           class="form-control ">
-      <mat-autocomplete #autoGroup="matAutocomplete">
-        <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
-          <mat-option *ngFor="let name of group.names" [value]="name">
-            {{name}}
-          </mat-option>
-      </mat-optgroup>
-    </mat-autocomplete>
-  </div>
-  <div class="col-sm-1">
-    <button class="btn btn-outline-info" type="submit">Suche</button>
-  </div>
-  </div>
-  </mat-form-field>
-</form>
-
+<div class="form-group">
+        <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="term">
+    </div>
 
 <div *ngIf="websites" class="mt-4">
 
   <mat-accordion class="example-headers-align">
-    <mat-expansion-panel *ngFor="let w of websites; let i = index;" [expanded]="step === i" (opened)="setStep(i)">
+    <mat-expansion-panel *ngFor="let w of websites| filter:term; let i = index;" [expanded]="step === i" (opened)="setStep(i)">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{i + 1}}. {{ w.name }}
