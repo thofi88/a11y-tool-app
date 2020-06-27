@@ -15,6 +15,7 @@ export class WebsitesComponent implements OnInit {
   websites: Websites[];
   step = 0;
   term: string;
+  sortField = 'name';
 
   constructor(private hs: HttpService) { }
 
@@ -23,7 +24,10 @@ export class WebsitesComponent implements OnInit {
     this.hs.getAll().subscribe(websites => this.websites = websites);
   }
 
-
+changeSort(value){
+  this.sortField = value;
+  console.log(this.sortField);
+}
   setStep(index: number) {
     this.step = index;
     console.log('setStep:' + this.step);

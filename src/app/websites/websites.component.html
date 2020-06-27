@@ -1,14 +1,27 @@
 <h1>A11Y-Tool</h1>
 
 <!-- Search form -->
-<div class="form-group">
-        <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="term">
-    </div>
+<div class="row mr-2">
+  <div class="col-9 form-group">
+    <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="term">
+  </div>
+  <div class="col-3 dropdown">
+  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-info active">
+      <input type="radio" name="options" id="option1" autocomplete="off" (click)="changeSort('name')" checked> Name
+    </label>
+    <label class="btn btn-info">
+      <input type="radio" name="options" id="option2" autocomplete="off" (click)="changeSort('ranking')"> Ranking
+    </label>
+  </div>
+</div>
+</div>
 
 <div *ngIf="websites" class="mt-4">
 
   <mat-accordion class="example-headers-align">
-    <mat-expansion-panel *ngFor="let w of websites| filter:term; let i = index;" [expanded]="step === i" (opened)="setStep(i)">
+    <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField; let i = index;"
+      [expanded]="step === i" (opened)="setStep(i)">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{i + 1}}. {{ w.name }}
@@ -32,4 +45,3 @@
   </mat-accordion>
 
 </div>
-
