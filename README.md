@@ -1,6 +1,11 @@
 # A11yTool
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+This project is a A11Y-App created with Docker Containers. There are five diffrent Containers connected with a Docker-Compose File to start the App with only one terminal command.
+
+The five containers are:
+
+[Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+
 
 ## Development server
 
