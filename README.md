@@ -5,28 +5,27 @@ This project is a A11Y-App created with Docker Containers. There are five diffre
 The five containers are:
 
 [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+[Node.js/Check-Script](https://hub.docker.com/_/node?tab=description) version 12.2.0.
+[Node.js/API-Server](https://hub.docker.com/_/node?tab=description) version 12.2.0.
+[MySQL](https://hub.docker.com/_/mysql) version 5.7.
+[PhpMyAdmin](https://www.github.com/phpmyadmin/docker) version 5.0.2.
 
+Before you can start you must [install Docker](https://docs.docker.com/get-docker/).
 
-## Development server
+## Over this App
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The App is only a prototype to test how to build a Accessibility Tool wich can automatically test websites on accessbility barriers.
 
-## Code scaffolding
+You have two modes to run the App:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## As a Development Server
 
-## Build
+Run `sudo docker-compose -f docker-compose.yml up -d --build` for a dev server. Navigate to `http://localhost:4201/`. The app will automatically reload if you change any of the source files.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## As a Production Server
 
-## Running unit tests
+If you want you can use this Dockercompose File for your Productionmode. With a builded Angular App and nginx-Server to display.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `sudo docker-compose -f docker-compose-prod.yml up -d --build` for production mode.
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+After building and run containers you can navigate to Navigate to `http://localhost:80/` and the App is running.

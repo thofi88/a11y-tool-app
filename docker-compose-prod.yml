@@ -12,7 +12,7 @@ services:
     container_name: a11y-tool-app-client
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: DockerfileProduction
     depends_on:
       - server
     volumes:
