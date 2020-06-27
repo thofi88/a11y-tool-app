@@ -42,6 +42,16 @@ changeSort(value){
   this.websites.pop();
   console.log();
 }
+changeColor(ranking){
+  console.log('change color');
+  if (ranking === 10){
+    return 'rgb(252, 192, 82)';
+  }
+  if (ranking === 8){
+    return 'rgb(252, 82, 82)';
+  }
+
+}
   setStep(index: number) {
     this.step = index;
     console.log('setStep:' + this.step);
