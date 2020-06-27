@@ -17,16 +17,16 @@ Before you can start you must [install Docker](https://docs.docker.com/get-docke
 
 The App is only a prototype to test how to build a Accessibility Tool wich can automatically test websites on accessbility barriers.
 
-You have two modes to run the App:
+**You have two modes to run the App:**
 
-## As a Development Server
+### As a Development Server
 
-Run `sudo docker-compose -f docker-compose.yml up -d --build` for a dev server. Navigate to `http://localhost:4201/`. The app will automatically reload if you change any of the source files.
+Run `sudo docker-compose -f docker-compose.yml up -d --build` for a dev server. 
+Navigate to `http://localhost:4201/`. The app will automatically reload if you change any of the source files.
 
-## As a Production Server
+### As a Production Server
 
 If you want you can use this Dockercompose File for your Productionmode. With a builded Angular App and nginx-Server to display.
-
 Run `sudo docker-compose -f docker-compose-prod.yml up -d --build` for production mode.
 
 After building and run containers you can navigate to Navigate to `http://localhost:80/` and the App is running.
