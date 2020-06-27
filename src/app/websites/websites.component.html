@@ -1,17 +1,20 @@
-<h1>A11Y-Tool</h1>
+<h1 class="mb-4 mt-2">A11Y-Tool</h1>
 
 <!-- Search form -->
 <div class="row mr-2">
-  <div class="col-9 form-group">
+  <div class="col-md-7 form-group">
     <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="term">
   </div>
-  <div class="col-3 dropdown">
+  <div class="col-md-5 dropdown">
   <div class="btn-group btn-group-toggle" data-toggle="buttons">
     <label class="btn btn-info active">
       <input type="radio" name="options" id="option1" autocomplete="off" (click)="changeSort('name')" checked> Name
     </label>
     <label class="btn btn-info">
-      <input type="radio" name="options" id="option2" autocomplete="off" (click)="changeSort('ranking')"> Ranking
+      <input type="radio" name="options" id="option2" autocomplete="off" (click)="changeSort('ranking+')"> Ranking +
+    </label>
+    <label class="btn btn-info">
+      <input type="radio" name="options" id="option3" autocomplete="off" (click)="changeSort('ranking-')"> Ranking -
     </label>
   </div>
 </div>
@@ -23,11 +26,11 @@
     <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField; let i = index;"
       [expanded]="step === i" (opened)="setStep(i)">
       <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title class="mt-1 col-md-3 ml-1">
           {{i + 1}}. {{ w.name }}
         </mat-panel-title>
         <mat-panel-description>
-          <a [href]="w.home_url" target="_blank">{{w.home_url}}</a>
+          <a [href]="w.home_url" class="url" target="_blank">{{w.home_url}}</a>
           <span class="ranking mr-2" [style.background-color]="changeColor(w.ranking)">{{w.ranking}}</span>
         </mat-panel-description>
 
@@ -36,6 +39,7 @@
       <at-website-details [websiteId]=w.id>
 
       </at-website-details>
+
       <mat-action-row class="mat-act">
         <at-category [categoryId]=w.category_id>
 

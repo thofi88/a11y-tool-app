@@ -15,8 +15,11 @@ export class SortByPipe implements PipeTransform {
     if (field === 'name'){
       items.sort((a, b) => a.name.localeCompare(b.name));
     }
-    if ( field === 'ranking'){
+    if ( field === 'ranking-'){
       items.sort((a, b) => (a.ranking < b.ranking) ? 1 : (a.ranking === b.ranking) ? ((a.size < b.size) ? 1 : -1) : -1 )
+    }
+    if ( field === 'ranking+'){
+      items.sort((a, b) => (a.ranking > b.ranking) ? 1 : (a.ranking === b.ranking) ? ((a.size > b.size) ? 1 : -1) : -1 )
     }
     return items;
   }

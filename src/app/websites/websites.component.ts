@@ -19,6 +19,10 @@ export class WebsitesComponent implements OnInit {
   term: string;
   sortField = 'name';
 
+  r = 255;
+  g = 0;
+  b = 0;
+
   constructor(private hs: HttpService) {
     this.newWebsite = {
       id: 100,
@@ -27,7 +31,7 @@ export class WebsitesComponent implements OnInit {
       last_full_test: 'test',
       category_id: 100,
       ranking: 100,
-    }
+    };
    }
 
   ngOnInit(): void {
@@ -42,15 +46,24 @@ changeSort(value){
   this.websites.pop();
   console.log();
 }
-changeColor(ranking){
+changeColor(i){
   console.log('change color');
-  if (ranking === 10){
-    return 'rgb(252, 192, 82)';
-  }
-  if (ranking === 8){
-    return 'rgb(252, 82, 82)';
-  }
+  // if (ranking === 10){
+  //   return 'rgb(252, 192, 82)';
+  // }
+  // if (ranking === 8){
+  //   return 'rgb(252, 82, 82)';
+  // }
+  this.r = (i <= 50) ? 255 : Math.round(255 - 255 * (i - 50) / 50);
+  this.g = (i <= 50) ? Math.round(255 - 255 * (50 - i) / 50) : 255;
 
+  if (this.r > 50){
+    this.r = this.r - 49;
+  }
+  if (this.g > 50){
+    this.g = this.g - 49;
+  }
+  return ('rgb( ' + this.r + ',' + this.g + ',' + this.b + ')');
 }
   setStep(index: number) {
     this.step = index;

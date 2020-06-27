@@ -23,5 +23,12 @@
   color: #fff;
   line-height: 30px;
   text-align: center;
-  background: rgb(252, 192, 82)
+  background: rgb(219, 215, 0)
+}
+
+.url{
+  white-space: nowrap;
+  width: 85%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
