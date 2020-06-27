@@ -28,7 +28,9 @@
         </mat-panel-title>
         <mat-panel-description>
           <a [href]="w.home_url" target="_blank">{{w.home_url}}</a>
+          <span class="ranking mr-2">{{w.ranking}}</span>
         </mat-panel-description>
+
       </mat-expansion-panel-header>
 
       <at-website-details [websiteId]=w.id>

@@ -6,4 +6,5 @@ export interface Websites {
   home_url: string;
   last_full_test: string;
   category_id: number;
+  ranking: number;
 }

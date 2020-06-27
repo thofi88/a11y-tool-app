@@ -15,7 +15,8 @@ exports.create = (req, res) => {
     name: req.body.name,
     home_url: req.body.home_url,
     last_full_test: req.body.last_full_test,
-    category_id: req.body.category_id
+    category_id: req.body.category_id,
+    ranking: req.body.ranking,
   });
 
   // Save Website in the database

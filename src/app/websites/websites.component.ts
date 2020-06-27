@@ -13,11 +13,22 @@ import { map, startWith } from 'rxjs/operators';
 export class WebsitesComponent implements OnInit {
 
   websites: Websites[];
+  newWebsite: Websites;
+
   step = 0;
   term: string;
   sortField = 'name';
 
-  constructor(private hs: HttpService) { }
+  constructor(private hs: HttpService) {
+    this.newWebsite = {
+      id: 100,
+      name: 'test',
+      home_url: 'test',
+      last_full_test: 'test',
+      category_id: 100,
+      ranking: 100,
+    }
+   }
 
   ngOnInit(): void {
 
@@ -25,8 +36,11 @@ export class WebsitesComponent implements OnInit {
   }
 
 changeSort(value){
+
   this.sortField = value;
-  console.log(this.sortField);
+  this.websites.push(this.newWebsite);
+  this.websites.pop();
+  console.log();
 }
   setStep(index: number) {
     this.step = index;

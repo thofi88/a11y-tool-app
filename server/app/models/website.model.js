@@ -6,6 +6,7 @@ const Website = function(website) {
   this.home_url = website.home_url;
   this.last_full_test = website.last_full_test;
   this.category_id = website.category_id;
+  this.ranking = website.ranking;
 };
 
 Website.create = (newWebsite, result) => {
