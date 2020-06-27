@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Erstellungszeit: 27. Jun 2020 um 22:07
+-- Erstellungszeit: 25. Jun 2020 um 06:57
 -- Server-Version: 5.7.30
 -- PHP-Version: 7.4.6
 
@@ -65,9 +65,7 @@ INSERT INTO `checks` (`id`, `website_name`, `website_id`, `url`, `check_time`, `
 INSERT INTO `checks` (`id`, `website_name`, `website_id`, `url`, `check_time`, `result`) VALUES
 (2, 'Studienangebot', 10, 'https://www.htwk-leipzig.de/studieren/studiengaenge/', '2020-06-25 06:56:51', NULL),
 (3, 'Startseite', 11, 'https://www.dzblesen.de/', '2020-06-25 06:56:51', NULL),
-(4, 'Bibliothek', 11, 'https://www.dzblesen.de/index.php?site_id=2', '2020-06-25 06:56:51', NULL),
-(5, 'Startseite', 12, 'https://digiboard.htwk-leipzig.de/digiboard/start/index.php', '2020-06-27 22:05:40', NULL),
-(6, 'Impressum', 12, 'https://digiboard.htwk-leipzig.de/digiboard/start/index.php?seite=impressum', '2020-06-27 22:05:40', NULL);
+(4, 'Bibliothek', 11, 'https://www.dzblesen.de/index.php?site_id=2', '2020-06-25 06:56:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -80,18 +78,16 @@ CREATE TABLE `websites` (
   `name` text NOT NULL,
   `home_url` text NOT NULL,
   `last_full_test` timestamp NULL DEFAULT NULL,
-  `category_id` varchar(255) NOT NULL,
-  `ranking` int(255) DEFAULT NULL
+  `category_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `websites`
 --
 
-INSERT INTO `websites` (`id`, `name`, `home_url`, `last_full_test`, `category_id`, `ranking`) VALUES
-(10, 'HTWK', 'https://www.htwk-leipzig.de/startseite/', NULL, '2,3', 65),
-(11, 'dzb lesen', 'https://www.dzblesen.de/', NULL, '2', 83),
-(12, 'Digiboard HTWK', 'https://digiboard.htwk-leipzig.de/digiboard/start/index.php', NULL, '3', 12);
+INSERT INTO `websites` (`id`, `name`, `home_url`, `last_full_test`, `category_id`) VALUES
+(10, 'HTWK', 'https://www.htwk-leipzig.de/startseite/', NULL, '2,3'),
+(11, 'dzb lesen', 'https://www.dzblesen.de/', NULL, '2');
 
 --
 -- Indizes der exportierten Tabellen
@@ -129,13 +125,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT für Tabelle `checks`
 --
 ALTER TABLE `checks`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT für Tabelle `websites`
 --
 ALTER TABLE `websites`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
