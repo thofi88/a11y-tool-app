@@ -23,7 +23,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {FormsModule} from '@angular/forms';
-import { SortByPipe } from './sort-by.pipe'
+import { SortByPipe } from './sort-by.pipe';
+import { NewWebsiteComponent } from './new-website/new-website.component'
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SortByPipe } from './sort-by.pipe'
     WebsiteDetailsComponent,
     ChecksDetailsComponent,
     CategoryComponent,
-    SortByPipe
+    SortByPipe,
+    NewWebsiteComponent
   ],
   imports: [
     BrowserModule,
