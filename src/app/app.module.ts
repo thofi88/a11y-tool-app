@@ -4,6 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { LOCALE_ID} from '@angular/core';
+import localeDe from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeDe, localeDeExtra);
+
 import { HttpClientModule } from '@angular/common/http';
 import { WebsitesComponent } from './websites/websites.component';
 import { SplitListInLiTagPipe } from './split-list-in-li-tag.pipe';
@@ -40,7 +46,8 @@ import { SortByPipe } from './sort-by.pipe'
     Ng2SearchPipeModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'de' },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

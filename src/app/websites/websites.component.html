@@ -1,11 +1,17 @@
-<h1 class="mb-4 mt-2">A11Y-Tool</h1>
+<h1 class="mb-4 mt-2">Übersicht</h1>
 
 <!-- Search form -->
 <div class="row mr-2">
   <div class="col-md-7 form-group">
+    <label class="font-weight-light">
+      Suche:
+    </label>
     <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="term">
   </div>
   <div class="col-md-5 dropdown">
+    <label class="font-weight-light">
+      Sortierung:
+    </label>
   <div class="btn-group btn-group-toggle" data-toggle="buttons">
     <label class="btn btn-info active">
       <input type="radio" name="options" id="option1" autocomplete="off" (click)="changeSort('name')" checked> Name

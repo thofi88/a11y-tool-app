@@ -44,16 +44,8 @@ changeSort(value){
   this.sortField = value;
   this.websites.push(this.newWebsite);
   this.websites.pop();
-  console.log();
 }
 changeColor(i){
-  console.log('change color');
-  // if (ranking === 10){
-  //   return 'rgb(252, 192, 82)';
-  // }
-  // if (ranking === 8){
-  //   return 'rgb(252, 82, 82)';
-  // }
   this.r = (i <= 50) ? 255 : Math.round(255 - 255 * (i - 50) / 50);
   this.g = (i <= 50) ? Math.round(255 - 255 * (50 - i) / 50) : 255;
 
@@ -67,7 +59,6 @@ changeColor(i){
 }
   setStep(index: number) {
     this.step = index;
-    console.log('setStep:' + this.step);
   }
 
 }

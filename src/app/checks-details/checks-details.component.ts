@@ -14,6 +14,21 @@ export class ChecksDetailsComponent implements OnInit {
   check: Checks;
   step = 0;
   oneCheck: JSON;
+  inapplicable;
+  incomplete;
+  passes;
+  violations;
+  inapplicableTrue;
+  incompleteTrue;
+  passesTrue;
+  violationsTrue;
+  checkTime;
+  displayCheck;
+
+  checks: Checks[];
+  newCheck: Checks;
+
+  sortField = 'violations';
 
   constructor(private route: ActivatedRoute, private hs: HttpService) {
 
@@ -25,19 +40,33 @@ export class ChecksDetailsComponent implements OnInit {
     this.route.paramMap.pipe(
       map(params => params.get('checkId')),
       switchMap(checkId => this.hs.getSingleCheck(checkId))
-    ).subscribe(check => this.check = check);
+    ).subscribe(check => {
+      this.check = check;
+        this.oneCheck = JSON.parse(this.check.result);
+        this.checkTime = this.oneCheck[0].timestamp;
+        this.inapplicable = this.oneCheck[0].inapplicable;
+        this.incomplete = this.oneCheck[0].incomplete;
+        this.passes = this.oneCheck[0].passes;
+        this.violations = this.oneCheck[0].violations;
+
+        this.displayCheck = this.violations;
+    });
+  }
+  changeSort(value){
+    if (value === 'violations'){
+      this.displayCheck = this.violations;
+    }
+    if (value === 'inapplicable'){
+      this.displayCheck = this.inapplicable;
+    }
+    if (value === 'incomplete'){
+      this.displayCheck = this.incomplete;
+    }
+    if (value === 'passes'){
+      this.displayCheck = this.passes;
+    }
 
   }
 
-  ngAfterViewInit(){
-    //this.oneCheck = this.check.result[0].violations;
-
-    //console.log(JSON.stringify(this.oneCheck));
-  };
-
-  setStep(index: number) {
-    this.step = index;
-    console.log('setStep:' + this.step);
-  }
 
 }

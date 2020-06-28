@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> <!-- Created with Vectornator for iOS (http://vectornator.io/) --><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg height="100%" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" xmlns:vectornator="http://vectornator.io" version="1.1" viewBox="0 0 512 512">
+<metadata>
+<vectornator:setting key="DisplayWhiteBackground" value="0"/>
+<vectornator:setting key="RulersVisible" value="1"/>
+<vectornator:setting key="SnapToEdges" value="0"/>
+<vectornator:setting key="Units" value="Pixels"/>
+<vectornator:setting key="New" value="1"/>
+<vectornator:setting key="DynamicGuides" value="0"/>
+<vectornator:setting key="SnapToPoints" value="0"/>
+<vectornator:setting key="CMYKEnabledKey" value="0"/>
+<vectornator:setting key="SnapToGrid" value="0"/>
+<vectornator:setting key="SnapToGuides" value="1"/>
+<vectornator:setting key="GridSpacing" value="36"/>
+</metadata>
+<defs/>
+<g id="Layer 1" vectornator:layerName="Layer 1">
+<path stroke="#4c9e9d" vectornator:shadowColor="#66c3c2" vectornator:shadowOffset="11.7113" stroke-width="9.05" fill="#0e5c61" stroke-linecap="butt" vectornator:shadowAngle="0.994954" stroke-linejoin="round" opacity="1" vectornator:shadowRadius="38.827" d="M253.042+64.3437L412.094+140.939L451.377+313.048L341.309+451.068L164.775+451.068L54.7075+313.048L93.9902+140.939L253.042+64.3437Z" vectornator:shadowOpacity="1"/>
+<g opacity="1">
+<path vectornator:shadowColor="#000000" vectornator:shadowOpacity="1" vectornator:shadowRadius="16.5288" d="M266.188+150.904L253.339+113.511L239.684+150.904L266.188+150.904ZM247.347+100.95L260.311+100.95L291.021+185.59L278.46+185.59L269.875+160.238L236.4+160.238L227.239+185.59L215.485+185.59L247.347+100.95Z" vectornator:shadowOffset="8.17373" fill="#ffffff" opacity="1" vectornator:shadowAngle="0.569558"/>
+<path vectornator:shadowColor="#000000" vectornator:shadowOpacity="1" vectornator:shadowRadius="16.5288" d="M203.126+245.166L203.126+237.215C210.616+236.485+215.84+235.266+218.798+233.556C221.756+231.847+223.964+227.804+225.424+221.428L233.605+221.428L233.605+303.59L222.543+303.59L222.543+245.166L203.126+245.166Z" vectornator:shadowOffset="8.17373" fill="#ffffff" opacity="1" vectornator:shadowAngle="0.569558"/>
+<path vectornator:shadowColor="#000000" vectornator:shadowOpacity="1" vectornator:shadowRadius="16.5288" d="M260.052+245.166L260.052+237.215C267.542+236.485+272.766+235.266+275.724+233.556C278.681+231.847+280.89+227.804+282.35+221.428L290.531+221.428L290.531+303.59L279.469+303.59L279.469+245.166L260.052+245.166Z" vectornator:shadowOffset="8.17373" fill="#ffffff" opacity="1" vectornator:shadowAngle="0.569558"/>
+<path vectornator:shadowColor="#000000" vectornator:shadowOpacity="1" vectornator:shadowRadius="16.5288" d="M216.176+336.95L229.543+336.95L253.858+377.628L278.172+336.95L291.597+336.95L259.62+387.481L259.62+421.59L248.154+421.59L248.154+387.481L216.176+336.95Z" vectornator:shadowOffset="8.17373" fill="#ffffff" opacity="1" vectornator:shadowAngle="0.569558"/>
+</g>
+</g>
+</svg>

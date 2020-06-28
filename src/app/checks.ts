@@ -4,5 +4,5 @@ export interface Checks {
   website_id: number;
   url: string;
   check_time: string;
-  result: JSON;
+  result: string;
 }
