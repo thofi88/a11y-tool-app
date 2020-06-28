@@ -10,6 +10,7 @@ import { Category } from '../category';
 export class NewWebsiteComponent implements OnInit {
 
   cats: Category[];
+  newCat;
 
   constructor(private hs: HttpService) { }
 
