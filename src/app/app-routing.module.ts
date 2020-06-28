@@ -8,7 +8,8 @@ import { ChecksDetailsComponent } from './checks-details/checks-details.componen
 const routes: Routes = [
   { path: '', redirectTo: 'websites', pathMatch: 'full' },
   { path: 'websites', component: WebsitesComponent},
-  { path: 'websites/new-website/:websiteId', component: NewWebsiteComponent},
+  { path: 'websites/new', component: NewWebsiteComponent},
+  { path: 'websites/new/:websiteId', component: NewWebsiteComponent},
   { path: 'websites/check/:checkId', component: ChecksDetailsComponent}
 ];
 

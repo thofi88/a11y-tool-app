@@ -38,7 +38,7 @@ Cat.findById = (catId, result) => {
 };
 
 Cat.getAll = result => {
-  sql.query("SELECT * FROM cats", (err, res) => {
+  sql.query("SELECT * FROM category", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

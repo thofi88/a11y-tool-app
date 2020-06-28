@@ -2,8 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from '../http.service';
 import { ActivatedRoute } from '@angular/router';
 import { Checks } from '../checks';
-import { htmlAstToRender3Ast } from '@angular/compiler/src/render3/r3_template_transform';
-import { HtmlParser } from '@angular/compiler';
 
 @Component({
   selector: 'at-website-details',

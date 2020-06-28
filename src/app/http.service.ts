@@ -25,4 +25,7 @@ export class HttpService {
   getSingleCheck(checkId: string) {
     return this.http.get<Checks>(`${this.apiUrl}/websiteOneCheck/${checkId}`);
   }
+  getAllCat(){
+    return this.http.get<Category[]>(`${this.apiUrl}/category`);
+  }
 }

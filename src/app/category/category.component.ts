@@ -32,8 +32,8 @@ export class CategoryComponent implements OnInit {
       this.hs.getCat(this.categories[i]).subscribe(response => {
         for (const [key, value] of Object.entries(response)) {
           if (`${key}` === 'name') {
-            console.log(key);
-            console.log(value);
+            // console.log(key);
+            // console.log(value);
             this.cat.push(value);
 
           }

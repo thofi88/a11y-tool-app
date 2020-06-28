@@ -8,7 +8,7 @@ export class SortByPipe implements PipeTransform {
   transform(items: any[], field: any): any[] {
 
     if (!items && !field) {
-      console.log('sortByPipe no items or field for sorting');
+      // console.log('sortByPipe no items or field for sorting');
       return [];
 
     }

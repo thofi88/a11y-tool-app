@@ -21,6 +21,9 @@ module.exports = app => {
     // Retrieve a single Check from a URL with websiteUrl
     app.get("/category/:catId", cat.findOne);
 
+    // Retrieve a single Check from a URL with websiteUrl
+    app.get("/category", cat.findAll);
+
     // Update a Websites with websiteId
     app.put("/websites/:websiteId", websites.update);
 
