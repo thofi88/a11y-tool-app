@@ -17,6 +17,7 @@ exports.create = (req, res) => {
 
   // Save Cat in the database
   Cat.create(cat, (err, data) => {
+    console.log(cat);
     if (err)
       res.status(500).send({
         message:

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Websites } from './websites';
 import { Checks } from './checks';
 import { Category } from './category';
+import { NewWebsite } from './new-website';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,11 @@ export class HttpService {
   }
   getAllCat(){
     return this.http.get<Category[]>(`${this.apiUrl}/category`);
+  }
+  createCat(newCat){
+    return this.http.post<any>(`${this.apiUrl}/newCat`, newCat);
+  }
+  createWebsite(website: NewWebsite){
+    return this.http.post<NewWebsite>(`${this.apiUrl}/websites`, website);
   }
 }

@@ -42,8 +42,7 @@ export class WebsitesComponent implements OnInit {
 changeSort(value){
 
   this.sortField = value;
-  this.websites.push(this.newWebsite);
-  this.websites.pop();
+  this.websites = this.websites.slice();
 }
 changeColor(i){
   this.r = (i <= 50) ? 255 : Math.round(255 - 255 * (i - 50) / 50);

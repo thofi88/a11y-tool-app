@@ -6,7 +6,7 @@ const Cat = function(cat) {
 };
 
 Cat.create = (newCat, result) => {
-  sql.query("INSERT INTO cats SET ?", newCat, (err, res) => {
+  sql.query("INSERT INTO category SET ?", newCat, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

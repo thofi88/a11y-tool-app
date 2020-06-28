@@ -28,6 +28,7 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import {FormsModule} from '@angular/forms';
 import {SortByPipe} from './sort-by.pipe';
 
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {SortByPipe} from './sort-by.pipe';
     MatIconModule,
     Ng2SearchPipeModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'de' },
 ],

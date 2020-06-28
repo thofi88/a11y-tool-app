@@ -6,6 +6,9 @@ module.exports = app => {
     // Create a new Websites
     app.post("/websites", websites.create);
 
+    // Create a new Websites
+    app.post("/newCat", cat.create);
+
     // Retrieve all Websitess
     app.get("/websites", websites.findAll);
 
