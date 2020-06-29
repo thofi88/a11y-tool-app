@@ -1,7 +1,7 @@
 const sql = require("./db.js");
 
 // constructor
-const Website = function(website) {
+const Website = function (website) {
   this.name = website.name;
   this.home_url = website.home_url;
   this.last_full_test = website.last_full_test;
@@ -22,24 +22,24 @@ Website.create = (newWebsite, result) => {
   });
 };
 
-// Website.findById = (websiteId, result) => {
-//   sql.query(`SELECT * FROM websites WHERE id = ${websiteId}`, (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(err, null);
-//       return;
-//     }
+Website.findById = (websiteId, result) => {
+  sql.query(`SELECT * FROM websites WHERE id = ${websiteId}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
 
-//     if (res.length) {
-//       console.log("found website: ", res[0]);
-//       result(null, res[0]);
-//       return;
-//     }
+    if (res.length) {
+      console.log("found website: ", res[0]);
+      result(null, res[0]);
+      return;
+    }
 
-//     // not found Website with the id
-//     result({ kind: "not_found" }, null);
-//   });
-// };
+    // not found Website with the id
+    result({ kind: "not_found" }, null);
+  });
+};
 
 Website.getAll = result => {
   sql.query("SELECT * FROM websites", (err, res) => {

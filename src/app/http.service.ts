@@ -15,10 +15,10 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(){
+  getAll() {
     return this.http.get<Websites[]>(`${this.apiUrl}/websites`);
   }
-  getAllChecks(websiteId){
+  getAllChecks(websiteId) {
     return this.http.get<Checks[]>(`${this.apiUrl}/websiteCheck/` + websiteId);
   }
   getCat(catId: string) {
@@ -27,19 +27,22 @@ export class HttpService {
   getSingleCheck(checkId: string) {
     return this.http.get<Checks>(`${this.apiUrl}/websiteOneCheck/${checkId}`);
   }
-  getAllCat(){
+  getAllCat() {
     return this.http.get<Category[]>(`${this.apiUrl}/category`);
   }
-  createCat(newCat){
+  createCat(newCat) {
     return this.http.post<any>(`${this.apiUrl}/newCat`, newCat);
   }
-  createWebsite(website: NewWebsite){
+  createWebsite(website: NewWebsite) {
     return this.http.post<NewWebsite>(`${this.apiUrl}/websites`, website);
   }
-  createWebsiteCheck(check: NewCheck){
+  createWebsiteCheck(check: NewCheck) {
     return this.http.post<NewCheck>(`${this.apiUrl}/websiteCheck`, check);
   }
   getSingleWebsiteId() {
     return this.http.get(`${this.apiUrl}/websiteOneId`);
+  }
+  getSingleWebsite(websiteId) {
+    return this.http.get(`${this.apiUrl}/websites/` + websiteId);
   }
 }

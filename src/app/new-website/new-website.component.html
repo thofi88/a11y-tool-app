@@ -2,6 +2,72 @@
 
 <!-- <input type="file" accept=".csv" (change)="convertFile($event)"> -->
 
+<form [formGroup]="websiteForm">
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Webseiten Name:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputName" placeholder="Name" formControlName="name">
+    </div>
+  </div>
+  <div class="form-group row mt-4">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Home-URL:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputHomeUrl" placeholder="URL" formControlName="home_url">
+    </div>
+  </div>
+
+  <div formArrayName="skills" class="row form-group">
+    <label for="input" class="col-sm-2 col-form-label">Check Name + URL:</label>
+    <div class="col-sm-10">
+      <div *ngFor="let _ of skills.controls; index as i">
+        <ng-container [formGroupName]="i">
+          <div class="row">
+            <input type="text" class="form-control col-md-9 ml-3 mr-2" placeholder="Name" formControlName="name">
+            <input type="text" class="form-control col-md-9 ml-3 mr-2 mt-1" placeholder="URL" formControlName="url">
+
+            <span *ngIf="skills.controls.length > 1" class="btn-lg col-md-1 mb-2" (click)="removeSkill(i)">
+              <mat-icon aria-hidden="false" aria-label="Example home icon">remove_circle_outline</mat-icon>
+            </span>
+            <span *ngIf="skills.controls.length == 1 || skills.controls.length == i + 1"
+              class="btn-lg col-md-1 mb-2 ml-4" (click)="addSkill(i)">
+              <mat-icon aria-hidden="false" aria-label="Example home icon">add_circle_outline</mat-icon>
+            </span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <fieldset class="form-group">
+    <div class="form-group row">
+      <div class="col-sm-2">Kategorien:</div>
+      <div class="col-sm-10">
+        <div *ngFor="let c of cats; let i = index" class="form-check">
+          <input class="form-check-input" type="checkbox" id="category" [value]="c.id"
+            (change)="websiteCat(c.id ,$event)">
+          <label class="form-check-label" for="gridCheck1">
+            {{c.name}}
+          </label>
+        </div>
+        <div class="form-check mt-2">
+
+        </div>
+        <input type="text" class="form-control-sm " name="category" placeholder="Neue Kategorie"
+          [(ngModel)]="newCatname" [ngModelOptions]="{standalone: true}">
+        <button *ngIf="newCatname" class="btn btn-outline-info btn-sm ml-3 form_cat"
+          (click)="createCat()">Erstellen</button>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-group row">
+    <div class="col-sm-12 text-right">
+      <button type="submit" class="btn btn-info ml-auto">Neue
+        <!-- <button type="submit" [disabled]="websiteForm.invalid || checkForm.invalid" class="btn btn-info ml-auto">Neue -->
+        Webseite erstellen</button>
+    </div>
+  </div>
+</form>
+<!--
 <form [formGroup]="websiteForm" (ngSubmit)="submitForm()">
   <div class="form-group row">
     <label for="inputEmail3" class="col-sm-2 col-form-label">Webseiten Name:</label>
@@ -19,6 +85,7 @@
       <div class="feedback-error  mt-1" *ngIf="isInvalid('home_url')">Pflichtfeld!</div>
     </div>
   </div>
+  [formGroup]="checkForm"
 
   <div [formGroup]="checkForm" class="form-group row mt-5">
     <label for="inputPassword3" class="col-sm-2 col-form-label">Check Name + URL:</label>
@@ -43,6 +110,30 @@
         werden!</div>
     </div>
   </div>
+
+
+  <div class="form-group mt-5 row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Check Name + URL:</label>
+    <div *ngFor="let skill of skills.controls; ; index as i" class="col-sm-10">
+      <div class="row">
+        <ng-container [formGroup]="skill">
+          <input type="text" class="form-control col-md-9 ml-3 mr-2" placeholder="Name" formControlName="name">
+          <input type="text" class="form-control col-md-9 ml-3 mr-2 mt-1" placeholder="URL" formControlName="url">
+        </ng-container>
+        <span *ngIf="skills.controls.length > 1" class="btn-lg col-md-1 mb-2" (click)="removeSkill(i) ">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">remove_circle_outline</mat-icon>
+        </span>
+        <span *ngIf="skills.controls.length == 1 || urls.length == i + 1" class="btn-lg col-md-1 mb-2 ml-4"
+          (click)="addSkill(i)">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">add_circle_outline</mat-icon>
+        </span>
+      </div>
+    </div>
+
+    <div class="feedback-error  mt-1" *ngIf="isInvalidCheck('url')">Mindestens eine Webseite zum Prüfen muss angegeben
+      werden!</div>
+  </div>
+  {{this.skills}}
   <fieldset class="form-group">
     <div class="form-group row">
       <div class="col-sm-2">Kategorien:</div>
@@ -70,4 +161,4 @@
         Webseite erstellen</button>
     </div>
   </div>
-</form>
+</form> -->
