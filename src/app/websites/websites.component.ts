@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Websites } from '../websites';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Checks } from '../checks';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'at-websites',
@@ -12,8 +11,10 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class WebsitesComponent implements OnInit {
 
+
   websites: Websites[];
   newWebsite: Websites;
+  sendWeb: Websites;
 
   step = 0;
   term: string;
@@ -22,8 +23,12 @@ export class WebsitesComponent implements OnInit {
   r = 255;
   g = 0;
   b = 0;
+  websiteId: any;
 
-  constructor(private hs: HttpService) {
+
+  constructor(private hs: HttpService, private router: Router, private activatedRoute: ActivatedRoute) {
+
+
     this.newWebsite = {
       id: 100,
       name: 'test',
@@ -32,45 +37,48 @@ export class WebsitesComponent implements OnInit {
       category_id: 100,
       ranking: 100,
     };
-   }
+  }
 
   ngOnInit(): void {
 
     this.hs.getAll().subscribe(websites => this.websites = websites);
   }
 
-changeSort(value){
+  changeSort(value) {
 
-  this.sortField = value;
-  this.websites = this.websites.slice();
-}
-changeColor(i){
-  if (i === null){
-    return ('rgb( ' + 0 + ',' + 0 + ',' + 0 + ')');
+    this.sortField = value;
+    this.websites = this.websites.slice();
   }
-  else{
-    this.r = (i <= 50) ? 255 : Math.round(255 - 255 * (i - 50) / 50);
-    this.g = (i <= 50) ? Math.round(255 - 255 * (50 - i) / 50) : 255;
+  changeColor(i) {
+    if (i === null) {
+      return ('rgb( ' + 0 + ',' + 0 + ',' + 0 + ')');
+    }
+    else {
+      this.r = (i <= 50) ? 255 : Math.round(255 - 255 * (i - 50) / 50);
+      this.g = (i <= 50) ? Math.round(255 - 255 * (50 - i) / 50) : 255;
 
-    if (this.r > 50){
-      this.r = this.r - 49;
+      if (this.r > 50) {
+        this.r = this.r - 49;
+      }
+      if (this.g > 50) {
+        this.g = this.g - 49;
+      }
+      return ('rgb( ' + this.r + ',' + this.g + ',' + this.b + ')');
     }
-    if (this.g > 50){
-      this.g = this.g - 49;
-    }
-    return ('rgb( ' + this.r + ',' + this.g + ',' + this.b + ')');
+
   }
-
-}
   setStep(index: number) {
     this.step = index;
   }
-  isNull(ranking){
-    if (ranking === null){
+  isNull(ranking) {
+    if (ranking === null) {
       return 'N';
     }
-    else{
+    else {
       return ranking;
     }
+  }
+  sendWebsite(websiteId) {
+    this.router.navigate(['websites/new/', websiteId]);
   }
 }

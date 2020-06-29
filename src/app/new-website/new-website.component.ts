@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpService } from '../http.service';
 import { Category } from '../category';
 import { Websites } from '../websites';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NewWebsite } from '../new-website';
 import { NewCheck } from '../new-check';
+import { Checks } from '../checks';
 
 @Component({
   selector: 'at-new-website',
@@ -14,20 +15,34 @@ import { NewCheck } from '../new-check';
 })
 export class NewWebsiteComponent implements OnInit {
 
+
   cats: Category[];
   newCatname;
   websiteForm: FormGroup;
   checkForm: FormGroup;
   websiteIds = [];
-
   public urls: any[] = [{
     name: '',
     url: ''
   }];
   websiteId: any;
+  name;
+  homeUrl;
+  changes: boolean;
 
-  constructor(private hs: HttpService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private hs: HttpService, private router: Router) {
 
+    this.route.params.subscribe(params => {
+      this.websiteId = params.websiteId;
+      if (this.websiteId === 0) {
+        this.changes = false;
+      }
+      else {
+        this.changes = true;
+      }
+      console.log(this.websiteId); // Print the parameter to the console.
+    });
+  }
   ngOnInit(): void {
     this.websiteForm = new FormGroup({
       name: new FormControl('', [
