@@ -45,19 +45,32 @@ changeSort(value){
   this.websites = this.websites.slice();
 }
 changeColor(i){
-  this.r = (i <= 50) ? 255 : Math.round(255 - 255 * (i - 50) / 50);
-  this.g = (i <= 50) ? Math.round(255 - 255 * (50 - i) / 50) : 255;
+  if (i === null){
+    return ('rgb( ' + 0 + ',' + 0 + ',' + 0 + ')');
+  }
+  else{
+    this.r = (i <= 50) ? 255 : Math.round(255 - 255 * (i - 50) / 50);
+    this.g = (i <= 50) ? Math.round(255 - 255 * (50 - i) / 50) : 255;
 
-  if (this.r > 50){
-    this.r = this.r - 49;
+    if (this.r > 50){
+      this.r = this.r - 49;
+    }
+    if (this.g > 50){
+      this.g = this.g - 49;
+    }
+    return ('rgb( ' + this.r + ',' + this.g + ',' + this.b + ')');
   }
-  if (this.g > 50){
-    this.g = this.g - 49;
-  }
-  return ('rgb( ' + this.r + ',' + this.g + ',' + this.b + ')');
+
 }
   setStep(index: number) {
     this.step = index;
   }
-
+  isNull(ranking){
+    if (ranking === null){
+      return 'N';
+    }
+    else{
+      return ranking;
+    }
+  }
 }

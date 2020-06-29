@@ -37,7 +37,7 @@
         </mat-panel-title>
         <mat-panel-description>
           <a [href]="w.home_url" class="url" target="_blank">{{w.home_url}}</a>
-          <span class="ranking mr-2" [style.background-color]="changeColor(w.ranking)">{{w.ranking}}</span>
+          <span class="ranking mr-2" [style.background-color]="changeColor(w.ranking)">{{isNull(w.ranking)}}</span>
         </mat-panel-description>
 
       </mat-expansion-panel-header>

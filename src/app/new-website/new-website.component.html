@@ -10,21 +10,34 @@
       <div class="feedback-error mt-1" *ngIf="isInvalid('name')">Pflichtfeld!</div>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="form-group row mt-4">
     <label for="inputPassword3" class="col-sm-2 col-form-label">Home-URL</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="inputHomeUrl" placeholder="URL" formControlName="home_url">
       <div class="feedback-error  mt-1" *ngIf="isInvalid('home_url')">Pflichtfeld!</div>
     </div>
   </div>
-  <fieldset class="form-group">
 
-  </fieldset>
+  <div [formGroup]="checkForm" class="form-group row mt-5">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Check-URLs</label>
+    <div class="col-sm-10">
+      <section *ngFor="let input of urls; let i = index;">
+        <div class="row">
+      <input type="text" [(ngModel)]="input.url"
+      name="curl_{{i}}" class="form-control col-md-9 ml-3 mr-2" id="inputCheckURL" placeholder="URL" formControlName="url">
+      <span *ngIf="urls.length > 1" class="btn-lg col-md-1 mb-2" (click)="removeURL(i)"><mat-icon  aria-hidden="false" aria-label="Example home icon">remove_circle_outline</mat-icon></span>
+      <span *ngIf="urls.length == 1 || urls.length == i + 1" class="btn-lg col-md-1 mb-2 ml-4" (click)="addURL()"><mat-icon  aria-hidden="false" aria-label="Example home icon">add_circle_outline</mat-icon></span>
+    </div>
+    </section>
+      <div class="feedback-error  mt-1" *ngIf="isInvalidCheck('url')">Mindestens eine Webseite zum Prüfen muss angegeben werden!</div>
+    </div>
+  </div>
+  <fieldset class="form-group">
   <div class="form-group row">
     <div class="col-sm-2">Kategorien</div>
     <div class="col-sm-10">
-      <div *ngFor="let c of cats" class="form-check">
-        <input class="form-check-input" type="checkbox" id="category">
+      <div *ngFor="let c of cats; let i = index" class="form-check">
+        <input class="form-check-input" type="checkbox" id="category" [value]="c.id" (change)="websiteCat(c.id ,$event)">
         <label class="form-check-label" for="gridCheck1">
           {{c.name}}
         </label>
@@ -36,9 +49,10 @@
         <button *ngIf="newCatname" type="submit" class="btn btn-outline-info btn-sm ml-3 form_cat" (click)="createCat()">Erstellen</button>
     </div>
   </div>
+</fieldset>
   <div class="form-group row">
     <div class="col-sm-10">
-      <button type="submit" [disabled]="websiteForm.invalid" class="btn btn-info ml-auto" >Neue Webseite erstellen</button>
+      <button type="submit" [disabled]="websiteForm.invalid || checkForm.invalid" class="btn btn-info ml-auto" >Neue Webseite erstellen</button>
     </div>
   </div>
 </form>

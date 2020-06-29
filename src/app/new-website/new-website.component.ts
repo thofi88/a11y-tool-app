@@ -16,6 +16,12 @@ export class NewWebsiteComponent implements OnInit {
   cats: Category[];
   newCatname;
   websiteForm: FormGroup;
+  checkForm: FormGroup;
+  websiteIds = [];
+
+  public urls: any[] = [{
+    url: ''
+  }];
 
   constructor(private hs: HttpService, private router: Router) { }
 
@@ -26,6 +32,11 @@ export class NewWebsiteComponent implements OnInit {
       ]),
       home_url: new FormControl('', [
         Validators.required,
+      ])
+    });
+    this.checkForm = new FormGroup({
+      url: new FormControl('', [
+        Validators.required
       ])
     });
 
@@ -43,6 +54,10 @@ export class NewWebsiteComponent implements OnInit {
     const control = this.websiteForm.get(name);
     return control.invalid && control.touched;
   }
+  isInvalidCheck(name: string) {
+    const control = this.checkForm.get(name);
+    return control.invalid && control.touched;
+  }
 
   submitForm() {
     if (this.websiteForm.invalid) {
@@ -51,7 +66,7 @@ export class NewWebsiteComponent implements OnInit {
 
     const website: NewWebsite = {
       ...this.websiteForm.value,
-      category_id: '2'
+      category_id: this.websiteIds.map(x=>x).join(',')
     };
     this.create(website);
     this.websiteForm.reset();
@@ -63,5 +78,26 @@ export class NewWebsiteComponent implements OnInit {
        this.router.navigate(['/']);
     });
     console.log(website);
+  }
+  websiteCat(ids, event){
+
+    if (event.target.checked){
+        this.websiteIds.push(ids);
+    }
+    else{
+      const index = this.websiteIds.indexOf(ids);
+      if (index > -1) {
+        this.websiteIds.splice(index, 1);
+}
+    }
+
+  }
+  addURL() {
+    this.urls.push({
+      url: ''
+    });
+  }
+  removeURL(i: number) {
+    this.urls.splice(i, 1);
   }
 }
