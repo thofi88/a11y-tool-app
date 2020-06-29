@@ -4,23 +4,23 @@ import { ActivatedRoute } from '@angular/router';
 import { Checks } from '../checks';
 
 @Component({
-  selector: 'at-website-details',
-  templateUrl: './website-details.component.html',
-  styleUrls: ['./website-details.component.scss']
+    selector: 'at-website-details',
+    templateUrl: './website-details.component.html',
+    styleUrls: ['./website-details.component.scss']
 })
 export class WebsiteDetailsComponent implements OnInit {
 
-  @Input() websiteId: number;
+    @Input() websiteId: number;
 
-  checks: Checks[];
+    checks: Checks[];
 
-  constructor(private route: ActivatedRoute, private hs: HttpService) { }
+    constructor(private route: ActivatedRoute, private hs: HttpService) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
 
-      this.hs.getAllChecks(this.websiteId).subscribe(checks => this.checks = checks);
+        this.hs.getAllChecks(this.websiteId).subscribe(checks => this.checks = checks);
 
 
-  }
+    }
 
 }

@@ -47,6 +47,7 @@ export class NewWebsiteComponent implements OnInit {
     });
 
     this.hs.getAllCat().subscribe(cats => this.cats = cats);
+
   }
   createCat() {
     const newCat = {
@@ -66,6 +67,7 @@ export class NewWebsiteComponent implements OnInit {
   }
 
   submitForm() {
+    // * Check if the websiteform is valid
     if (this.websiteForm.invalid) {
       return;
     }
@@ -74,7 +76,6 @@ export class NewWebsiteComponent implements OnInit {
       ...this.websiteForm.value,
       category_id: this.websiteIds.map(x => x).join(',')
     };
-
 
     this.create(website);
     this.websiteForm.reset();
@@ -117,13 +118,14 @@ export class NewWebsiteComponent implements OnInit {
 
         }
         this.checkForm.reset();
+        this.router.navigate(['/']);
       })
 
 
 
       // console.log(check);
 
-      this.router.navigate(['/']);
+
     });
 
 

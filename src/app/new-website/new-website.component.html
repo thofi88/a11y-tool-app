@@ -28,7 +28,7 @@
 
 
           <input type="text" [(ngModel)]="urls[i].url" name="url{{i}}" class="form-control col-md-9 ml-3 mr-2 mt-1"
-           placeholder="URL" formControlName="url">
+            placeholder="URL" formControlName="url">
           <span *ngIf="urls.length > 1" class="btn-lg col-md-1 mb-2" (click)="removeURL(i)">
             <mat-icon aria-hidden="false" aria-label="Example home icon">remove_circle_outline</mat-icon>
           </span>
@@ -41,7 +41,6 @@
         werden!</div>
     </div>
   </div>
-  {{urls | json}}
   <fieldset class="form-group">
     <div class="form-group row">
       <div class="col-sm-2">Kategorien:</div>
