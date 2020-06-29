@@ -5,6 +5,7 @@ import { Category } from '../category';
 import { Websites } from '../websites';
 import { Router } from '@angular/router';
 import { NewWebsite } from '../new-website';
+import { NewCheck } from '../new-check';
 
 @Component({
   selector: 'at-new-website',
@@ -20,8 +21,10 @@ export class NewWebsiteComponent implements OnInit {
   websiteIds = [];
 
   public urls: any[] = [{
+    name: '',
     url: ''
   }];
+  websiteId: any;
 
   constructor(private hs: HttpService, private router: Router) { }
 
@@ -35,6 +38,9 @@ export class NewWebsiteComponent implements OnInit {
       ])
     });
     this.checkForm = new FormGroup({
+      name: new FormControl('', [
+        Validators.required
+      ]),
       url: new FormControl('', [
         Validators.required
       ])
@@ -42,11 +48,11 @@ export class NewWebsiteComponent implements OnInit {
 
     this.hs.getAllCat().subscribe(cats => this.cats = cats);
   }
-  createCat(){
+  createCat() {
     const newCat = {
       name: this.newCatname
-        };
-    this.hs.createCat(newCat).subscribe( () =>
+    };
+    this.hs.createCat(newCat).subscribe(() =>
       this.hs.getAllCat().subscribe(cats => this.cats = cats)
     );
   }
@@ -66,36 +72,84 @@ export class NewWebsiteComponent implements OnInit {
 
     const website: NewWebsite = {
       ...this.websiteForm.value,
-      category_id: this.websiteIds.map(x=>x).join(',')
+      category_id: this.websiteIds.map(x => x).join(',')
     };
+
+
     this.create(website);
     this.websiteForm.reset();
   }
 
   create(website: NewWebsite) {
     this.hs.createWebsite(website).subscribe(() => {
-       // this.bs.getAll().subscribe(books => this.books = books);
-       this.router.navigate(['/']);
+
+      this.hs.getSingleWebsiteId().subscribe(response => {
+
+        this.websiteId = Object.values(response[0])[0];
+
+        for (let i = 0; i < this.urls.length; i++) {
+          // console.log(this.urls[i].name);
+          // console.log(this.urls[i].url);
+          const check: NewCheck = {
+            website_name: this.urls[i].name,
+            url: this.urls[i].url,
+            website_id: this.websiteId,
+            result: JSON.stringify([
+              {
+                "inapplicable": [
+                ],
+                "passes": [],
+                "testEngine": {},
+                "testEnvironment": {},
+                "testRunner": {},
+                "timestamp": "",
+                "toolOptions": {},
+                "url": "",
+                "violations": []
+              }
+            ])
+          };
+
+          this.hs.createWebsiteCheck(check).subscribe();
+
+          console.log('check:');
+          console.log(check);
+
+        }
+        this.checkForm.reset();
+      })
+
+
+
+      // console.log(check);
+
+      this.router.navigate(['/']);
     });
+
+
+
+    console.log('Webseite:');
     console.log(website);
   }
-  websiteCat(ids, event){
+  websiteCat(ids, event) {
 
-    if (event.target.checked){
-        this.websiteIds.push(ids);
+    if (event.target.checked) {
+      this.websiteIds.push(ids);
     }
-    else{
+    else {
       const index = this.websiteIds.indexOf(ids);
       if (index > -1) {
         this.websiteIds.splice(index, 1);
-}
+      }
     }
 
   }
-  addURL() {
+  addURL(i: number) {
     this.urls.push({
+      name: '',
       url: ''
     });
+    console.log(this.urls.length)
   }
   removeURL(i: number) {
     this.urls.splice(i, 1);

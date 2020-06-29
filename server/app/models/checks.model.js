@@ -8,18 +8,18 @@ const Checks = function(checks) {
   this.result = checks.result;
 };
 
-// Checks.create = (newChecks, result) => {
-//   sql.query("INSERT INTO Checkss SET ?", newChecks, (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(err, null);
-//       return;
-//     }
+Checks.create = (newChecks, result) => {
+  sql.query("INSERT INTO checks SET ?", newChecks, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
 
-//     console.log("created Checks: ", { id: res.insertId, ...newChecks });
-//     result(null, { id: res.insertId, ...newChecks });
-//   });
-// };
+    console.log("created Checks: ", { id: res.insertId, ...newChecks });
+    result(null, { id: res.insertId, ...newChecks });
+  });
+};
 
 Checks.findById = (checkId, result) => {
   sql.query(`SELECT * FROM checks WHERE id = ${checkId}`, (err, res) => {

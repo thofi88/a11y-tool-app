@@ -42,6 +42,17 @@ exports.findAll = (req, res) => {
   });
 };
 
+exports.findOneId = (req, res) => {
+  Website.getId((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving websites."
+      });
+    else res.send(data);
+  });
+};
+
 // Find a single Website with a websiteId
 exports.findOne = (req, res) => {
   Website.findById(req.params.websiteId, (err, data) => {
@@ -58,6 +69,7 @@ exports.findOne = (req, res) => {
     } else res.send(data);
   });
 };
+
 
 // Find a single Check with a websiteUrl
 exports.findCheck = (req, res) => {

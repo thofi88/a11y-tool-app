@@ -54,6 +54,19 @@ Website.getAll = result => {
   });
 };
 
+Website.getId = result => {
+  sql.query("SELECT MAX(id) FROM websites", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("websites: ", res);
+    result(null, res);
+  });
+};
+
 Website.updateById = (id, website, result) => {
   sql.query(
     "UPDATE websites SET name = ?, home_url = ?, access_time = ? WHERE id = ?",

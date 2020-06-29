@@ -4,6 +4,7 @@ import { Websites } from './websites';
 import { Checks } from './checks';
 import { Category } from './category';
 import { NewWebsite } from './new-website';
+import { NewCheck } from './new-check';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,11 @@ export class HttpService {
   }
   createWebsite(website: NewWebsite){
     return this.http.post<NewWebsite>(`${this.apiUrl}/websites`, website);
+  }
+  createWebsiteCheck(check: NewCheck){
+    return this.http.post<NewCheck>(`${this.apiUrl}/websiteCheck`, check);
+  }
+  getSingleWebsiteId() {
+    return this.http.get(`${this.apiUrl}/websiteOneId`);
   }
 }
