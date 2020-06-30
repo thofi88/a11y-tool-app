@@ -43,12 +43,16 @@ export class HttpService {
     return this.http.put(`${this.apiUrl}/websites/${id}` , website);
   }
   updateWebsiteCheck(check: NewCheck, id) {
-    return this.http.put(`${this.apiUrl}/websiteCheck/${id}` , check);
+    return this.http.put(`${this.apiUrl}/websiteCheckPut/${id}` , check);
   }
   getSingleWebsiteId() {
     return this.http.get(`${this.apiUrl}/websiteOneId`);
   }
   getSingleWebsite(websiteId) {
     return this.http.get(`${this.apiUrl}/websites/` + websiteId);
+  }
+
+  deleteCheck(checkId) {
+    return this.http.delete(`${this.apiUrl}/websiteCheckDelete/` + checkId);
   }
 }

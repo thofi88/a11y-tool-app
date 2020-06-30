@@ -53,47 +53,47 @@ Checks.getAll = (websiteId, result) => {
   });
 };
 
-// Checks.updateById = (id, Checks, result) => {
-//   sql.query(
-//     "UPDATE Checkss SET name = ?, home_url = ?, access_time = ? WHERE id = ?",
-//     [Checks.name, Checks.home_url, Checks.access_time, id],
-//     (err, res) => {
-//       if (err) {
-//         console.log("error: ", err);
-//         result(null, err);
-//         return;
-//       }
+Checks.updateById = (id, checks, result) => {
+  sql.query(
+    "UPDATE checks SET website_name = ?, url = ? WHERE id = ?",
+    [checks.website_name, checks.url, id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
 
-//       if (res.affectedRows == 0) {
-//         // not found Checks with the id
-//         result({ kind: "not_found" }, null);
-//         return;
-//       }
+      if (res.affectedRows == 0) {
+        // not found Checks with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
 
-//       console.log("updated Checks: ", { id: id, ...Checks });
-//       result(null, { id: id, ...Checks });
-//     }
-//   );
-// };
+      console.log("updated Checks: ", { id: id, ...Checks });
+      result(null, { id: id, ...Checks });
+    }
+  );
+};
 
-// Checks.remove = (id, result) => {
-//   sql.query("DELETE FROM Checkss WHERE id = ?", id, (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(null, err);
-//       return;
-//     }
+Checks.remove = (id, result) => {
+  sql.query("DELETE FROM checks WHERE id = ?", id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
 
-//     if (res.affectedRows == 0) {
-//       // not found Checks with the id
-//       result({ kind: "not_found" }, null);
-//       return;
-//     }
+    if (res.affectedRows == 0) {
+      // not found Checks with the id
+      result({ kind: "not_found" }, null);
+      return;
+    }
 
-//     console.log("deleted Checks with id: ", id);
-//     result(null, res);
-//   });
-// };
+    console.log("deleted Checks with id: ", id);
+    result(null, res);
+  });
+};
 
 // Checks.removeAll = result => {
 //   sql.query("DELETE FROM Checkss", (err, res) => {

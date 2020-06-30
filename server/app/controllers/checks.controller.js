@@ -79,51 +79,51 @@ exports.findAllChecks = (req, res) => {
 
 
 // Update a Checks identified by the ChecksId in the request
-// exports.update = (req, res) => {
-//   // Validate Request
-//   if (!req.body) {
-//     res.status(400).send({
-//       message: "Content can not be empty!"
-//     });
-//   }
+exports.update = (req, res) => {
+  // Validate Request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
 
-//   console.log(req.body);
+  console.log(req.body);
 
-//   Checks.updateById(
-//     req.params.ChecksId,
-//     new Checks(req.body),
-//     (err, data) => {
-//       if (err) {
-//         if (err.kind === "not_found") {
-//           res.status(404).send({
-//             message: `Not found Checks with id ${req.params.ChecksId}.`
-//           });
-//         } else {
-//           res.status(500).send({
-//             message: "Error updating Checks with id " + req.params.ChecksId
-//           });
-//         }
-//       } else res.send(data);
-//     }
-//   );
-// };
+  Checks.updateById(
+    req.params.checkId,
+    new Checks(req.body),
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Checks with id ${req.params.checkId}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error updating Checks with id " + req.params.checkId
+          });
+        }
+      } else res.send(data);
+    }
+  );
+};
 
-// Delete a Checks with the specified ChecksId in the request
-// exports.delete = (req, res) => {
-//   Checks.remove(req.params.ChecksId, (err, data) => {
-//     if (err) {
-//       if (err.kind === "not_found") {
-//         res.status(404).send({
-//           message: `Not found Checks with id ${req.params.ChecksId}.`
-//         });
-//       } else {
-//         res.status(500).send({
-//           message: "Could not delete Checks with id " + req.params.ChecksId
-//         });
-//       }
-//     } else res.send({ message: `Checks was deleted successfully!` });
-//   });
-// };
+//Delete a Checks with the specified ChecksId in the request
+exports.delete = (req, res) => {
+  Checks.remove(req.params.checksId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Checks with id ${req.params.ChecksId}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Could not delete Checks with id " + req.params.ChecksId
+        });
+      }
+    } else res.send({ message: `Checks was deleted successfully!` });
+  });
+};
 
 // Delete all Checkss from the database.
 // exports.deleteAll = (req, res) => {

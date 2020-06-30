@@ -85,6 +85,8 @@ export class NewWebsiteComponent implements OnInit {
 
               // console.log(this.websiteForm.controls.checks.value[i])
 
+              //
+
               this.newCheckArray.push({
                 id: Object.values(this.checksUpdate[i])[0],
                 name: Object.values(this.checksUpdate[i])[1],
@@ -101,7 +103,7 @@ export class NewWebsiteComponent implements OnInit {
             // console.log(this.newCheckArray)
             this.checks.patchValue(this.newCheckArray)
             //   console.log(this.urls)
-
+            //console.log(this.checks)
           });
 
         });
@@ -158,6 +160,7 @@ export class NewWebsiteComponent implements OnInit {
 
   addChecks() {
     const group = new FormGroup({
+      id: new FormControl(''),
       name: new FormControl(''),
       url: new FormControl('')
     });
@@ -165,6 +168,23 @@ export class NewWebsiteComponent implements OnInit {
     this.checks.push(group);
   }
   removeChecks(index: number) {
+
+    if (this.changes) {
+      for (let i = 0; i < this.checks.length; i++) {
+        this.newChecks[i] = {
+          id: this.websiteForm.value.checks[i].id,
+          website_name: this.websiteForm.value.checks[i].name,
+          url: this.websiteForm.value.checks[i].url,
+        }
+
+        // console.log(this.websiteForm.value.checks[i].name)
+      }
+
+      // ! wird noch nicht gelöscht
+      this.hs.deleteCheck(this.checks.value[index].id).subscribe();
+      console.log(this.checks.value[index].id)
+
+    }
     this.checks.removeAt(index);
   }
 
@@ -198,6 +218,9 @@ export class NewWebsiteComponent implements OnInit {
         })
     );
   }
+
+  // ! Hier werden die, wenn schon was gecheckt, dann wird es zweimal gespeichert
+
   websiteCat(ids, event) {
     if (event.target.checked) {
       this.websiteIds.push(ids);
@@ -227,12 +250,15 @@ export class NewWebsiteComponent implements OnInit {
       home_url: this.websiteForm.value.home_url,
       category_id: this.websiteIds.map(x => x).join(',')
     };
+
+    this.newChecks = [];
     for (let i = 0; i < this.checks.length; i++) {
       this.newChecks[i] = {
         id: this.websiteForm.value.checks[i].id,
         website_name: this.websiteForm.value.checks[i].name,
         url: this.websiteForm.value.checks[i].url,
       }
+
       // console.log(this.websiteForm.value.checks[i].name)
     }
 
@@ -273,16 +299,12 @@ export class NewWebsiteComponent implements OnInit {
 
             };
 
-            // ! das haut noch nicht hin  mit den Update oder Create Check
-            for (let i = 0; i < this.updateCheckId.length; i++) {
 
-              console.log(this.updateCheckId[i])
+            if (id === '') {
+              this.hs.createWebsiteCheck(check).subscribe();
+            } else {
+              this.hs.updateWebsiteCheck(check, id).subscribe();
 
-              // if (this.updateCheckId[i] === id) {
-              //   this.hs.updateWebsiteCheck(check, id).subscribe();
-              // } else {
-              //   this.hs.createWebsiteCheck(check).subscribe();
-              // }
             }
             //console.log(check)
 

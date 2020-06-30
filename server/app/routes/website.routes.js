@@ -36,6 +36,12 @@ module.exports = app => {
   // Update a Websites with websiteId
   app.put("/websites/:websiteId", websites.update);
 
+  // Update a Websites with websiteId
+  app.put("/websiteCheckPut/:checkId", checks.update);
+
+  // Update a Websites with websiteId
+  app.delete("/websiteCheckDelete/:checkId", checks.delete);
+
   // Delete a Websites with websiteId
   app.delete("/websites/:websiteId", websites.delete);
 

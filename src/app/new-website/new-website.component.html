@@ -89,7 +89,8 @@
 
   <div class="form-group row col-md-12">
     <div class="col-sm-12 text-right">
-      <button type="submit" (click)="submitForm()" class="btn btn-info ml-auto ">Neue Webseite erstellen</button>
+      <button type="submit" *ngIf="!this.changes" (click)="submitForm()" class="btn btn-info ml-auto ">Neue Webseite erstellen</button>
+      <button type="submit" *ngIf="this.changes" (click)="submitForm()" class="btn btn-info ml-auto ">Webseite updaten</button>
     </div>
   </div>
 </form>
