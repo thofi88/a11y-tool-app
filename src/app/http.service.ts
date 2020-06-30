@@ -42,6 +42,9 @@ export class HttpService {
   updateWebsite(website: NewWebsite, id) {
     return this.http.put(`${this.apiUrl}/websites/${id}` , website);
   }
+  updateWebsiteCheck(check: NewCheck, id) {
+    return this.http.put(`${this.apiUrl}/websiteCheck/${id}` , check);
+  }
   getSingleWebsiteId() {
     return this.http.get(`${this.apiUrl}/websiteOneId`);
   }

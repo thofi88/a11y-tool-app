@@ -25,6 +25,7 @@ export class NewWebsiteComponent implements OnInit {
     home_url: new FormControl(''),
     checks: new FormArray([
       new FormGroup({
+        id: new FormControl(''),
         name: new FormControl(''),
         url: new FormControl('')
       })
@@ -39,6 +40,7 @@ export class NewWebsiteComponent implements OnInit {
   checks = this.websiteForm.get('checks') as FormArray;
   checksUpdate: Checks[];
   newCheckArray = [];
+  updateCheckId: Checks[];
 
   constructor(private route: ActivatedRoute, private hs: HttpService, private router: Router) {
 
@@ -57,7 +59,7 @@ export class NewWebsiteComponent implements OnInit {
           for (let i = 0; i < this.catsUpdate.length; i++) {
             this.websiteIds.push(this.catsUpdate[i]);
           }
-          console.log(this.catsUpdate);
+          // console.log(this.catsUpdate);
 
           this.websiteUpdate = Object.values(response)[0];
           this.websiteForm.patchValue({
@@ -68,7 +70,7 @@ export class NewWebsiteComponent implements OnInit {
 
           // this.websiteForm.value.home_url = Object.values(response)[2];
 
-          console.log(this.websiteUpdate)
+          // console.log(this.websiteUpdate)
 
           this.hs.getAllChecks(this.websiteUpdate).subscribe(checks => {
 
@@ -81,9 +83,10 @@ export class NewWebsiteComponent implements OnInit {
                 this.addChecks()
               }
 
-              console.log(this.websiteForm.controls.checks.value[i])
+              // console.log(this.websiteForm.controls.checks.value[i])
 
               this.newCheckArray.push({
+                id: Object.values(this.checksUpdate[i])[0],
                 name: Object.values(this.checksUpdate[i])[1],
                 url: Object.values(this.checksUpdate[i])[3]
               })
@@ -95,8 +98,8 @@ export class NewWebsiteComponent implements OnInit {
 
 
             }
-            console.log(this.newCheckArray)
-           this.checks.patchValue(this.newCheckArray)
+            // console.log(this.newCheckArray)
+            this.checks.patchValue(this.newCheckArray)
             //   console.log(this.urls)
 
           });
@@ -226,6 +229,7 @@ export class NewWebsiteComponent implements OnInit {
     };
     for (let i = 0; i < this.checks.length; i++) {
       this.newChecks[i] = {
+        id: this.websiteForm.value.checks[i].id,
         website_name: this.websiteForm.value.checks[i].name,
         url: this.websiteForm.value.checks[i].url,
       }
@@ -234,9 +238,64 @@ export class NewWebsiteComponent implements OnInit {
 
     if (this.changes) {
       console.log('update');
-      console.log(this.websiteUpdate);
-      console.log(website);
-      this.hs.updateWebsite(website, this.websiteUpdate).subscribe()
+      //console.log(this.websiteUpdate);
+      //console.log(website);
+      this.hs.updateWebsite(website, this.websiteUpdate).subscribe(() => {
+
+        this.hs.getAllChecks(this.websiteId).subscribe(checks => {
+
+          this.updateCheckId = checks
+
+
+          for (let i = 0; i < this.checks.length; i++) {
+            // console.log(this.urls[i].name);
+            //console.log(this.websiteForm.value.checks[i].name);
+            const id = this.newChecks[i].id;
+            const check: NewCheck = {
+
+              website_name: this.newChecks[i].website_name,
+              url: this.newChecks[i].url,
+              website_id: this.websiteId,
+              result: JSON.stringify([
+                {
+                  "inapplicable": [
+                  ],
+                  "passes": [],
+                  "testEngine": {},
+                  "testEnvironment": {},
+                  "testRunner": {},
+                  "timestamp": "",
+                  "toolOptions": {},
+                  "url": "",
+                  "violations": []
+                }
+              ])
+
+            };
+
+            // ! das haut noch nicht hin  mit den Update oder Create Check
+            for (let i = 0; i < this.updateCheckId.length; i++) {
+
+              console.log(this.updateCheckId[i])
+
+              // if (this.updateCheckId[i] === id) {
+              //   this.hs.updateWebsiteCheck(check, id).subscribe();
+              // } else {
+              //   this.hs.createWebsiteCheck(check).subscribe();
+              // }
+            }
+            //console.log(check)
+
+
+            //console.log('check:');
+            //console.log(check);
+
+          }
+          this.router.navigate(['/']);
+        });
+      }
+
+      )
       //   .subscribe(() => {
 
 
@@ -256,7 +315,6 @@ export class NewWebsiteComponent implements OnInit {
             //console.log(this.websiteForm.value.checks[i].name);
             const check: NewCheck = {
 
-              // ! Hier muss es weiter gehen mit dem auslesen des Formgroup Arrays
               website_name: this.newChecks[i].website_name,
               url: this.newChecks[i].url,
               website_id: this.websiteId,
@@ -284,7 +342,7 @@ export class NewWebsiteComponent implements OnInit {
 
           }
           //this.checkForm.reset();
-          // this.router.navigate(['/']);
+          this.router.navigate(['/']);
         })
       });
 
