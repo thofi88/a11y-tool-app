@@ -16,15 +16,14 @@ import { Checks } from '../checks';
 })
 export class NewWebsiteComponent implements OnInit {
 
-
-  cats: Category[];
-  checks: Checks[];
   newCatname;
-
+  changes: boolean = false;
+  catArray: Category[];
+  newChecks = [];
   websiteForm = new FormGroup({
     name: new FormControl(''),
     home_url: new FormControl(''),
-    skills: new FormArray([
+    checks: new FormArray([
       new FormGroup({
         name: new FormControl(''),
         url: new FormControl('')
@@ -32,16 +31,14 @@ export class NewWebsiteComponent implements OnInit {
     ])
   });
 
-  checkForm: FormGroup;
   websiteIds = [];
-  // public urls: any[] = [{
-  //   name: '',
-  //   url: ''
-  // }];
+  cats: Category[];
+  catsUpdate: Category[];
   websiteId: any;
-  changes: boolean;
-  // websiteUpdate: Object;
-  skills = this.websiteForm.get('skills') as FormArray;
+  websiteUpdate: Object;
+  checks = this.websiteForm.get('checks') as FormArray;
+  checksUpdate: Checks[];
+  newCheckArray = [];
 
   constructor(private route: ActivatedRoute, private hs: HttpService, private router: Router) {
 
@@ -53,36 +50,58 @@ export class NewWebsiteComponent implements OnInit {
       else {
         this.changes = true;
 
-    //     this.hs.getSingleWebsite(this.websiteId).subscribe(response => {
+        this.hs.getSingleWebsite(this.websiteId).subscribe(response => {
 
-    //       this.websiteUpdate = Object.values(response)[0];
-    //       this.name = Object.values(response)[1];
-    //       this.homeUrl = Object.values(response)[2];
+          this.catsUpdate = Object.values(response)[4].split(',').map(x => + x);
 
-    //       console.log(this.websiteUpdate)
+          for (let i = 0; i < this.catsUpdate.length; i++) {
+            this.websiteIds.push(this.catsUpdate[i]);
+          }
+          console.log(this.catsUpdate);
 
-    //       this.hs.getAllChecks(this.websiteUpdate).subscribe(checks => {
+          this.websiteUpdate = Object.values(response)[0];
+          this.websiteForm.patchValue({
+            name: Object.values(response)[1],
+            home_url: Object.values(response)[2]
+          });
+          // this.websiteForm.setValue(Object.values(response)[1])
 
-    //         this.checks = checks;
-    //         this.urls = [];
+          // this.websiteForm.value.home_url = Object.values(response)[2];
 
-    //         for (let i = 0; i < this.checks.length; i++) {
+          console.log(this.websiteUpdate)
 
-    //           this.urls.push({
-    //             name: '',
-    //             url: ''
-    //           });
+          this.hs.getAllChecks(this.websiteUpdate).subscribe(checks => {
 
-    //           this.urls[i].name = Object.values(this.checks[i])[1];
-    //           this.urls[i].url = Object.values(this.checks[i])[3];
+            this.checksUpdate = checks;
 
-    //         }
+            for (let i = 0; i < this.checksUpdate.length; i++) {
 
-    //         console.log(this.urls)
+              if (i >= 1) {
 
-    //       });
+                this.addChecks()
+              }
 
-    //     });
+              console.log(this.websiteForm.controls.checks.value[i])
+
+              this.newCheckArray.push({
+                name: Object.values(this.checksUpdate[i])[1],
+                url: Object.values(this.checksUpdate[i])[3]
+              })
+
+              // this.websiteForm.controls.checks.value[i].patchValue({
+              //     name: Object.values(this.checksUpdate[i])[1],
+              //     url: Object.values(this.checksUpdate[i])[3]
+              // });
+
+
+            }
+            console.log(this.newCheckArray)
+           this.checks.patchValue(this.newCheckArray)
+            //   console.log(this.urls)
+
+          });
+
+        });
 
       }
     });
@@ -109,34 +128,74 @@ export class NewWebsiteComponent implements OnInit {
     //   ])
     // });
 
-    this.hs.getAllCat().subscribe(cats => this.cats = cats);
+    this.hs.getAllCat().subscribe(cats => {
+
+      this.cats = cats
+      for (let i = 0; i < this.cats.length; i++) {
+        // this.addCat(this.catArray[i].name, i, this.catArray[i].id);
+
+      }
+    });
 
   }
-  addSkill() {
+  ifChecked(id) {
+    // console.log(id)
+    if (this.changes) {
+      for (let i = 0; i < this.catsUpdate.length; i++) {
+        // console.log('id' + id)
+        // console.log('catId' + this.catsUpdate[i])
+        // console.log('------------------------')
+        if (id === this.catsUpdate[i]) {
+          return true;
+        }
+
+      }
+    }
+  }
+
+  addChecks() {
     const group = new FormGroup({
       name: new FormControl(''),
       url: new FormControl('')
     });
 
-    this.skills.push(group);
+    this.checks.push(group);
   }
-  removeSkill(index: number) {
-    this.skills.removeAt(index);
+  removeChecks(index: number) {
+    this.checks.removeAt(index);
   }
+
+  // addCat(catName, i , id) {
+  //   // console.log(catName)
+  //   const newCat = new FormGroup({
+  //     name: new FormControl(''),
+  //     selected: new FormControl(''),
+  //     id: new FormControl(''),
+  //   })
+  //   this.cats.push(newCat);
+  //   this.cats.controls[i].value.selected = true;
+  //   this.cats.controls[i].value.name = catName;
+  //   console.log(this.cats.controls[i].value.name)
+  // }
+
+  // removeCat(index: number) {
+  //   this.cats.removeAt(index);
+  // }
+
 
   createCat() {
     const newCat = {
       name: this.newCatname
     };
-    this.hs.createCat(newCat).subscribe(() =>
-      this.hs.getAllCat().subscribe(cats => {
-        this.cats = cats
-        this.newCatname = '';
-      })
+    this.hs.createCat(newCat).subscribe(
+      () =>
+        this.hs.getAllCat().subscribe(cats => {
+          this.cats = cats
+          this.newCatname = '';
+        })
     );
   }
   websiteCat(ids, event) {
-
     if (event.target.checked) {
       this.websiteIds.push(ids);
     }
@@ -165,79 +224,80 @@ export class NewWebsiteComponent implements OnInit {
       home_url: this.websiteForm.value.home_url,
       category_id: this.websiteIds.map(x => x).join(',')
     };
-
-
+    for (let i = 0; i < this.checks.length; i++) {
+      this.newChecks[i] = {
+        website_name: this.websiteForm.value.checks[i].name,
+        url: this.websiteForm.value.checks[i].url,
+      }
+      // console.log(this.websiteForm.value.checks[i].name)
+    }
 
     if (this.changes) {
-      this.update(website);
+      console.log('update');
+      console.log(this.websiteUpdate);
+      console.log(website);
+      this.hs.updateWebsite(website, this.websiteUpdate).subscribe()
+      //   .subscribe(() => {
+
+
+      // })
+
     }
     else {
-      this.create(website);
+      console.log('create')
+      this.hs.createWebsite(website).subscribe(() => {
+
+        this.hs.getSingleWebsiteId().subscribe(response => {
+
+          this.websiteId = Object.values(response[0])[0];
+
+          for (let i = 0; i < this.checks.length; i++) {
+            // console.log(this.urls[i].name);
+            //console.log(this.websiteForm.value.checks[i].name);
+            const check: NewCheck = {
+
+              // ! Hier muss es weiter gehen mit dem auslesen des Formgroup Arrays
+              website_name: this.newChecks[i].website_name,
+              url: this.newChecks[i].url,
+              website_id: this.websiteId,
+              result: JSON.stringify([
+                {
+                  "inapplicable": [
+                  ],
+                  "passes": [],
+                  "testEngine": {},
+                  "testEnvironment": {},
+                  "testRunner": {},
+                  "timestamp": "",
+                  "toolOptions": {},
+                  "url": "",
+                  "violations": []
+                }
+              ])
+            };
+
+            // console.log(check)
+            this.hs.createWebsiteCheck(check).subscribe();
+
+            // console.log('check:');
+            // console.log(check);
+
+          }
+          //this.checkForm.reset();
+          // this.router.navigate(['/']);
+        })
+      });
+
+      // console.log('Webseite:');
+      // console.log(website);
     }
+
 
     this.websiteForm.reset();
   }
-  update(website: NewWebsite) {
-    console.log('update')
-  }
 
-  create(website: NewWebsite) {
-    console.log('create')
-    this.hs.createWebsite(website).subscribe(() => {
 
-      this.hs.getSingleWebsiteId().subscribe(response => {
 
-        this.websiteId = Object.values(response[0])[0];
 
-        for (let i = 0; i < this.skills.length; i++) {
-          // console.log(this.urls[i].name);
-          // console.log(this.urls[i].url);
-          const check: NewCheck = {
-
-            // ! Hier muss es weiter gehen mit dem auslesen des Formgroup Arrays
-            website_name: this.skills[i].name,
-            url: this.skills[i].url,
-            website_id: this.websiteId,
-            result: JSON.stringify([
-              {
-                "inapplicable": [
-                ],
-                "passes": [],
-                "testEngine": {},
-                "testEnvironment": {},
-                "testRunner": {},
-                "timestamp": "",
-                "toolOptions": {},
-                "url": "",
-                "violations": []
-              }
-            ])
-          };
-
-          this.hs.createWebsiteCheck(check).subscribe();
-
-          console.log('check:');
-          console.log(check);
-
-        }
-        this.checkForm.reset();
-        this.router.navigate(['/']);
-      })
-    });
-
-    console.log('Webseite:');
-    console.log(website);
-  }
-
-  // addURL(i: number) {
-  //   this.urls.push({
-  //     name: '',
-  //     url: ''
-  //   });
-  //   console.log(this.urls.length)
-  // }
-  // removeURL(i: number) {
-  //   this.urls.splice(i, 1);
-  // }
 
 }

@@ -16,7 +16,8 @@ export class CategoryComponent implements OnInit {
     ngOnInit(): void {
         this.cat = [];
 
-        this.categories = this.categoryId.split(',').map(x => + x);
+      this.categories = this.categoryId.split(',').map(x => + x);
+
         if (this.categories[0] > 0) {
             for (let i = 0; i < this.categories.length; i++) {
 

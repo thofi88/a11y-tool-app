@@ -69,8 +69,8 @@ Website.getId = result => {
 
 Website.updateById = (id, website, result) => {
   sql.query(
-    "UPDATE websites SET name = ?, home_url = ?, access_time = ? WHERE id = ?",
-    [website.name, website.home_url, website.access_time, id],
+    "UPDATE websites SET name = ?, home_url = ?, category_id = ? WHERE id = ?",
+    [website.name, website.home_url, website.category_id, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
