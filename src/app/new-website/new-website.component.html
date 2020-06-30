@@ -3,33 +3,33 @@
 <!-- <input type="file" accept=".csv" (change)="convertFile($event)"> -->
 
 <form [formGroup]="websiteForm">
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Webseiten Name:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputName" placeholder="Name" formControlName="name">
+  <div class="form-group row mb-1 col-md-12">
+    <label for="inputEmail3" class="col-sm-3 col-form-label">Webseiten Name:</label>
+    <div class="col-sm-9">
+      <textarea type="text" class="form-control" id="inputName" placeholder="Name" formControlName="name"></textarea>
     </div>
   </div>
-  <div class="form-group row mt-4">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">Home-URL:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputHomeUrl" placeholder="URL" formControlName="home_url">
+  <div class="form-group row mt-4 mb-4 col-md-12">
+    <label for="inputPassword3" class="col-sm-3 col-form-label">Home-URL:</label>
+    <div class="col-sm-9">
+      <textarea type="text" class="form-control" id="inputHomeUrl" placeholder="URL" formControlName="home_url"></textarea>
     </div>
   </div>
 
-  <div formArrayName="skills" class="row form-group">
-    <label for="input" class="col-sm-2 col-form-label">Check Name + URL:</label>
-    <div class="col-sm-10">
+  <div formArrayName="skills" class="row form-group col-md-12">
+    <label for="input" class="col-sm-3 mr-2 col-form-label">Check Name + URL:</label>
+    <div class="col-sm-8">
       <div *ngFor="let _ of skills.controls; index as i">
         <ng-container [formGroupName]="i">
           <div class="row">
-            <input type="text" class="form-control col-md-9 ml-3 mr-2" placeholder="Name" formControlName="name">
-            <input type="text" class="form-control col-md-9 ml-3 mr-2 mt-1" placeholder="URL" formControlName="url">
+            <textarea type="text" class="form-control col-md-9  ml-2 mr-2" placeholder="Name" formControlName="name"></textarea>
+            <textarea type="text" class="form-control col-md-9 ml-2 mr-2 mt-1" placeholder="URL" formControlName="url"></textarea>
 
             <span *ngIf="skills.controls.length > 1" class="btn-lg col-md-1 mb-2" (click)="removeSkill(i)">
               <mat-icon aria-hidden="false" aria-label="Example home icon">remove_circle_outline</mat-icon>
             </span>
             <span *ngIf="skills.controls.length == 1 || skills.controls.length == i + 1"
-              class="btn-lg col-md-1 mb-2 ml-4" (click)="addSkill(i)">
+              class="btn-lg col-md-1 mb-2" (click)="addSkill()">
               <mat-icon aria-hidden="false" aria-label="Example home icon">add_circle_outline</mat-icon>
             </span>
           </div>
@@ -38,9 +38,9 @@
     </div>
   </div>
   <fieldset class="form-group">
-    <div class="form-group row">
-      <div class="col-sm-2">Kategorien:</div>
-      <div class="col-sm-10">
+    <div class="form-group row col-md-12">
+      <div class="col-sm-3">Kategorien:</div>
+      <div class="col-sm-9">
         <div *ngFor="let c of cats; let i = index" class="form-check">
           <input class="form-check-input" type="checkbox" id="category" [value]="c.id"
             (change)="websiteCat(c.id ,$event)">
@@ -59,11 +59,9 @@
     </div>
   </fieldset>
 
-  <div class="form-group row">
+  <div class="form-group row col-md-12">
     <div class="col-sm-12 text-right">
-      <button type="submit" class="btn btn-info ml-auto">Neue
-        <!-- <button type="submit" [disabled]="websiteForm.invalid || checkForm.invalid" class="btn btn-info ml-auto">Neue -->
-        Webseite erstellen</button>
+      <button type="submit" (click)="submitForm()" class="btn btn-info ml-auto ">Neue Webseite erstellen</button>
     </div>
   </div>
 </form>

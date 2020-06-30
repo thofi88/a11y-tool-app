@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { HttpService } from '../http.service';
 import { Category } from '../category';
@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NewWebsite } from '../new-website';
 import { NewCheck } from '../new-check';
 import { Checks } from '../checks';
+
 
 @Component({
   selector: 'at-new-website',
@@ -38,21 +39,19 @@ export class NewWebsiteComponent implements OnInit {
   //   url: ''
   // }];
   websiteId: any;
-  // name;
-  // homeUrl;
-  // changes: boolean;
+  changes: boolean;
   // websiteUpdate: Object;
   skills = this.websiteForm.get('skills') as FormArray;
 
   constructor(private route: ActivatedRoute, private hs: HttpService, private router: Router) {
 
-    // this.route.params.subscribe(params => {
-    //   this.websiteId = params.websiteId;
-    //   if (this.websiteId === undefined) {
-    //     this.changes = false;
-    //   }
-    //   else {
-    //     this.changes = true;
+    this.route.params.subscribe(params => {
+      this.websiteId = params.websiteId;
+      if (this.websiteId === undefined) {
+        this.changes = false;
+      }
+      else {
+        this.changes = true;
 
     //     this.hs.getSingleWebsite(this.websiteId).subscribe(response => {
 
@@ -85,14 +84,14 @@ export class NewWebsiteComponent implements OnInit {
 
     //     });
 
-    //   }
-    // });
-    // this.addSkill();
+      }
+    });
+
+
   }
 
-
-
   ngOnInit(): void {
+
     // this.websiteForm = new FormGroup({
     //   name: new FormControl('', [
     //     Validators.required
@@ -113,7 +112,6 @@ export class NewWebsiteComponent implements OnInit {
     this.hs.getAllCat().subscribe(cats => this.cats = cats);
 
   }
-
   addSkill() {
     const group = new FormGroup({
       name: new FormControl(''),
@@ -150,84 +148,86 @@ export class NewWebsiteComponent implements OnInit {
     }
 
   }
+
   // isInvalid(name: string) {
   //   const control = this.websiteForm.get(name);
   //   return control.invalid && control.touched;
   // }
-  // isInvalidCheck(name: string) {
-  //   const control = this.checkForm.get(name);
-  //   return control.invalid && control.touched;
-  // }
 
-  // submitForm() {
-  //   // * Check if the websiteform is valid
-  //   if (this.websiteForm.invalid) {
-  //     return;
-  //   }
+  submitForm() {
+    // * Check if the websiteform is valid
+    // if (this.websiteForm.invalid) {
+    //   return;
+    // }
 
-  //   const website: NewWebsite = {
-  //     ...this.websiteForm.value,
-  //     category_id: this.websiteIds.map(x => x).join(',')
-  //   };
+    const website: NewWebsite = {
+      name: this.websiteForm.value.name,
+      home_url: this.websiteForm.value.home_url,
+      category_id: this.websiteIds.map(x => x).join(',')
+    };
 
-  //   if (this.changes) {
-  //     this.update(website);
-  //   }
-  //   else {
-  //     this.create(website);
-  //   }
 
-  //   this.websiteForm.reset();
-  // }
-  // update(website: NewWebsite) {
-  //   console.log('update')
-  // }
 
-  // create(website: NewWebsite) {
-  //   console.log('create')
-  //   this.hs.createWebsite(website).subscribe(() => {
+    if (this.changes) {
+      this.update(website);
+    }
+    else {
+      this.create(website);
+    }
 
-  //     this.hs.getSingleWebsiteId().subscribe(response => {
+    this.websiteForm.reset();
+  }
+  update(website: NewWebsite) {
+    console.log('update')
+  }
 
-  //       this.websiteId = Object.values(response[0])[0];
+  create(website: NewWebsite) {
+    console.log('create')
+    this.hs.createWebsite(website).subscribe(() => {
 
-  //       for (let i = 0; i < this.urls.length; i++) {
-  //         // console.log(this.urls[i].name);
-  //         // console.log(this.urls[i].url);
-  //         const check: NewCheck = {
-  //           website_name: this.urls[i].name,
-  //           url: this.urls[i].url,
-  //           website_id: this.websiteId,
-  //           result: JSON.stringify([
-  //             {
-  //               "inapplicable": [
-  //               ],
-  //               "passes": [],
-  //               "testEngine": {},
-  //               "testEnvironment": {},
-  //               "testRunner": {},
-  //               "timestamp": "",
-  //               "toolOptions": {},
-  //               "url": "",
-  //               "violations": []
-  //             }
-  //           ])
-  //         };
+      this.hs.getSingleWebsiteId().subscribe(response => {
 
-  //         this.hs.createWebsiteCheck(check).subscribe();
+        this.websiteId = Object.values(response[0])[0];
 
-  //         console.log('check:');
-  //         console.log(check);
+        for (let i = 0; i < this.skills.length; i++) {
+          // console.log(this.urls[i].name);
+          // console.log(this.urls[i].url);
+          const check: NewCheck = {
 
-  //       }
-  //       this.checkForm.reset();
-  //       this.router.navigate(['/']);
-  //     })
-  //   });
+            // ! Hier muss es weiter gehen mit dem auslesen des Formgroup Arrays
+            website_name: this.skills[i].name,
+            url: this.skills[i].url,
+            website_id: this.websiteId,
+            result: JSON.stringify([
+              {
+                "inapplicable": [
+                ],
+                "passes": [],
+                "testEngine": {},
+                "testEnvironment": {},
+                "testRunner": {},
+                "timestamp": "",
+                "toolOptions": {},
+                "url": "",
+                "violations": []
+              }
+            ])
+          };
 
-  //   console.log('Webseite:');
-  //   console.log(website);
-  // }
+          this.hs.createWebsiteCheck(check).subscribe();
+
+          console.log('check:');
+          console.log(check);
+
+        }
+        this.checkForm.reset();
+        this.router.navigate(['/']);
+      })
+    });
+
+    console.log('Webseite:');
+    console.log(website);
+  }
 
   // addURL(i: number) {
   //   this.urls.push({
