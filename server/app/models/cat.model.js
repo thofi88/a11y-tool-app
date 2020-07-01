@@ -1,10 +1,14 @@
 const sql = require("./db.js");
 
-// constructor
+// REVIEW Moduls with SQL Query Function to connentet with database.
+
+// SECTION Category Module
+// ANCHOR Create a Object called Cat
 const Cat = function(cat) {
   this.name = cat.name;
 };
 
+// ANCHOR Create - Category Module
 Cat.create = (newCat, result) => {
   sql.query("INSERT INTO category SET ?", newCat, (err, res) => {
     if (err) {
@@ -18,6 +22,7 @@ Cat.create = (newCat, result) => {
   });
 };
 
+// ANCHOR FindById - Category Module
 Cat.findById = (catId, result) => {
   sql.query(`SELECT * FROM category WHERE id = ${catId}`, (err, res) => {
     if (err) {
@@ -37,6 +42,7 @@ Cat.findById = (catId, result) => {
   });
 };
 
+// ANCHOR GetAll - Category Module
 Cat.getAll = result => {
   sql.query("SELECT * FROM category", (err, res) => {
     if (err) {
@@ -50,6 +56,7 @@ Cat.getAll = result => {
   });
 };
 
+// ANCHOR Update - Category Module
 Cat.updateById = (id, cat, result) => {
   sql.query(
     "UPDATE cats SET name = ?, home_url = ?, access_time = ? WHERE id = ?",
@@ -73,6 +80,7 @@ Cat.updateById = (id, cat, result) => {
   );
 };
 
+// ANCHOR Remove - Category Module
 Cat.remove = (id, result) => {
   sql.query("DELETE FROM cats WHERE id = ?", id, (err, res) => {
     if (err) {
@@ -92,6 +100,7 @@ Cat.remove = (id, result) => {
   });
 };
 
+// ANCHOR RemoveAll Category Module
 Cat.removeAll = result => {
   sql.query("DELETE FROM cats", (err, res) => {
     if (err) {
@@ -106,3 +115,5 @@ Cat.removeAll = result => {
 };
 
 module.exports = Cat;
+
+// !SECTION

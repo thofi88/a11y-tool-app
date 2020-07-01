@@ -1,6 +1,9 @@
 const Cat = require("../models/cat.model.js");
 
-// Create and Save a new Cat
+// REVIEW Category controller to monitoring API Inputs. Is the core managment for the server.
+
+// SECTION Category Controller
+// ANCHOR Create and Save a new Category
 exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
@@ -10,75 +13,59 @@ exports.create = (req, res) => {
 
   }
 
-  // Create a Cat
+  // ANCHOR Create a Object called Category
   const cat = new Cat({
     name: req.body.name,
   });
 
-  // Save Cat in the database
+  // ANCHOR Save Category in the database
   Cat.create(cat, (err, data) => {
     console.log(cat);
     if (err)
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Cat."
+          err.message || "Error by fetching Website."
       });
     else res.send(data);
   });
 };
 
-// Retrieve all Cats from the database.
+// ANCHOR Return all Categories from the database.
 exports.findAll = (req, res) => {
   Cat.getAll((err, data) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving cats."
+          err.message || "Error by fetching Website."
       });
     else res.send(data);
   });
 };
 
-// Find a single Cat with a catId
+// ANCHOR Find a single Category find by categoryID
 exports.findOne = (req, res) => {
   Cat.findById(req.params.catId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found Cat with id ${req.params.catId}.`
+          message: `Not found Category with id ${req.params.catId}.`
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving Cat with id " + req.params.catId
+          message: "Error by fetching Category with id " + req.params.catId
         });
       }
     } else res.send(data);
   });
 };
 
-// Find a single Check with a catUrl
-exports.findCheck = (req, res) => {
-  Cat.findCheckById(req.params.catId, (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        res.status(404).send({
-          message: `Not found Cat with id ${req.params.catId}.`
-        });
-      } else {
-        res.status(500).send({
-          message: "Error retrieving Cat with id " + req.params.catId
-        });
-      }
-    } else res.send(data);
-  });
-};
 
-// Update a Cat identified by the catId in the request
+// ANCHOR Update a Category identified by the categoryID
 exports.update = (req, res) => {
   // Validate Request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Request body is not empty!"
     });
   }
 
@@ -91,11 +78,11 @@ exports.update = (req, res) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `Not found Cat with id ${req.params.catId}.`
+            message: `Not found Category with id ${req.params.catId}.`
           });
         } else {
           res.status(500).send({
-            message: "Error updating Cat with id " + req.params.catId
+            message: "Error by fetching Category with id " + req.params.catId
           });
         }
       } else res.send(data);
@@ -103,7 +90,7 @@ exports.update = (req, res) => {
   );
 };
 
-// Delete a Cat with the specified catId in the request
+// ANCHOR Delete a Category find by a specified categoryID
 exports.delete = (req, res) => {
   Cat.remove(req.params.catId, (err, data) => {
     if (err) {
@@ -113,21 +100,23 @@ exports.delete = (req, res) => {
         });
       } else {
         res.status(500).send({
-          message: "Could not delete Cat with id " + req.params.catId
+          message: "Error by fetching Category with id " + req.params.catId
         });
       }
-    } else res.send({ message: `Cat was deleted successfully!` });
+    } else res.send({ message: `Category was deleted successfully!` });
   });
 };
 
-// Delete all Cats from the database.
+// ANCHOR Remove all Categories from the database.
 exports.deleteAll = (req, res) => {
   Cat.removeAll((err, data) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all cats."
+        err.message || "Error by fetching Website."
       });
-    else res.send({ message: `All Cats were deleted successfully!` });
+    else res.send({ message: `All Categories deleted.` });
   });
 };
+
+// !SECTION

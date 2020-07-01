@@ -1,6 +1,5 @@
 const sql = require("./db.js");
 
-
 // REVIEW Moduls with SQL Query Function to connentet with database.
 
 // SECTION Website Module
