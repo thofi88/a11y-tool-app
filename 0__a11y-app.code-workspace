@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+    "git.ignoreLimitWarning": true,
+    "files.autoSave": "onFocusChange",
+    "commentAnchors.scrollPosition": "center",
+    "commentAnchors.tags.displayLineNumber": false,
+    "editor.wordWrap": "on"
+	},
+	"extensions": {
+		"recommendations": [
+      "exodiusstudios.comment-anchors",
+      "mikael.angular-beastcode",
+      "angular.ng-template",
+      "angular-schule.angular-schule-extension-pack",
+      "formulahendry.auto-rename-tag",
+      "coenraads.bracket-pair-colorizer",
+
+    ]
+	}
+}
