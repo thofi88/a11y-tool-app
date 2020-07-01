@@ -1,39 +1,35 @@
-#############
-### build ###
-#############
+# SECTION Dockerfile for App DEV Mode
 
-# base image
+# NOTE install node
 FROM node:12.2.0 as build
 
-# set working directory
+# NOTE set working directory
 WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
+# NOTE include new path
 ENV PATH /app/node_modules/.bin:$PATH
 
-# install and cache app dependencies
+# NOTE install package.json components and angular cli
 COPY package.json /app/package.json
 RUN npm install
 RUN npm install -g @angular/cli@7.3.9
 
-# add app
+# NOTE add app
 COPY . /app
 
-# generate build
+# NOTE generate the build
 RUN ng build --output-path=dist
 
-############
-### prod ###
-############
-
-# base image
+# NOTE install nginx as server
 FROM nginx:1.16.0-alpine
 
-# copy artifact build from the 'build environment'
+# NOTE copy buildfile to nginx server
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# expose port 80
+# NOTE run on port 80
 EXPOSE 80
 
-# run nginx
+# NOTE run nginx
 CMD ["nginx", "-g", "daemon off;"]
+
+# !SECTION

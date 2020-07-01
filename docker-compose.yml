@@ -1,3 +1,5 @@
+// SECTION Docker Compose File
+
 version: '3.7'
 
 x-common-variables: &common-variables
@@ -21,6 +23,7 @@ services:
     ports:
       #- '80:80' for Produktion Mode
       - '4201:4200'
+
   mysql:
     container_name: a11y-tool-app-database
     image: mysql:5.7
@@ -33,6 +36,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./db/website.sql:/docker-entrypoint-initdb.d/websites.sql
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:5.0.2-fpm-alpine
     container_name: a11y-tool-app-phpmyadmin
@@ -46,6 +50,7 @@ services:
     ports:
       - 8080:80
     restart: always
+
   server:
     container_name: a11y-tool-app-server
     build: ./server
@@ -63,6 +68,7 @@ services:
     links:
       - mysql
     command: npm start
+
   checks:
     container_name: a11y-tool-app-checks
     build: ./checks
@@ -75,3 +81,5 @@ services:
     links:
       - mysql
     command: npm start
+
+// !SECTION
