@@ -4,3 +4,5 @@ module.exports = {
     PASSWORD: process.env.MYSQL_PASSWORD,
     DB: process.env.MYSQL_DATABASE
   };
+
+// REVIEW  Database Attributs for connections
