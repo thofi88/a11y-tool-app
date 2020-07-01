@@ -3,48 +3,61 @@ module.exports = app => {
   const checks = require("../controllers/checks.controller.js");
   const cat = require("../controllers/cat.controller.js");
 
-  // Create a new Websites
-  app.post("/websites", websites.create);
+  // REVIEW All routes from the API Server. The Routs pointed to the controller section.
 
-  // Create a new Websites
-  app.post("/websiteCheck", checks.create);
-
-  // Create a new Websites
-  app.post("/newCat", cat.create);
-
-  // Retrieve all Websitess
+  // SECTION Website Routes
+  // ANCHOR Return all Websites
   app.get("/websites", websites.findAll);
 
-  // Retrieve a single Websites with websiteId
+  // ANCHOR Return a single Websites find by websiteId
   app.get("/websites/:websiteId", websites.findOne);
 
-  // Retrieve a single Websites with websiteId
+  // ANCHOR Return last WebsiteID
   app.get("/websiteOneId", websites.findOneId);
 
-  // Retrieve a single Check from a URL with websiteUrl
-  app.get("/websiteCheck/:websiteId", checks.findAllChecks);
+  // ANCHOR Create a new Websites
+  app.post("/websites", websites.create);
 
-  // Retrieve a single Check from a URL with websiteUrl
-  app.get("/websiteOneCheck/:checkId", checks.findOneCheck);
-
-  // Retrieve a single Check from a URL with websiteUrl
-  app.get("/category/:catId", cat.findOne);
-
-  // Retrieve a single Check from a URL with websiteUrl
-  app.get("/category", cat.findAll);
-
-  // Update a Websites with websiteId
+  // ANCHOR Update a Websites find by websiteId
   app.put("/websites/:websiteId", websites.update);
 
-  // Update a Websites with websiteId
-  app.put("/websiteCheckPut/:checkId", checks.update);
-
-  // Update a Websites with websiteId
-  app.delete("/websiteCheckDelete/:checkId", checks.delete);
-
-  // Delete a Websites with websiteId
+  // ANCHOR Delete a Websites find by websiteId
   app.delete("/websites/:websiteId", websites.delete);
 
-  // Create a new Websites
+  // ANCHOR Delete all Websites
   app.delete("/websites", websites.deleteAll);
+
+  // !SECTION
+
+  // SECTION Check Routes
+
+  // ANCHOR Return all Checks from a spezial WebsiteId
+  app.get("/websiteCheck/:websiteId", checks.findAllChecks);
+
+  // ANCHOR Return a single Check find by checkId
+  app.get("/websiteOneCheck/:checkId", checks.findOneCheck);
+
+  // ANCHOR Create a new Check
+  app.post("/websiteCheck", checks.create);
+
+  // ANCHOR Update a Check find by checkId
+  app.put("/websiteCheckPut/:checkId", checks.update);
+
+  // ANCHOR Delete a Websites find by checkId
+  app.delete("/websiteCheckDelete/:checkId", checks.delete);
+
+  // !SECTION Check Routes
+
+  // SECTION Category Routes
+  // ANCHOR Return all Categories
+  app.get("/category", cat.findAll);
+
+  // ANCHOR Return a single Category find by categoryId
+  app.get("/category/:catId", cat.findOne);
+
+  // ANCHOR Create a Category
+  app.post("/newCat", cat.create);
+
+  // !SECTION Category Routes
+
 };

@@ -1,6 +1,7 @@
 <h1 class="mb-4 mt-2">Übersicht</h1>
 
-<!-- Search form -->
+<!-- SECTION Header -->
+<!-- ANCHOR searchForm -->
 <div class="row mr-2">
   <div class="col-md-7 form-group">
     <label class="font-weight-light">
@@ -8,6 +9,8 @@
     </label>
     <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="term">
   </div>
+
+  <!-- ANCHOR sortingButton -->
   <div class="col-md-5 dropdown">
     <label class="font-weight-light">
       Sortierung:
@@ -27,10 +30,14 @@
     </div>
   </div>
 </div>
+<!-- !SECTION Header -->
 
+<!-- SECTION Websitelist -->
 <div *ngIf="websites" class="mt-4">
 
+  <!-- ANCHOR website accordion -->
   <mat-accordion class="example-headers-align">
+
     <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField; let i = index;"
       [expanded]="step === i" (opened)="setStep(i)">
       <mat-expansion-panel-header>
@@ -41,24 +48,22 @@
           <a [href]="w.home_url" class="url" target="_blank">{{w.home_url}}</a>
           <span class="ranking mr-2" [style.background-color]="changeColor(w.ranking)">{{isNull(w.ranking)}}</span>
         </mat-panel-description>
-
       </mat-expansion-panel-header>
 
+      <!-- ANCHOR websiteDetails -->
       <at-website-details [websiteId]=w.id>
-
       </at-website-details>
 
       <mat-action-row class="mat-act">
 
-
+        <!-- ANCHOR category -->
         <at-category [categoryId]=w.category_id>
-
         </at-category>
+
         <button type="button" class="btn btn-outline-dark btn-sm ml-auto mr-3"
           (click)="sendWebsite(w.id)">Bearbeiten</button>
       </mat-action-row>
     </mat-expansion-panel>
-
   </mat-accordion>
-
 </div>
+<!-- !SECTION Websitelist -->
