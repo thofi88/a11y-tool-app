@@ -2,6 +2,7 @@ const Website = require("../models/website.model.js");
 
 // REVIEW Website controller to monitoring API Inputs. Is the core managment for the server.
 
+// SECTION Website Controller
 // ANCHOR Create and Save a new Website
 exports.create = (req, res) => {
   // Validate request
@@ -128,3 +129,5 @@ exports.deleteAll = (req, res) => {
     else res.send({ message: `All Websites deleted.` });
   });
 };
+
+// !SECTION

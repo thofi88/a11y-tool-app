@@ -1,5 +1,9 @@
 const sql = require("./db.js");
 
+// REVIEW Moduls with SQL Query Function to connentet with database.
+
+// SECTION Check Module
+// ANCHOR Create a Object called Check
 const Checks = function(checks) {
   this.website_name = checks.website_name;
   this.website_id = checks.website_id;
@@ -8,6 +12,7 @@ const Checks = function(checks) {
   this.result = checks.result;
 };
 
+// ANCHOR Create - Check Module
 Checks.create = (newChecks, result) => {
   sql.query("INSERT INTO checks SET ?", newChecks, (err, res) => {
     if (err) {
@@ -21,6 +26,7 @@ Checks.create = (newChecks, result) => {
   });
 };
 
+// ANCHOR FindById - Check Module
 Checks.findById = (checkId, result) => {
   sql.query(`SELECT * FROM checks WHERE id = ${checkId}`, (err, res) => {
     if (err) {
@@ -35,11 +41,11 @@ Checks.findById = (checkId, result) => {
       return;
     }
 
-    // not found Checks with the id
     result({ kind: "not_found" }, null);
   });
 };
 
+// ANCHOR GetAll - Check Module
 Checks.getAll = (websiteId, result) => {
   sql.query(`SELECT * FROM checks WHERE website_id = ${websiteId}`, (err, res) => {
     if (err) {
@@ -53,6 +59,7 @@ Checks.getAll = (websiteId, result) => {
   });
 };
 
+// ANCHOR Update - Check Module
 Checks.updateById = (id, checks, result) => {
   sql.query(
     "UPDATE checks SET website_name = ?, url = ? WHERE id = ?",
@@ -65,7 +72,6 @@ Checks.updateById = (id, checks, result) => {
       }
 
       if (res.affectedRows == 0) {
-        // not found Checks with the id
         result({ kind: "not_found" }, null);
         return;
       }
@@ -76,6 +82,7 @@ Checks.updateById = (id, checks, result) => {
   );
 };
 
+// ANCHOR Remove - Check Module
 Checks.remove = (id, result) => {
   sql.query("DELETE FROM checks WHERE id = ?", id, (err, res) => {
     if (err) {
@@ -85,7 +92,6 @@ Checks.remove = (id, result) => {
     }
 
     if (res.affectedRows == 0) {
-      // not found Checks with the id
       result({ kind: "not_found" }, null);
       return;
     }
@@ -95,17 +101,6 @@ Checks.remove = (id, result) => {
   });
 };
 
-// Checks.removeAll = result => {
-//   sql.query("DELETE FROM Checkss", (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(null, err);
-//       return;
-//     }
-
-//     console.log(`deleted ${res.affectedRows} Checkss`);
-//     result(null, res);
-//   });
-// };
-
 module.exports = Checks;
+
+// !SECTION

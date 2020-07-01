@@ -1,8 +1,9 @@
 const sql = require("./db.js");
 
 
-  // REVIEW Moduls with SQL Query Function to connentet with database.
+// REVIEW Moduls with SQL Query Function to connentet with database.
 
+// SECTION Website Module
 // ANCHOR Create a Object called Website
 const Website = function (website) {
   this.name = website.name;
@@ -12,7 +13,7 @@ const Website = function (website) {
   this.ranking = website.ranking;
 };
 
-// ANCHOR Create Website Module
+// ANCHOR Create - Website Module
 Website.create = (newWebsite, result) => {
   sql.query("INSERT INTO websites SET ?", newWebsite, (err, res) => {
     if (err) {
@@ -26,7 +27,7 @@ Website.create = (newWebsite, result) => {
   });
 };
 
-// ANCHOR FindById Website Module
+// ANCHOR FindById - Website Module
 Website.findById = (websiteId, result) => {
   sql.query(`SELECT * FROM websites WHERE id = ${websiteId}`, (err, res) => {
     if (err) {
@@ -45,7 +46,7 @@ Website.findById = (websiteId, result) => {
   });
 };
 
-// ANCHOR GetAll Website Module
+// ANCHOR GetAll - Website Module
 Website.getAll = result => {
   sql.query("SELECT * FROM websites", (err, res) => {
     if (err) {
@@ -73,7 +74,7 @@ Website.getId = result => {
   });
 };
 
-// ANCHOR Update Website Module
+// ANCHOR Update - Website Module
 Website.updateById = (id, website, result) => {
   sql.query(
     "UPDATE websites SET name = ?, home_url = ?, category_id = ? WHERE id = ?",
@@ -96,7 +97,7 @@ Website.updateById = (id, website, result) => {
   );
 };
 
-// ANCHOR Remove Website Module
+// ANCHOR Remove - Website Module
 Website.remove = (id, result) => {
   sql.query("DELETE FROM websites WHERE id = ?", id, (err, res) => {
     if (err) {
@@ -130,3 +131,5 @@ Website.removeAll = result => {
 };
 
 module.exports = Website;
+
+// !SECTION

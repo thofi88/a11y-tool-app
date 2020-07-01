@@ -2,6 +2,7 @@ const Checks = require("../models/checks.model.js");
 
 // REVIEW Check controller to monitoring API Inputs. Is the core managment for the server.
 
+// SECTION Check Module
 // ANCHOR Create and Save a new Check
 exports.create = (req, res) => {
   // Validate request
@@ -113,3 +114,5 @@ exports.delete = (req, res) => {
     } else res.send({ message: `Checks was deleted successfully!` });
   });
 };
+
+// !SECTION
