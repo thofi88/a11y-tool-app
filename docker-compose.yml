@@ -1,4 +1,4 @@
-// SECTION Docker Compose File
+# SECTION Docker Compose File
 
 version: '3.7'
 
@@ -82,4 +82,4 @@ services:
       - mysql
     command: npm start
 
-// !SECTION
+# !SECTION

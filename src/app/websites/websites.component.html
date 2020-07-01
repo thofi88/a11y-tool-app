@@ -38,7 +38,7 @@
   <!-- ANCHOR website accordion -->
   <mat-accordion class="example-headers-align">
 
-    // NOTE all websites and possible search term and sorting
+    <!-- NOTE all websites and possible search term and sorting -->
     <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField; let i = index;"
       [expanded]="step === i" (opened)="setStep(i)">
       <mat-expansion-panel-header>
