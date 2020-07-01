@@ -46,7 +46,6 @@ exports.create = (req, res) => {
 exports.findOneCheck = (req, res) => {
   Checks.findById(req.params.checkId, (err, data) => {
     if (err) {
-      console.log("Fehler");
       if (err.kind === "not_found") {
         res.status(404).send({
           message: `Not found Check with id ${req.params.checkId}.`

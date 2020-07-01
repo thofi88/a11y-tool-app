@@ -1,16 +1,17 @@
 const Website = require("../models/website.model.js");
 
-// Create and Save a new Website
+// REVIEW Website controller to monitoring API Inputs. Is the core managment for the server.
+
+// ANCHOR Create and Save a new Website
 exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
-
   }
 
-  // Create a Website
+  // ANCHOR Create a Object called Website
   const website = new Website({
     name: req.body.name,
     home_url: req.body.home_url,
@@ -19,7 +20,7 @@ exports.create = (req, res) => {
     ranking: req.body.ranking,
   });
 
-  // Save Website in the database
+  // ANCHOR Save Website in the database
   Website.create(website, (err, data) => {
     if (err)
       res.status(500).send({
@@ -30,7 +31,7 @@ exports.create = (req, res) => {
   });
 };
 
-// Retrieve all Websites from the database.
+// ANCHOR Return all Websites from the database.
 exports.findAll = (req, res) => {
   Website.getAll((err, data) => {
     if (err)
@@ -42,6 +43,7 @@ exports.findAll = (req, res) => {
   });
 };
 
+// ANCHOR Finds the ID that was last saved
 exports.findOneId = (req, res) => {
   Website.getId((err, data) => {
     if (err)
@@ -53,7 +55,7 @@ exports.findOneId = (req, res) => {
   });
 };
 
-// Find a single Website with a websiteId
+// ANCHOR Find a single Website find by websiteId
 exports.findOne = (req, res) => {
   Website.findById(req.params.websiteId, (err, data) => {
     if (err) {
@@ -71,7 +73,7 @@ exports.findOne = (req, res) => {
 };
 
 
-// Find a single Check with a websiteUrl
+// ANCHOR Find a single Check with a websiteUrl
 exports.findCheck = (req, res) => {
   Website.findCheckById(req.params.websiteId, (err, data) => {
     if (err) {
@@ -96,8 +98,6 @@ exports.update = (req, res) => {
       message: "Content can not be empty!"
     });
   }
-
-  console.log(req.body);
 
   Website.updateById(
     req.params.websiteId,

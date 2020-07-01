@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class WebsitesComponent implements OnInit {
 
+  // SECTION Variables
 
   websites: Websites[];
   newWebsite: Websites;
@@ -25,7 +26,10 @@ export class WebsitesComponent implements OnInit {
   b = 0;
   websiteId: any;
 
+  // !SECTION Variables
 
+  // SECTION Start App
+  // ANCHOR constructor
   constructor(private hs: HttpService, private router: Router, private activatedRoute: ActivatedRoute) {
 
 
@@ -39,16 +43,23 @@ export class WebsitesComponent implements OnInit {
     };
   }
 
+  // ANCHOR ngOnit
   ngOnInit(): void {
 
     this.hs.getAll().subscribe(websites => this.websites = websites);
   }
 
+  // !SECTION Start App
+
+  // SECTION Funktions
+  // ANCHOR changeSort
   changeSort(value) {
 
     this.sortField = value;
     this.websites = this.websites.slice();
   }
+
+  // ANCHOR changeColor
   changeColor(i) {
     if (i === null) {
       return ('rgb( ' + 0 + ',' + 0 + ',' + 0 + ')');
@@ -67,9 +78,15 @@ export class WebsitesComponent implements OnInit {
     }
 
   }
+
+  // ANCHOR setStep accordion
+
   setStep(index: number) {
     this.step = index;
   }
+
+  // ANCHOR isNull if ranking = null
+
   isNull(ranking) {
     if (ranking === null) {
       return 'N';
@@ -78,7 +95,12 @@ export class WebsitesComponent implements OnInit {
       return ranking;
     }
   }
+
+  // ANCHOR sendWebsite for editing
+
   sendWebsite(websiteId) {
     this.router.navigate(['websites/new/', websiteId]);
   }
 }
+
+  // !SECTION Funktions
