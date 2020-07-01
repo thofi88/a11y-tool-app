@@ -11,6 +11,8 @@ import { map, switchMap } from 'rxjs/operators';
 })
 export class ChecksDetailsComponent implements OnInit {
 
+  // SECTION Variables
+
   check: Checks;
   step = 0;
   oneCheck: JSON;
@@ -24,49 +26,51 @@ export class ChecksDetailsComponent implements OnInit {
   violationsTrue;
   checkTime;
   displayCheck;
-
   checks: Checks[];
   newCheck: Checks;
-
   sortField = 'violations';
 
-  constructor(private route: ActivatedRoute, private hs: HttpService) {
+  // !SECTION
 
+  // SECTION Start
+  // ANCHOR constructor
+  constructor(private route: ActivatedRoute, private hs: HttpService) { }
 
-
-  }
-
+  // ANCHOR ngOnit
   ngOnInit(): void {
     this.route.paramMap.pipe(
       map(params => params.get('checkId')),
       switchMap(checkId => this.hs.getSingleCheck(checkId))
     ).subscribe(check => {
       this.check = check;
-        this.oneCheck = JSON.parse(this.check.result);
-        this.checkTime = this.oneCheck[0].timestamp;
-        this.inapplicable = this.oneCheck[0].inapplicable;
-        this.incomplete = this.oneCheck[0].incomplete;
-        this.passes = this.oneCheck[0].passes;
-        this.violations = this.oneCheck[0].violations;
-
-        this.displayCheck = this.violations;
+      this.oneCheck = JSON.parse(this.check.result);
+      this.checkTime = this.oneCheck[0].timestamp;
+      this.inapplicable = this.oneCheck[0].inapplicable;
+      this.incomplete = this.oneCheck[0].incomplete;
+      this.passes = this.oneCheck[0].passes;
+      this.violations = this.oneCheck[0].violations;
+      this.displayCheck = this.violations;
     });
   }
-  changeSort(value){
-    if (value === 'violations'){
+
+  // !SECTION
+
+  // SECTION Functions
+  // ANCHOR changeSort
+  changeSort(value) {
+    if (value === 'violations') {
       this.displayCheck = this.violations;
     }
-    if (value === 'inapplicable'){
+    if (value === 'inapplicable') {
       this.displayCheck = this.inapplicable;
     }
-    if (value === 'incomplete'){
+    if (value === 'incomplete') {
       this.displayCheck = this.incomplete;
     }
-    if (value === 'passes'){
+    if (value === 'passes') {
       this.displayCheck = this.passes;
     }
-
   }
-
-
 }
+
+  // !SECTION

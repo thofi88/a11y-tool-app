@@ -1,4 +1,4 @@
-import { Timestamp } from 'rxjs';
+// SECTION Interface Website
 
 export interface Websites {
   id: number;
@@ -8,3 +8,5 @@ export interface Websites {
   category_id: number;
   ranking: number;
 }
+
+// !SECTION

@@ -2,8 +2,11 @@
   margin-bottom: 0.15rem !important;
 }
 .feedback-error{
-  color: red;
+  color: rgb(189, 0, 0);
 }
 textarea {
   height: calc(1.5em + .75rem + 2px);
+}
+.urls{
+  height: calc(4em + 2px);
 }

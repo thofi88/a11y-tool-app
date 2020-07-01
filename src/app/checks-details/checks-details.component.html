@@ -1,24 +1,30 @@
+<!-- SECTION Check Details Component Show Check from a spezified websiteId -->
+
+<!-- ANCHOR Back to Dahboard -->
 <a [routerLink]="['']" class="mt-4">
   <button type="button btn-sm" class="btn btn-outline-info" style="width: 35%;">
     <div class="row mt-1">
-    <div class="col-md-1">
-    <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_back</mat-icon>
-  </div>
-  <div class="col-md-9 ml-auto">
-   <span > Zurück zur Übersicht</span>
-  </div>
-</div>
+      <div class="col-md-1">
+        <mat-icon aria-hidden="false" aria-label="arrow_back icon">arrow_back</mat-icon>
+      </div>
+      <div class="col-md-9 ml-auto">
+        <span> Zurück zur Übersicht</span>
+      </div>
+    </div>
   </button>
 </a>
 
+<!-- ANCHOR Card for Checkdetails -->
 <mat-card *ngIf="check" class="example-card mb-4 mt-4">
+
+  <!-- ANCHOR Cardheader -->
   <mat-card-header>
     <mat-card-title left class="mt-4">{{this.check.website_name}}</mat-card-title>
-
   </mat-card-header>
-  <mat-card-content class="ml-3">
 
-    <mat-card-subtitle  class="mb-2 mt-2">Letze Prüfung:</mat-card-subtitle>
+  <!-- ANCHOR Card Content -->
+  <mat-card-content class="ml-3">
+    <mat-card-subtitle class="mb-2 mt-2">Letze Prüfung:</mat-card-subtitle>
     <span *ngIf="!this.checkTime">keine</span>
     <span *ngIf="this.checkTime">{{this.checkTime | date: 'mediumDate'}} um </span>
     <span *ngIf="this.checkTime">{{this.checkTime | date: 'shortTime'}}</span>
@@ -26,60 +32,58 @@
     <a [href]="this.check.url" target="_blank">{{this.check.url}}</a>
     <mat-card-subtitle class="mt-4">Website-Check:</mat-card-subtitle>
 
-    <div class="">
+    <div>
       <div class="btn-group btn-group-toggle row m-auto" style="width: 100%;" data-toggle="buttons">
         <label class="btn btn-outline-danger active col-md-auto mr-1 mb-1 buttonFilter">
-          <input type="radio" name="options" id="option1" autocomplete="off" (click)="changeSort('violations')" checked> Verstöße
+          <input type="radio" name="options" id="option1" (click)="changeSort('violations')" checked>
+          Verstöße
         </label>
         <label class="btn btn-outline-warning col-md-auto mr-1 mb-1 buttonFilter">
-          <input type="radio" name="options" id="option2" autocomplete="off" (click)="changeSort('incomplete')"> Unvollständig
+          <input type="radio" name="options" id="option2" (click)="changeSort('incomplete')">
+          Unvollständig
         </label>
         <label class="btn btn-outline-secondary col-md-auto mr-1 mb-1 buttonFilter">
-          <input type="radio" name="options" id="option3" autocomplete="off" (click)="changeSort('inapplicable')"> Nicht anwendbar
+          <input type="radio" name="options" id="option3" (click)="changeSort('inapplicable')"> Nicht
+          anwendbar
         </label>
         <label class="btn btn-outline-success col-md-auto mb-1 buttonFilter">
-          <input type="radio" name="options" id="option4" autocomplete="off" (click)="changeSort('passes')"> Bestanden
+          <input type="radio" name="options" id="option4" (click)="changeSort('passes')"> Bestanden
         </label>
       </div>
     </div>
 
+    <!-- ANCHOR Accordion to display Checks -->
     <div *ngIf="this.check" class="mt-3">
-
       <mat-accordion class="example-headers-align">
         <mat-expansion-panel *ngFor="let d of displayCheck">
           <mat-expansion-panel-header>
             <mat-panel-title class="mt-1 col-md-9">
               {{d.id}}
             </mat-panel-title>
-
           </mat-expansion-panel-header>
-
-
         </mat-expansion-panel>
-
       </mat-accordion>
-
     </div>
-
-
   </mat-card-content>
   <mat-card-actions>
-
-
   </mat-card-actions>
 </mat-card>
 
+<!-- ANCHOR Back to Dashboard -->
 <a [routerLink]="['']">
   <button type="button btn-sm" class="btn btn-outline-info" style="width: 35%;">
     <div class="row mt-1">
-    <div class="col-md-1">
-    <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_back</mat-icon>
-  </div>
-  <div class="col-md-9 ml-auto">
-   <span > Zurück zur Übersicht</span>
-  </div>
-</div>
+      <div class="col-md-1">
+        <mat-icon aria-hidden="false" aria-label="arrow_back icon">arrow_back</mat-icon>
+      </div>
+      <div class="col-md-9 ml-auto">
+        <span> Zurück zur Übersicht</span>
+      </div>
+    </div>
   </button>
 </a>
 
+<!-- ANCHOR Footer -->
 <div class="footer m-5"></div>
+
+<!-- !SECTION -->

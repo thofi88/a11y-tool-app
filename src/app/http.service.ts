@@ -11,8 +11,14 @@ import { NewCheck } from './new-check';
 })
 export class HttpService {
 
+// SECTION Variables
+
   private apiUrl = 'http://localhost:8000';
 
+// !SECTION
+
+  // SECTION Start
+  // ANCHOR constructor
   constructor(private http: HttpClient) { }
 
   getAll() {
@@ -56,3 +62,5 @@ export class HttpService {
     return this.http.delete(`${this.apiUrl}/websiteCheckDelete/` + checkId);
   }
 }
+
+// !SECTION

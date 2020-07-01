@@ -9,7 +9,10 @@
     "files.autoSave": "onFocusChange",
     "commentAnchors.scrollPosition": "center",
     "commentAnchors.tags.displayLineNumber": false,
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "commentAnchors.tags.sortMethod": "type",
+    "commentAnchors.workspace.pathFormat": "hidden",
+    "commentAnchors.tagHighlights.enabled": true
 	},
 	"extensions": {
 		"recommendations": [

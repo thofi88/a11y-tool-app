@@ -2,7 +2,6 @@ import { Component, OnInit, Input, NgZone, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { HttpService } from '../http.service';
 import { Category } from '../category';
-import { Websites } from '../websites';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NewWebsite } from '../new-website';
 import { NewCheck } from '../new-check';
@@ -16,10 +15,22 @@ import { Checks } from '../checks';
 })
 export class NewWebsiteComponent implements OnInit {
 
+  // SECTION Variables
+
   newCatname;
-  changes: boolean = false;
+  changes = false;
   catArray: Category[];
   newChecks = [];
+  websiteIds = [];
+  cats: Category[];
+  catsUpdate: Category[];
+  websiteId: any;
+  // tslint:disable-next-line: ban-types
+  websiteUpdate: Object;
+  checksUpdate: Checks[];
+  newCheckArray = [];
+  updateCheckId: Checks[];
+
   websiteForm = new FormGroup({
     name: new FormControl(''),
     home_url: new FormControl(''),
@@ -32,124 +43,88 @@ export class NewWebsiteComponent implements OnInit {
     ])
   });
 
-  websiteIds = [];
-  cats: Category[];
-  catsUpdate: Category[];
-  websiteId: any;
-  websiteUpdate: Object;
   checks = this.websiteForm.get('checks') as FormArray;
-  checksUpdate: Checks[];
-  newCheckArray = [];
-  updateCheckId: Checks[];
 
+  // !SECTION
+
+  // SECTION Start
+  // ANCHOR constructor
   constructor(private route: ActivatedRoute, private hs: HttpService, private router: Router) {
 
+    // NOTE get Parameter websiteID from a updating website
     this.route.params.subscribe(params => {
       this.websiteId = params.websiteId;
+
+      // NOTE Check if update or create a website
       if (this.websiteId === undefined) {
         this.changes = false;
       }
       else {
         this.changes = true;
 
+        // NOTE get the Website find by ID
         this.hs.getSingleWebsite(this.websiteId).subscribe(response => {
 
+          // NOTE find all categories from the updated Website
           this.catsUpdate = Object.values(response)[4].split(',').map(x => + x);
-
+          // tslint:disable-next-line: prefer-for-of
           for (let i = 0; i < this.catsUpdate.length; i++) {
             this.websiteIds.push(this.catsUpdate[i]);
           }
-          // console.log(this.catsUpdate);
 
+          // NOTE save id as a object to send
           this.websiteUpdate = Object.values(response)[0];
+
+          // NOTE push values to forms input
           this.websiteForm.patchValue({
             name: Object.values(response)[1],
             home_url: Object.values(response)[2]
           });
-          // this.websiteForm.setValue(Object.values(response)[1])
 
-          // this.websiteForm.value.home_url = Object.values(response)[2];
-
-          // console.log(this.websiteUpdate)
-
+          // NOTE get all Checks from the website
           this.hs.getAllChecks(this.websiteUpdate).subscribe(checks => {
 
             this.checksUpdate = checks;
 
+            // NOTE creates so much checkForms how the website have
             for (let i = 0; i < this.checksUpdate.length; i++) {
-
               if (i >= 1) {
-
-                this.addChecks()
+                this.addChecks();
               }
 
-              // console.log(this.websiteForm.controls.checks.value[i])
-
-              //
-
+              // NOTE push to array for updating checks form
               this.newCheckArray.push({
                 id: Object.values(this.checksUpdate[i])[0],
                 name: Object.values(this.checksUpdate[i])[1],
                 url: Object.values(this.checksUpdate[i])[3]
-              })
-
-              // this.websiteForm.controls.checks.value[i].patchValue({
-              //     name: Object.values(this.checksUpdate[i])[1],
-              //     url: Object.values(this.checksUpdate[i])[3]
-              // });
-
-
+              });
             }
-            // console.log(this.newCheckArray)
-            this.checks.patchValue(this.newCheckArray)
-            //   console.log(this.urls)
-            //console.log(this.checks)
+            // NOTE push values to check forms inputs
+            this.checks.patchValue(this.newCheckArray);
           });
-
         });
-
       }
     });
-
-
   }
-
+  // ANCHOR ngOnit
   ngOnInit(): void {
 
-    // this.websiteForm = new FormGroup({
-    //   name: new FormControl('', [
-    //     Validators.required
-    //   ]),
-    //   home_url: new FormControl('', [
-    //     Validators.required,
-    //   ])
-    // });
-    // this.checkForm = new FormGroup({
-    //   name: new FormControl('', [
-    //     Validators.required
-    //   ]),
-    //   url: new FormControl('', [
-    //     Validators.required
-    //   ])
-    // });
+    // TODO validate form
 
-    this.hs.getAllCat().subscribe(cats => {
-
-      this.cats = cats
-      for (let i = 0; i < this.cats.length; i++) {
-        // this.addCat(this.catArray[i].name, i, this.catArray[i].id);
-
-      }
-    });
+    // NOTE get all categories
+    this.hs.getAllCat().subscribe(cats => { this.cats = cats; });
 
   }
+
+  // !SECTION
+
+  // SECTION Functions
+  // ANCHOR ifChecked
+  // NOTE Check if the updated website categoriesneed to be checked
   ifChecked(id) {
-    // console.log(id)
     if (this.changes) {
+      // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < this.catsUpdate.length; i++) {
-        // console.log('id' + id)
-        // console.log('catId' + this.catsUpdate[i])
-        // console.log('------------------------')
         if (id === this.catsUpdate[i]) {
           return true;
         }
@@ -158,54 +133,42 @@ export class NewWebsiteComponent implements OnInit {
     }
   }
 
+  // ANCHOR addChecks
+  // NOTE add new form controlls
   addChecks() {
     const group = new FormGroup({
       id: new FormControl(''),
       name: new FormControl(''),
       url: new FormControl('')
     });
-
     this.checks.push(group);
   }
+
+  // ANCHOR removeChecks
+  // NOTE remove a spezified check forms
   removeChecks(index: number) {
 
+    // NOTE controll wich check must be deleted
     if (this.changes) {
       for (let i = 0; i < this.checks.length; i++) {
         this.newChecks[i] = {
           id: this.websiteForm.value.checks[i].id,
           website_name: this.websiteForm.value.checks[i].name,
           url: this.websiteForm.value.checks[i].url,
-        }
-
-        // console.log(this.websiteForm.value.checks[i].name)
+        };
       }
 
-      // ! wird noch nicht gelöscht
+      // FIXME Delete not working
       this.hs.deleteCheck(this.checks.value[index].id).subscribe();
-      console.log(this.checks.value[index].id)
+      console.log(this.checks.value[index].id);
 
     }
+    // NOTE remove the formcontroll
     this.checks.removeAt(index);
   }
 
-  // addCat(catName, i , id) {
-  //   // console.log(catName)
-  //   const newCat = new FormGroup({
-  //     name: new FormControl(''),
-  //     selected: new FormControl(''),
-  //     id: new FormControl(''),
-  //   })
-  //   this.cats.push(newCat);
-  //   this.cats.controls[i].value.selected = true;
-  //   this.cats.controls[i].value.name = catName;
-  //   console.log(this.cats.controls[i].value.name)
-  // }
-
-  // removeCat(index: number) {
-  //   this.cats.removeAt(index);
-  // }
-
-
+  // ANCHOR createCat
+  // NOTE create a new category
   createCat() {
     const newCat = {
       name: this.newCatname
@@ -213,14 +176,15 @@ export class NewWebsiteComponent implements OnInit {
     this.hs.createCat(newCat).subscribe(
       () =>
         this.hs.getAllCat().subscribe(cats => {
-          this.cats = cats
+          this.cats = cats;
           this.newCatname = '';
         })
     );
   }
+  // FIXME if checked an than new category push same two IDs
 
-  // ! Hier werden die, wenn schon was gecheckt, dann wird es zweimal gespeichert
-
+  // ANCHOR websiteCat
+  // NOTE push the the categorie the are checked and delete unchecked categories
   websiteCat(ids, event) {
     if (event.target.checked) {
       this.websiteIds.push(ids);
@@ -234,150 +198,114 @@ export class NewWebsiteComponent implements OnInit {
 
   }
 
-  // isInvalid(name: string) {
-  //   const control = this.websiteForm.get(name);
-  //   return control.invalid && control.touched;
-  // }
-
+  // ANCHOR submitForm
+  // NOTE save the new or updated website
   submitForm() {
-    // * Check if the websiteform is valid
-    // if (this.websiteForm.invalid) {
-    //   return;
-    // }
 
+    // NOTE get website and all checks infos from form
     const website: NewWebsite = {
       name: this.websiteForm.value.name,
       home_url: this.websiteForm.value.home_url,
       category_id: this.websiteIds.map(x => x).join(',')
     };
-
     this.newChecks = [];
     for (let i = 0; i < this.checks.length; i++) {
       this.newChecks[i] = {
         id: this.websiteForm.value.checks[i].id,
         website_name: this.websiteForm.value.checks[i].name,
         url: this.websiteForm.value.checks[i].url,
-      }
+      };
 
-      // console.log(this.websiteForm.value.checks[i].name)
     }
 
+    // NOTE checks if update or create a website
     if (this.changes) {
-      console.log('update');
-      //console.log(this.websiteUpdate);
-      //console.log(website);
+
+      // NOTE updates a website
       this.hs.updateWebsite(website, this.websiteUpdate).subscribe(() => {
 
+        // NOTE get all checks from the updated website
         this.hs.getAllChecks(this.websiteId).subscribe(checks => {
-
-          this.updateCheckId = checks
-
-
+          this.updateCheckId = checks;
           for (let i = 0; i < this.checks.length; i++) {
-            // console.log(this.urls[i].name);
-            //console.log(this.websiteForm.value.checks[i].name);
             const id = this.newChecks[i].id;
             const check: NewCheck = {
-
               website_name: this.newChecks[i].website_name,
               url: this.newChecks[i].url,
               website_id: this.websiteId,
               result: JSON.stringify([
                 {
-                  "inapplicable": [
+                  inapplicable: [
                   ],
-                  "passes": [],
-                  "testEngine": {},
-                  "testEnvironment": {},
-                  "testRunner": {},
-                  "timestamp": "",
-                  "toolOptions": {},
-                  "url": "",
-                  "violations": []
+                  passes: [],
+                  testEngine: {},
+                  testEnvironment: {},
+                  testRunner: {},
+                  timestamp: '',
+                  toolOptions: {},
+                  url: '',
+                  violations: []
                 }
               ])
-
             };
 
-
+            // NOTE if the check not availble create else update
             if (id === '') {
               this.hs.createWebsiteCheck(check).subscribe();
             } else {
               this.hs.updateWebsiteCheck(check, id).subscribe();
-
             }
-            //console.log(check)
-
-
-            //console.log('check:');
-            //console.log(check);
-
           }
+
+          // NOTE if finished go back to the dashboard
           this.router.navigate(['/']);
         });
-      }
-
-      )
-      //   .subscribe(() => {
-
-
-      // })
-
+      });
     }
     else {
-      console.log('create')
+      console.log('create');
+
+      // NOTE create the new website
       this.hs.createWebsite(website).subscribe(() => {
 
+        // NOTE get the new website ID
         this.hs.getSingleWebsiteId().subscribe(response => {
 
           this.websiteId = Object.values(response[0])[0];
 
+          // NOTE read all check forms
           for (let i = 0; i < this.checks.length; i++) {
-            // console.log(this.urls[i].name);
-            //console.log(this.websiteForm.value.checks[i].name);
             const check: NewCheck = {
-
               website_name: this.newChecks[i].website_name,
               url: this.newChecks[i].url,
               website_id: this.websiteId,
               result: JSON.stringify([
                 {
-                  "inapplicable": [
+                  inapplicable: [
                   ],
-                  "passes": [],
-                  "testEngine": {},
-                  "testEnvironment": {},
-                  "testRunner": {},
-                  "timestamp": "",
-                  "toolOptions": {},
-                  "url": "",
-                  "violations": []
+                  passes: [],
+                  testEngine: {},
+                  testEnvironment: {},
+                  testRunner: {},
+                  timestamp: '',
+                  toolOptions: {},
+                  url: '',
+                  violations: []
                 }
               ])
             };
 
-            // console.log(check)
+            // NOTE create the new checks
             this.hs.createWebsiteCheck(check).subscribe();
-
-            // console.log('check:');
-            // console.log(check);
-
           }
-          //this.checkForm.reset();
+          // NOTE go back to dashboard
           this.router.navigate(['/']);
-        })
+        });
       });
-
-      // console.log('Webseite:');
-      // console.log(website);
     }
-
-
+    // NOTE reset the websiteform
     this.websiteForm.reset();
   }
-
-
-
-
-
 }
+
+  // !SECTION

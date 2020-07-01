@@ -1,7 +1,10 @@
+<!-- SECTION Page new site and update form -->
+
 <h1 class="mb-4 mt-2">Neue Website anlegen</h1>
 
-<!-- <input type="file" accept=".csv" (change)="convertFile($event)"> -->
+<!-- TODO CSV Import for website -->
 
+<!-- ANCHOR Websitename and Home-URL -->
 <form [formGroup]="websiteForm">
   <div class="form-group row mb-1 col-md-12">
     <label for="inputEmail3" class="col-sm-3 col-form-label">Webseiten Name:</label>
@@ -12,22 +15,22 @@
   <div class="form-group row mt-4 mb-4 col-md-12">
     <label for="inputPassword3" class="col-sm-3 col-form-label">Home-URL:</label>
     <div class="col-sm-9">
-      <textarea type="text" class="form-control" id="inputHomeUrl" placeholder="URL"
+      <textarea type="text" class="form-control urls" id="inputHomeUrl" placeholder="URL"
         formControlName="home_url"></textarea>
     </div>
   </div>
 
+  <!-- ANCHOR Websites to check form-->
   <div formArrayName="checks" class="row form-group col-md-12">
     <label for="input" class="col-sm-3 mr-2 col-form-label">Check Name + URL:</label>
     <div class="col-sm-8">
       <div *ngFor="let _ of checks.controls; index as i">
         <ng-container [formGroupName]="i">
-          <div class="row">
+          <div class="row mb-3">
             <textarea type="text" class="form-control col-md-9  ml-2 mr-2" placeholder="Name"
               formControlName="name"></textarea>
-            <textarea type="text" class="form-control col-md-9 ml-2 mr-2 mt-1" placeholder="URL"
+            <textarea type="text" class="form-control urls col-md-9 ml-2 mr-2 mt-1" placeholder="URL"
               formControlName="url"></textarea>
-
             <span *ngIf="checks.controls.length > 1" class="btn-lg col-md-1 mb-2" (click)="removeChecks(i)">
               <mat-icon aria-hidden="false" aria-label="Example home icon">remove_circle_outline</mat-icon>
             </span>
@@ -41,21 +44,22 @@
     </div>
   </div>
 
+  <!-- ANCHOR Checkbox category for the website-->
   <fieldset class="form-group ">
     <div class="form-group row col-md-12">
       <div class="col-sm-3">Kategorien:</div>
       <div class="col-sm-9">
         <div *ngFor="let c of cats; let i = index" class="form-check">
           <input class="form-check-input" type="checkbox" id="category" [value]="c.id"
-            (change)="websiteCat(c.id ,$event)"
-            [checked]="ifChecked(c.id)">
+            (change)="websiteCat(c.id ,$event)" [checked]="ifChecked(c.id)">
           <label class="form-check-label" for="gridCheck1">
             {{c.name}}
           </label>
         </div>
         <div class="form-check mt-2">
-
         </div>
+
+        <!-- ANCHOR new category form-->
         <input type="text" class="form-control-sm " name="category" placeholder="Neu Kategorie" [(ngModel)]="newCatname"
           [ngModelOptions]="{standalone: true}">
         <button *ngIf="newCatname" class="btn btn-outline-info btn-sm ml-3 form_cat"
@@ -63,129 +67,16 @@
       </div>
     </div>
   </fieldset>
-  <!-- <fieldset class="form-group">
-    <div formArrayName="cats" class="form-group row col-md-12">
-      <div class="col-sm-3">Kategorien:</div>
-      <div class="col-sm-9">
-        <div *ngFor="let c of cats.controls; let i = index" class="form-check">
-          <ng-container [formGroupName]="i">
-            <input class="form-check-input" type="checkbox" formControlName="selected" >
-            <label class="form-check-label" for="gridCheck1">
-              {{catArray[i].name}}
-              <span formControlName="name"></span>
-            </label>
-          </ng-container>
-        </div>
-        <div class="form-check mt-2">
 
-        </div>
-        <input type="text" class="form-control-sm " name="category" placeholder="Neue Kategorie"
-          [(ngModel)]="newCatname" [ngModelOptions]="{standalone: true}">
-        <button *ngIf="newCatname" class="btn btn-outline-info btn-sm ml-3 form_cat"
-          (click)="createCat()">Erstellen</button>
-      </div>
-    </div>
-  </fieldset> -->
-
+  <!-- ANCHOR Submit form-->
   <div class="form-group row col-md-12">
     <div class="col-sm-12 text-right">
-      <button type="submit" *ngIf="!this.changes" (click)="submitForm()" class="btn btn-info ml-auto ">Neue Webseite erstellen</button>
-      <button type="submit" *ngIf="this.changes" (click)="submitForm()" class="btn btn-info ml-auto ">Webseite updaten</button>
+      <button type="submit" *ngIf="!this.changes" (click)="submitForm()" class="btn btn-info ml-auto ">Neue Webseite
+        erstellen</button>
+      <button type="submit" *ngIf="this.changes" (click)="submitForm()" class="btn btn-info ml-auto ">Webseite
+        updaten</button>
     </div>
   </div>
 </form>
-<!--
-<form [formGroup]="websiteForm" (ngSubmit)="submitForm()">
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Webseiten Name:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputName" placeholder="Name" formControlName="name"
-        [(ngModel)]="this.name">
-      <div class="feedback-error mt-1" *ngIf="isInvalid('name')">Pflichtfeld!</div>
-    </div>
-  </div>
-  <div class="form-group row mt-4">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">Home-URL:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputHomeUrl" placeholder="URL" formControlName="home_url"
-        [(ngModel)]="this.homeUrl">
-      <div class="feedback-error  mt-1" *ngIf="isInvalid('home_url')">Pflichtfeld!</div>
-    </div>
-  </div>
-  [formGroup]="checkForm"
 
-  <div [formGroup]="checkForm" class="form-group row mt-5">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">Check Name + URL:</label>
-    <div class="col-sm-10">
-      <section *ngFor="let input of urls; let i = index;">
-        <div class="row">
-          <input type="text" [(ngModel)]="urls[i].name" name="name{{i}}" class="form-control col-md-9 ml-3 mr-2"
-            placeholder="Name" formControlName="name">
-
-
-          <input type="text" [(ngModel)]="urls[i].url" name="url{{i}}" class="form-control col-md-9 ml-3 mr-2 mt-1"
-            placeholder="URL" formControlName="url">
-          <span *ngIf="urls.length > 1" class="btn-lg col-md-1 mb-2" (click)="removeURL(i)">
-            <mat-icon aria-hidden="false" aria-label="Example home icon">remove_circle_outline</mat-icon>
-          </span>
-          <span *ngIf="urls.length == 1 || urls.length == i + 1" class="btn-lg col-md-1 mb-2 ml-4" (click)="addURL(i)">
-            <mat-icon aria-hidden="false" aria-label="Example home icon">add_circle_outline</mat-icon>
-          </span>
-        </div>
-      </section>
-      <div class="feedback-error  mt-1" *ngIf="isInvalidCheck('url')">Mindestens eine Webseite zum Prüfen muss angegeben
-        werden!</div>
-    </div>
-  </div>
-
-
-  <div class="form-group mt-5 row">
-    <label for="inputPassword3" class="col-sm-2 col-form-label">Check Name + URL:</label>
-    <div *ngFor="let skill of skills.controls; ; index as i" class="col-sm-10">
-      <div class="row">
-        <ng-container [formGroup]="skill">
-          <input type="text" class="form-control col-md-9 ml-3 mr-2" placeholder="Name" formControlName="name">
-          <input type="text" class="form-control col-md-9 ml-3 mr-2 mt-1" placeholder="URL" formControlName="url">
-        </ng-container>
-        <span *ngIf="skills.controls.length > 1" class="btn-lg col-md-1 mb-2" (click)="removeSkill(i) ">
-          <mat-icon aria-hidden="false" aria-label="Example home icon">remove_circle_outline</mat-icon>
-        </span>
-        <span *ngIf="skills.controls.length == 1 || urls.length == i + 1" class="btn-lg col-md-1 mb-2 ml-4"
-          (click)="addSkill(i)">
-          <mat-icon aria-hidden="false" aria-label="Example home icon">add_circle_outline</mat-icon>
-        </span>
-      </div>
-    </div>
-
-    <div class="feedback-error  mt-1" *ngIf="isInvalidCheck('url')">Mindestens eine Webseite zum Prüfen muss angegeben
-      werden!</div>
-  </div>
-  {{this.skills}}
-  <fieldset class="form-group">
-    <div class="form-group row">
-      <div class="col-sm-2">Kategorien:</div>
-      <div class="col-sm-10">
-        <div *ngFor="let c of cats; let i = index" class="form-check">
-          <input class="form-check-input" type="checkbox" id="category" [value]="c.id"
-            (change)="websiteCat(c.id ,$event)">
-          <label class="form-check-label" for="gridCheck1">
-            {{c.name}}
-          </label>
-        </div>
-        <div class="form-check mt-2">
-
-        </div>
-        <input type="text" class="form-control-sm " name="category" placeholder="Neu Kategorie" [(ngModel)]="newCatname"
-          [ngModelOptions]="{standalone: true}">
-        <button *ngIf="newCatname" class="btn btn-outline-info btn-sm ml-3 form_cat"
-          (click)="createCat()">Erstellen</button>
-      </div>
-    </div>
-  </fieldset>
-  <div class="form-group row">
-    <div class="col-sm-12 text-right">
-      <button type="submit" [disabled]="websiteForm.invalid || checkForm.invalid" class="btn btn-info ml-auto">Neue
-        Webseite erstellen</button>
-    </div>
-  </div>
-</form> -->
+<!-- !SECTION -->

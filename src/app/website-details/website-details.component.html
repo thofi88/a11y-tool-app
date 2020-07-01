@@ -1,16 +1,20 @@
+<!-- SECTION website Details Component Show Checks from a spezified websiteId -->
+
 <div *ngIf="checks" class="mt-4 mb-3">
-<ul *ngFor="let c of checks">
-<li>
-<p>{{c.website_name}}</p>
-<div class="row">
-<div class="col-md-9">
-<a [href]="c.url" target="_blank" >{{c.url}}</a>
-</div>
-<div class="col-md-3">
-<a [routerLink]="['check', c.id]" ><button type="button" class="btn btn-outline-info btn-sm">Zum Check</button></a>
-</div>
-</div>
-</li>
-</ul>
+  <ul *ngFor="let c of checks">
+    <li>
+      <p>{{c.website_name}}</p>
+      <div class="row">
+        <div class="col-md-9">
+          <a [href]="c.url" target="_blank">{{c.url}}</a>
+        </div>
+        <div class="col-md-3">
+          <a [routerLink]="['check', c.id]"><button type="button" class="btn btn-outline-info btn-sm">Zum
+              Check</button></a>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>
 
+<!-- !SECTION -->

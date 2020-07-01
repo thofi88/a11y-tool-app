@@ -1,8 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { HttpService } from '../http.service';
 import { Websites } from '../websites';
-import { Checks } from '../checks';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'at-websites',
@@ -20,18 +19,17 @@ export class WebsitesComponent implements OnInit {
   step = 0;
   term: string;
   sortField = 'name';
+  websiteId: any;
 
   r = 255;
   g = 0;
   b = 0;
-  websiteId: any;
 
-  // !SECTION Variables
+  // !SECTION
 
-  // SECTION Start App
+  // SECTION Start
   // ANCHOR constructor
-  constructor(private hs: HttpService, private router: Router, private activatedRoute: ActivatedRoute) {
-
+  constructor(private hs: HttpService, private router: Router) {
 
     this.newWebsite = {
       id: 100,
@@ -46,20 +44,22 @@ export class WebsitesComponent implements OnInit {
   // ANCHOR ngOnit
   ngOnInit(): void {
 
+    // NOTE get all websites
     this.hs.getAll().subscribe(websites => this.websites = websites);
   }
 
-  // !SECTION Start App
+  // !SECTION
 
-  // SECTION Funktions
+  // SECTION Functions
   // ANCHOR changeSort
+// change the sort for sorting
   changeSort(value) {
-
     this.sortField = value;
     this.websites = this.websites.slice();
   }
 
   // ANCHOR changeColor
+  // NOTE change colour based on the ranking
   changeColor(i) {
     if (i === null) {
       return ('rgb( ' + 0 + ',' + 0 + ',' + 0 + ')');
@@ -80,13 +80,13 @@ export class WebsitesComponent implements OnInit {
   }
 
   // ANCHOR setStep accordion
-
+// NOTE to control the accordion
   setStep(index: number) {
     this.step = index;
   }
 
   // ANCHOR isNull if ranking = null
-
+// NOTE if ranking zero write a big N inside the circle
   isNull(ranking) {
     if (ranking === null) {
       return 'N';
@@ -97,10 +97,10 @@ export class WebsitesComponent implements OnInit {
   }
 
   // ANCHOR sendWebsite for editing
-
+// NOTE send the websiteId to update the website
   sendWebsite(websiteId) {
     this.router.navigate(['websites/new/', websiteId]);
   }
 }
 
-  // !SECTION Funktions
+  // !SECTION

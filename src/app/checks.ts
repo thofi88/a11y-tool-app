@@ -1,3 +1,5 @@
+// SECTION interface Checks
+
 export interface Checks {
   id: number;
   website_name: string;
@@ -6,3 +8,5 @@ export interface Checks {
   check_time: string;
   result: string;
 }
+
+// !SECTION

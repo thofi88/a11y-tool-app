@@ -32,12 +32,13 @@
 </div>
 <!-- !SECTION Header -->
 
-<!-- SECTION Websitelist -->
+<!-- SECTION website list -->
 <div *ngIf="websites" class="mt-4">
 
   <!-- ANCHOR website accordion -->
   <mat-accordion class="example-headers-align">
 
+    // NOTE all websites and possible search term and sorting
     <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField; let i = index;"
       [expanded]="step === i" (opened)="setStep(i)">
       <mat-expansion-panel-header>
@@ -60,10 +61,12 @@
         <at-category [categoryId]=w.category_id>
         </at-category>
 
+                <!-- ANCHOR editing button -->
         <button type="button" class="btn btn-outline-dark btn-sm ml-auto mr-3"
           (click)="sendWebsite(w.id)">Bearbeiten</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
+
 <!-- !SECTION Websitelist -->
