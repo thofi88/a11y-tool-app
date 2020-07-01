@@ -5,4 +5,5 @@ module.exports = {
     DB: process.env.MYSQL_DATABASE
   };
 
-// REVIEW  Database Attributs for connections
+// REVIEW  Database Attributs for connections. If you want to
+// connect to a other Database change the Attributs here.
