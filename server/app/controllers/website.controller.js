@@ -77,7 +77,7 @@ exports.update = (req, res) => {
   // Validate Request
   if (!req.body) {
     res.status(400).send({
-      message: "Request body is not empty!!"
+      message: "Request body is not empty!"
     });
   }
 

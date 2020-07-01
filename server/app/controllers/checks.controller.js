@@ -1,16 +1,18 @@
 const Checks = require("../models/checks.model.js");
 
-// Create and Save a new Checks
+// REVIEW Check controller to monitoring API Inputs. Is the core managment for the server.
+
+// ANCHOR Create and Save a new Check
 exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Request body is not empty!"
     });
 
   }
 
-  // Create a Checks
+  // ANCHOR Create a Object called Check
   const checks= new Checks({
     website_id: req.body.website_id,
     website_name: req.body.website_name,
@@ -19,30 +21,18 @@ exports.create = (req, res) => {
     result: req.body.result,
   });
 
-  // Save Checks in the database
+  // ANCHOR Save Check in the database
   Checks.create(checks, (err, data) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Checks."
+          err.message || "Error by fetching Website."
       });
     else res.send(data);
   });
 };
 
-// Retrieve all Checkss from the database.
-// exports.findAll = (req, res) => {
-//   Checks.getAll((err, data) => {
-//     if (err)
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving Checkss."
-//       });
-//     else res.send(data);
-//   });
-// };
-
-// Find a single Cat with a catId
+// ANCHOR Find a single Checks with a catId
 exports.findOneCheck = (req, res) => {
   Checks.findById(req.params.checkId, (err, data) => {
     if (err) {
@@ -52,14 +42,14 @@ exports.findOneCheck = (req, res) => {
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving Check with id " + req.params.checkId
+          message: "Errorby fetching Check with id " + req.params.checkId
         });
       }
     } else res.send(data);
   });
 };
 
-// Find a single Checks with a ChecksId
+// ANCHOR Find a single Check with a checksId
 exports.findAllChecks = (req, res) => {
   Checks.getAll(req.params.websiteId, (err, data) => {
     if (err) {
@@ -69,7 +59,7 @@ exports.findAllChecks = (req, res) => {
         });
       } else {
         res.status(500).send({
-          message: "Error retrieving Checks with id " + req.params.websiteId
+          message: "Error by fetching Checks with id " + req.params.websiteId
         });
       }
     } else res.send(data);
@@ -77,12 +67,12 @@ exports.findAllChecks = (req, res) => {
 };
 
 
-// Update a Checks identified by the ChecksId in the request
+// ANCHOR Update a Check identified by the ChecksId in the request
 exports.update = (req, res) => {
   // Validate Request
   if (!req.body) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Request body is not empty!"
     });
   }
 
@@ -99,7 +89,7 @@ exports.update = (req, res) => {
           });
         } else {
           res.status(500).send({
-            message: "Error updating Checks with id " + req.params.checkId
+            message: "Error by fetching with id " + req.params.checkId
           });
         }
       } else res.send(data);
@@ -107,7 +97,7 @@ exports.update = (req, res) => {
   );
 };
 
-//Delete a Checks with the specified ChecksId in the request
+// ANCHOR Delete a Check find by a specified checksId
 exports.delete = (req, res) => {
   Checks.remove(req.params.checksId, (err, data) => {
     if (err) {
@@ -123,15 +113,3 @@ exports.delete = (req, res) => {
     } else res.send({ message: `Checks was deleted successfully!` });
   });
 };
-
-// Delete all Checkss from the database.
-// exports.deleteAll = (req, res) => {
-//   Checks.removeAll((err, data) => {
-//     if (err)
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while removing all Checkss."
-//       });
-//     else res.send({ message: `All Checkss were deleted successfully!` });
-//   });
-// };

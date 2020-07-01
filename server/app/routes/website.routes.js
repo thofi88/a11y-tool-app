@@ -46,7 +46,7 @@ module.exports = app => {
   // ANCHOR Delete a Websites find by checkId
   app.delete("/websiteCheckDelete/:checkId", checks.delete);
 
-  // !SECTION Check Routes
+  // !SECTION
 
   // SECTION Category Routes
   // ANCHOR Return all Categories
@@ -58,6 +58,6 @@ module.exports = app => {
   // ANCHOR Create a Category
   app.post("/newCat", cat.create);
 
-  // !SECTION Category Routes
+  // !SECTION
 
 };
