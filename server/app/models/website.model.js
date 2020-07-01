@@ -1,6 +1,9 @@
 const sql = require("./db.js");
 
-// constructor
+
+  // REVIEW Moduls with SQL Query Function to connentet with database.
+
+// ANCHOR Create a Object called Website
 const Website = function (website) {
   this.name = website.name;
   this.home_url = website.home_url;
@@ -9,6 +12,7 @@ const Website = function (website) {
   this.ranking = website.ranking;
 };
 
+// ANCHOR Create Website Module
 Website.create = (newWebsite, result) => {
   sql.query("INSERT INTO websites SET ?", newWebsite, (err, res) => {
     if (err) {
@@ -22,6 +26,7 @@ Website.create = (newWebsite, result) => {
   });
 };
 
+// ANCHOR FindById Website Module
 Website.findById = (websiteId, result) => {
   sql.query(`SELECT * FROM websites WHERE id = ${websiteId}`, (err, res) => {
     if (err) {
@@ -36,11 +41,11 @@ Website.findById = (websiteId, result) => {
       return;
     }
 
-    // not found Website with the id
     result({ kind: "not_found" }, null);
   });
 };
 
+// ANCHOR GetAll Website Module
 Website.getAll = result => {
   sql.query("SELECT * FROM websites", (err, res) => {
     if (err) {
@@ -54,6 +59,7 @@ Website.getAll = result => {
   });
 };
 
+// ANCHOR GetLastID Website Module
 Website.getId = result => {
   sql.query("SELECT MAX(id) FROM websites", (err, res) => {
     if (err) {
@@ -67,6 +73,7 @@ Website.getId = result => {
   });
 };
 
+// ANCHOR Update Website Module
 Website.updateById = (id, website, result) => {
   sql.query(
     "UPDATE websites SET name = ?, home_url = ?, category_id = ? WHERE id = ?",
@@ -79,7 +86,6 @@ Website.updateById = (id, website, result) => {
       }
 
       if (res.affectedRows == 0) {
-        // not found Website with the id
         result({ kind: "not_found" }, null);
         return;
       }
@@ -90,6 +96,7 @@ Website.updateById = (id, website, result) => {
   );
 };
 
+// ANCHOR Remove Website Module
 Website.remove = (id, result) => {
   sql.query("DELETE FROM websites WHERE id = ?", id, (err, res) => {
     if (err) {
@@ -99,7 +106,6 @@ Website.remove = (id, result) => {
     }
 
     if (res.affectedRows == 0) {
-      // not found Website with the id
       result({ kind: "not_found" }, null);
       return;
     }
@@ -109,6 +115,7 @@ Website.remove = (id, result) => {
   });
 };
 
+// ANCHOR RemoveAll Website Module
 Website.removeAll = result => {
   sql.query("DELETE FROM websites", (err, res) => {
     if (err) {
