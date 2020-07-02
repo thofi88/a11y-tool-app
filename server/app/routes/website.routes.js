@@ -15,6 +15,9 @@ module.exports = app => {
   // ANCHOR Return last WebsiteID
   app.get("/websiteOneId", websites.findOneId);
 
+  // ANCHOR Return Websites with categoryId
+  app.get("/websiteCatId/:categoryId", websites.findWithCatId);
+
   // ANCHOR Create a new Websites
   app.post("/websites", websites.create);
 
@@ -57,6 +60,9 @@ module.exports = app => {
 
   // ANCHOR Create a Category
   app.post("/newCat", cat.create);
+
+  // ANCHOR Delete a Category find by categoryId
+  app.delete("/category/:catId", cat.delete);
 
   // !SECTION
 

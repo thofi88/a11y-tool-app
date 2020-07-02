@@ -26,6 +26,24 @@ Website.create = (newWebsite, result) => {
   });
 };
 
+// TODO SELECT * FROM websites WHERE category_id LIKE "%2%"
+// FIXME only one website as request but it must be two
+
+// ANCHOR FindByCatId - Website Module
+Website.findByCatId = (categoryId, result) => {
+  console.log(sql.query(`SELECT * FROM websites WHERE category_id LIKE ${'"%' + categoryId + '%"'}`));
+  sql.query(`SELECT * FROM websites WHERE category_id LIKE ${'"%' + categoryId + '%"'}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("websites: ", res);
+    result(null, res);
+  });
+};
+
 // ANCHOR FindById - Website Module
 Website.findById = (websiteId, result) => {
   sql.query(`SELECT * FROM websites WHERE id = ${websiteId}`, (err, res) => {

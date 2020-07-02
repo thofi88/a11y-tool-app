@@ -2,7 +2,7 @@
 
 <!-- SECTION Header -->
 <!-- ANCHOR searchForm -->
-<div class="row mr-2">
+<div class="row">
   <div class="col-md-7 form-group">
     <label class="font-weight-light">
       Suche:
@@ -15,17 +15,17 @@
     <label class="font-weight-light">
       Sortierung:
     </label>
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-info active">
-        <input type="radio" name="options" id="option1" autocomplete="off" (click)="changeSort('name')" checked> Name
-      </label>
-      <label class="btn btn-info">
-        <input type="radio" name="options" id="option2" autocomplete="off" (click)="changeSort('ranking+')"> Ranking
-        <span class="arrow">&uarr;</span>
-      </label>
-      <label class="btn btn-info">
+    <div class="btn-group btn-group-toggle ml-auto row" data-toggle="buttons" style="width: 100%;">
+      <label class="btn btn-info col-auto">
         <input type="radio" name="options" id="option3" autocomplete="off" (click)="changeSort('ranking-')"> Ranking
         <span class="arrow">&darr;</span>
+      </label>
+      <label class="btn btn-info active col-auto">
+        <input type="radio" name="options" id="option1" autocomplete="off" (click)="changeSort('name')" checked> Name
+      </label>
+      <label class="btn btn-info col-auto">
+        <input type="radio" name="options" id="option2" autocomplete="off" (click)="changeSort('ranking+')"> Ranking
+        <span class="arrow">&uarr;</span>
       </label>
     </div>
   </div>
@@ -41,11 +41,11 @@
     <!-- NOTE all websites and possible search term and sorting -->
     <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField; let i = index;"
       [expanded]="step === i" (opened)="setStep(i)">
-      <mat-expansion-panel-header>
+      <mat-expansion-panel-header class="row">
         <mat-panel-title class="mt-1 col-md-3 ml-1">
           {{i + 1}}. {{ w.name }}
         </mat-panel-title>
-        <mat-panel-description>
+        <mat-panel-description class="col-md-9">
           <a [href]="w.home_url" class="url" target="_blank">{{w.home_url}}</a>
           <span class="ranking mr-2" [style.background-color]="changeColor(w.ranking)">{{isNull(w.ranking)}}</span>
         </mat-panel-description>

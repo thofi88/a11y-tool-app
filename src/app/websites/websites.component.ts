@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Websites } from '../websites';
 import { Router } from '@angular/router';
@@ -36,7 +36,7 @@ export class WebsitesComponent implements OnInit {
       name: 'test',
       home_url: 'test',
       last_full_test: 'test',
-      category_id: 100,
+      category_id: '100',
       ranking: 100,
     };
   }
@@ -52,7 +52,7 @@ export class WebsitesComponent implements OnInit {
 
   // SECTION Functions
   // ANCHOR changeSort
-// change the sort for sorting
+  // change the sort for sorting
   changeSort(value) {
     this.sortField = value;
     this.websites = this.websites.slice();
@@ -80,13 +80,13 @@ export class WebsitesComponent implements OnInit {
   }
 
   // ANCHOR setStep accordion
-// NOTE to control the accordion
+  // NOTE to control the accordion
   setStep(index: number) {
     this.step = index;
   }
 
   // ANCHOR isNull if ranking = null
-// NOTE if ranking zero write a big N inside the circle
+  // NOTE if ranking zero write a big N inside the circle
   isNull(ranking) {
     if (ranking === null) {
       return 'N';
@@ -97,7 +97,7 @@ export class WebsitesComponent implements OnInit {
   }
 
   // ANCHOR sendWebsite for editing
-// NOTE send the websiteId to update the website
+  // NOTE send the websiteId to update the website
   sendWebsite(websiteId) {
     this.router.navigate(['websites/new/', websiteId]);
   }

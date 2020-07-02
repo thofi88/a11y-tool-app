@@ -27,6 +27,9 @@ export class HttpService {
   getAllChecks(websiteId) {
     return this.http.get<Checks[]>(`${this.apiUrl}/websiteCheck/` + websiteId);
   }
+  getAllWebsiteByCatId(categoryId) {
+    return this.http.get<Websites[]>(`${this.apiUrl}/websiteCatId/` + categoryId);
+  }
   getCat(catId: string) {
     return this.http.get(`${this.apiUrl}/category/${catId}`);
   }
