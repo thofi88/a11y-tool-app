@@ -82,7 +82,7 @@ Cat.updateById = (id, cat, result) => {
 
 // ANCHOR Remove - Category Module
 Cat.remove = (id, result) => {
-  sql.query("DELETE FROM cats WHERE id = ?", id, (err, res) => {
+  sql.query("DELETE FROM category WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

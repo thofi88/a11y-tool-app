@@ -64,6 +64,9 @@ export class HttpService {
   deleteCheck(checkId) {
     return this.http.delete(`${this.apiUrl}/websiteCheckDelete/` + checkId);
   }
+  deleteCat(catId) {
+    return this.http.delete(`${this.apiUrl}/category/` + catId);
+  }
 }
 
 // !SECTION

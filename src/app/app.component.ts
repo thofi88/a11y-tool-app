@@ -59,9 +59,11 @@ export class AppComponent implements OnInit {
         for (let i = 0; i < this.websites.length; i++) {
           this.categories = this.websites[i].category_id.split(',').map(x => + x);
           for (let i = 0; i < this.categories.length; i++) {
-            const index = this.categories.indexOf(this.categories[i]);
+
+            // FIXME reload category array not working
+            const index = this.cats.indexOf(id);
             if (index > -1) {
-              this.categories.splice(index, 1);
+              this.cats.splice(index, 1);
             }
           }
           const website: NewWebsite = {
@@ -71,9 +73,13 @@ export class AppComponent implements OnInit {
           };
           this.hs.updateWebsite(website, this.websites[i].id).subscribe(() => { });
         }
+<<<<<<< Updated upstream
 
         // TODO delete category from database
-
+=======
+        // NOTE delete category from database
+>>>>>>> Stashed changes
+        this.hs.deleteCat(id).subscribe();
       });
 
     }
