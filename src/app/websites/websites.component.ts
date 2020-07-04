@@ -26,6 +26,7 @@ export class WebsitesComponent implements OnInit {
   r = 255;
   g = 0;
   b = 0;
+  filterfieldId: any;
 
   // !SECTION
 
@@ -49,6 +50,7 @@ export class WebsitesComponent implements OnInit {
  // NOTE get all categories
  this.hs.getAllCat().subscribe(cats => {
    this.filterarray = cats;
+   this.filterarray.push({ id: 0, name: 'Kein' });
    console.log(this.filterarray);
 });
     // NOTE get all websites
@@ -58,6 +60,15 @@ export class WebsitesComponent implements OnInit {
   // !SECTION
 
   // SECTION Functions
+
+  // ANCHOR setFilter
+  // change the sort for filter
+  setFilter(category) {
+    this.filterfield = category.name;
+    this.filterfieldId = category.id;
+
+  }
+
   // ANCHOR changeSort
   // change the sort for sorting
   changeSort(value) {

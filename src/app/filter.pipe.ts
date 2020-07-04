@@ -8,14 +8,11 @@ export class FilterPipe implements PipeTransform {
     if (!items || !filter) {
         return items;
     }
-    if (filter === 'Kein') {
+    if (filter === 0) {
       return items;
     }
     else {
-      return items;
-
-      // TODO implements filter by category
-      // return items.filter(item => item.category_id.indexOf(filter) !== -1);
+      return items.filter(item => item.category_id.indexOf(filter) !== -1);
     }
 }
 

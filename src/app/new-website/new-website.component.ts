@@ -225,23 +225,31 @@ export class NewWebsiteComponent implements OnInit {
   // NOTE remove a spezified check forms
   removeChecks(index: number) {
 
-    // NOTE controll wich check must be deleted
     if (this.changes) {
-      for (let i = 0; i < this.checks.length; i++) {
-        this.newChecks[i] = {
-          id: this.websiteForm.value.checks[i].id,
-          website_name: this.websiteForm.value.checks[i].name,
-          url: this.websiteForm.value.checks[i].url,
-        };
+      const confirm = window.confirm('Soll der Webseitencheck wirklich gelöscht werden, es werden auch die Ergebnisse der automatischen Überprüfung gelöscht.');
+      if (confirm) {
+
+        // NOTE controll wich check must be deleted
+        if (this.changes) {
+          for (let i = 0; i < this.checks.length; i++) {
+            this.newChecks[i] = {
+              id: this.websiteForm.value.checks[i].id,
+              website_name: this.websiteForm.value.checks[i].name,
+              url: this.websiteForm.value.checks[i].url,
+            };
+          }
+
+          this.hs.deleteCheck(this.checks.value[index].id).subscribe();
+          console.log(this.checks.value[index].id);
+
+        }
+        // NOTE remove the formcontroll
+        this.checks.removeAt(index);
       }
-
-      // FIXME Delete not working
-      this.hs.deleteCheck(this.checks.value[index].id).subscribe();
-      console.log(this.checks.value[index].id);
-
+      else {
+        console.log('cancel');
+      }
     }
-    // NOTE remove the formcontroll
-    this.checks.removeAt(index);
   }
 
   // ANCHOR createCat

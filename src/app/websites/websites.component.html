@@ -19,9 +19,11 @@
       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{filterfield}}
       </button>
-       <!-- FIXME  only one Cat is showing-->
-      <div class="dropdown-menu" *ngFor="let fc of filterarray">
-        <a class="dropdown-item" name="fieldName" ngDefaultControl [(ngModel)]="filterfield" href="#">{{fc.name}}</a>
+
+      <div class="dropdown-menu">
+        <div  *ngFor="let fc of filterarray; let i = index;">
+        <a class="dropdown-item" (click)="setFilter(fc)" name="fieldName{{i}}" ngDefaultControl>{{fc.name}}</a>
+      </div>
       </div>
     </div>
   </div>
@@ -56,8 +58,7 @@
 
     <!-- NOTE all websites and possible search term and sorting -->
 
-    <!-- FIXME  implements the filter-->
-    <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField | filter:filterfield; let i = index;"
+    <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField | filter:filterfieldId; let i = index;"
       [expanded]="step === i" (opened)="setStep(i)">
       <mat-expansion-panel-header class="row">
         <mat-panel-title class="mt-1 col-md-3 ml-1">
