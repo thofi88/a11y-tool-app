@@ -100,15 +100,16 @@ exports.update = (req, res) => {
 
 // ANCHOR Delete a Check find by a specified checksId
 exports.delete = (req, res) => {
+  console.log('delete' + req.params.checksId);
   Checks.remove(req.params.checksId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found Checks with id ${req.params.ChecksId}.`
+          message: `Not found Checks with id ${req.params.checksId}.`
         });
       } else {
         res.status(500).send({
-          message: "Could not delete Checks with id " + req.params.ChecksId
+          message: "Could not delete Checks with id " + req.params.checksId
         });
       }
     } else res.send({ message: `Checks was deleted successfully!` });

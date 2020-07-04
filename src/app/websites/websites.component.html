@@ -3,19 +3,34 @@
 <!-- SECTION Header -->
 <!-- ANCHOR searchForm -->
 <div class="row">
-  <div class="col-md-7 form-group">
+  <div class="col-md-4 form-group">
     <label class="font-weight-light">
       Suche:
     </label>
     <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="term">
   </div>
 
+  <!-- ANCHOR filterButton -->
+  <div class="col-md-2 dropdown">
+    <label class="font-weight-light">
+      Filter:
+    </label>
+    <div class="btn-group ml-auto row w-100">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{filterfield}}
+      </button>
+      <div class="dropdown-menu" *ngFor="let fc of filterarray">
+        <a class="dropdown-item" [(ngModel)]="filterfield" href="#">{{fc.name}}</a>
+      </div>
+    </div>
+  </div>
+
   <!-- ANCHOR sortingButton -->
-  <div class="col-md-5 dropdown">
+  <div class="col-md-6 dropdown">
     <label class="font-weight-light">
       Sortierung:
     </label>
-    <div class="btn-group btn-group-toggle ml-auto row" data-toggle="buttons" style="width: 100%;">
+    <div class="btn-group btn-group-toggle ml-auto w-100 row" data-toggle="buttons">
       <label class="btn btn-info col-auto">
         <input type="radio" name="options" id="option3" autocomplete="off" (click)="changeSort('ranking-')"> Ranking
         <span class="arrow">&darr;</span>
@@ -39,7 +54,7 @@
   <mat-accordion class="example-headers-align">
 
     <!-- NOTE all websites and possible search term and sorting -->
-    <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField; let i = index;"
+    <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField | filter:filterfield; let i = index;"
       [expanded]="step === i" (opened)="setStep(i)">
       <mat-expansion-panel-header class="row">
         <mat-panel-title class="mt-1 col-md-3 ml-1">

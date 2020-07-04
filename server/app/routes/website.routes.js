@@ -47,7 +47,7 @@ module.exports = app => {
   app.put("/websiteCheckPut/:checkId", checks.update);
 
   // ANCHOR Delete a Websites find by checkId
-  app.delete("/websiteCheckDelete/:checkId", checks.delete);
+  app.delete("/websiteCheckDelete/:checksId", checks.delete);
 
   // !SECTION
 

@@ -84,6 +84,7 @@ Checks.updateById = (id, checks, result) => {
 
 // ANCHOR Remove - Check Module
 Checks.remove = (id, result) => {
+  console.log( 'remove' + id);
   sql.query("DELETE FROM checks WHERE id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);

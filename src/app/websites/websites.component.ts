@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Websites } from '../websites';
 import { Router } from '@angular/router';
+import { Category } from '../category';
 
 @Component({
   selector: 'at-websites',
@@ -15,10 +16,11 @@ export class WebsitesComponent implements OnInit {
   websites: Websites[];
   newWebsite: Websites;
   sendWeb: Websites;
-
+  filterarray: Category[];
   step = 0;
   term: string;
   sortField = 'name';
+  filterfield = 'Kein';
   websiteId: any;
 
   r = 255;
@@ -44,6 +46,10 @@ export class WebsitesComponent implements OnInit {
   // ANCHOR ngOnit
   ngOnInit(): void {
 
+ // NOTE get all categories
+ this.hs.getAllCat().subscribe(cats => {
+  this.filterarray = cats;
+});
     // NOTE get all websites
     this.hs.getAll().subscribe(websites => this.websites = websites);
   }
