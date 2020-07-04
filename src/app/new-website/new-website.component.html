@@ -44,7 +44,6 @@
     </div>
   </div>
 
-  TODO Delete and update category
   <!-- ANCHOR Checkbox category for the website-->
   <fieldset class="form-group ">
     <div class="form-group row col-md-12">
@@ -60,11 +59,69 @@
         <div class="form-check mt-2">
         </div>
 
-        <!-- ANCHOR new category form-->
+        <!-- SECTION Modal to update categories -->
+
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="category Modal"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title" id="exampleModalLongTitle">Kategorien bearbeiten</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- FIXME If all panel closed show input, too -->
+      <mat-accordion *ngIf="cats">
+        <mat-expansion-panel *ngFor="let c of cats; let i = index" [expanded]="step === i"
+        (opened)="setStep(i)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{i + 1}}. {{ c.name }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="col-md-12 mt-2">
+            <input type="text" [ngModelOptions]="{standalone: true}" class="form-control-sm" name="category"
+                placeholder="Kategorie" [(ngModel)]="c.name">
+          </div>
+          <div class="row w-100 mt-3 mr-1 ml-2">
+            <button type="button" (click)="updateCat(c.id)" class="btn btn-info mr-auto ml-2">ändern</button>
+            <button type="button"  (click)="deleteCat(c.id)" class="btn btn-danger mr-3 ml-auto">löschen</button>
+
+          </div>
+
+        </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+          Neue Kategorie
+          </mat-panel-title>
+        </mat-expansion-panel-header>
         <input type="text" class="form-control-sm " name="category" placeholder="Neu Kategorie" [(ngModel)]="newCatname"
           [ngModelOptions]="{standalone: true}">
-        <button *ngIf="newCatname" class="btn btn-outline-info btn-sm ml-3 form_cat"
+          <button class="btn btn-outline-info btn-sm ml-3 form_cat"
           (click)="createCat()">Erstellen</button>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- !SECTION -->
+
+        <!-- ANCHOR new category button-->
+        <!--  -->
+        <button class="btn btn-outline-info btn-sm form_cat"
+        data-toggle="modal" data-target="#categoryModal" >Kategorien bearbeiten</button>
       </div>
     </div>
   </fieldset>

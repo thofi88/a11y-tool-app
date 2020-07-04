@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NewWebsite } from '../new-website';
 import { NewCheck } from '../new-check';
 import { Checks } from '../checks';
+import { Websites } from '../websites';
 
 
 @Component({
@@ -30,6 +31,12 @@ export class NewWebsiteComponent implements OnInit {
   checksUpdate: Checks[];
   newCheckArray = [];
   updateCheckId: Checks[];
+  catname;
+  step = 0;
+  panelOpenState = false;
+  panelArray = [];
+  websites: Websites[];
+  categories: number[];
 
   websiteForm = new FormGroup({
     name: new FormControl(''),
@@ -112,7 +119,13 @@ export class NewWebsiteComponent implements OnInit {
     // TODO validate form
 
     // NOTE get all categories
-    this.hs.getAllCat().subscribe(cats => { this.cats = cats; });
+    this.hs.getAllCat().subscribe(cats => {
+      this.cats = cats;
+      for (let i = 0; i < this.cats.length; i++) {
+        this.panelArray.push(i);
+      }
+    });
+    // tslint:disable-next-line: prefer-for-of
 
   }
 
@@ -132,7 +145,71 @@ export class NewWebsiteComponent implements OnInit {
       }
     }
   }
+  // ANCHOR setStep accordion
+  // NOTE to control the accordion
+  setStep(index: number) {
+    this.step = index;
+  }
 
+  // ANCHOR deleteCat
+  // NOTE delete one category and all cross-reference from websites
+  deleteCat(id) {
+    const confirm = window.confirm('Soll die Kategorie wirklich gelöscht werden, es werden auch alle Querverweise zu den Webseiten gelöscht.');
+    if (confirm) {
+      console.log('ok');
+      console.log(id)
+      this.hs.getAllWebsiteByCatId(id).subscribe(websites => {
+        this.websites = websites;
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < this.websites.length; i++) {
+          this.categories = this.websites[i].category_id.split(',').map(x => + x);
+          for (let i = 0; i < this.categories.length; i++) {
+
+            const index = this.categories.indexOf(id);
+            if (index > -1) {
+              this.categories.splice(index, 1);
+            }
+          }
+          const website: NewWebsite = {
+            name: this.websites[i].name,
+            home_url: this.websites[i].home_url,
+            category_id: this.categories.map(x => x).join(',')
+          };
+          this.hs.updateWebsite(website, this.websites[i].id).subscribe(() => { });
+        }
+
+        // NOTE delete category from database
+        this.hs.deleteCat(id).subscribe();
+
+        // NOTE Update category list in modal and list
+
+        const index = this.cats.map(item => item.id).indexOf(id);
+        console.log(index);
+        if (index > -1) {
+          this.cats.splice(index, 1);
+        }
+        const indexWeb = this.websiteIds.indexOf(id);
+      if (indexWeb > -1) {
+        this.websiteIds.splice(indexWeb, 1);
+      }
+        // TODO remove this category from form
+        console.log(this.cats);
+
+      });
+
+    }
+    else {
+      console.log('cancel');
+    }
+  }
+
+  // ANCHOR updateCat
+  // NOTE to control the accordion
+  updateCat(id) {
+
+    console.log(id);
+
+  }
   // ANCHOR addChecks
   // NOTE add new form controlls
   addChecks() {
@@ -208,114 +285,114 @@ export class NewWebsiteComponent implements OnInit {
     }
   }
 
-// ANCHOR submitForm
-// NOTE save the new or updated website
-submitForm() {
+  // ANCHOR submitForm
+  // NOTE save the new or updated website
+  submitForm() {
 
-  // NOTE get website and all checks infos from form
-  const website: NewWebsite = {
-    name: this.websiteForm.value.name,
-    home_url: this.websiteForm.value.home_url,
-    category_id: this.websiteIds.map(x => x).join(',')
-  };
-  this.newChecks = [];
-  for (let i = 0; i < this.checks.length; i++) {
-    this.newChecks[i] = {
-      id: this.websiteForm.value.checks[i].id,
-      website_name: this.websiteForm.value.checks[i].name,
-      url: this.websiteForm.value.checks[i].url,
+    // NOTE get website and all checks infos from form
+    const website: NewWebsite = {
+      name: this.websiteForm.value.name,
+      home_url: this.websiteForm.value.home_url,
+      category_id: this.websiteIds.map(x => x).join(',')
     };
+    this.newChecks = [];
+    for (let i = 0; i < this.checks.length; i++) {
+      this.newChecks[i] = {
+        id: this.websiteForm.value.checks[i].id,
+        website_name: this.websiteForm.value.checks[i].name,
+        url: this.websiteForm.value.checks[i].url,
+      };
 
-  }
+    }
 
-  // NOTE checks if update or create a website
-  if (this.changes) {
+    // NOTE checks if update or create a website
+    if (this.changes) {
 
-    // NOTE updates a website
-    this.hs.updateWebsite(website, this.websiteUpdate).subscribe(() => {
+      // NOTE updates a website
+      this.hs.updateWebsite(website, this.websiteUpdate).subscribe(() => {
 
-      // NOTE get all checks from the updated website
-      this.hs.getAllChecks(this.websiteId).subscribe(checks => {
-        this.updateCheckId = checks;
-        for (let i = 0; i < this.checks.length; i++) {
-          const id = this.newChecks[i].id;
-          const check: NewCheck = {
-            website_name: this.newChecks[i].website_name,
-            url: this.newChecks[i].url,
-            website_id: this.websiteId,
-            result: JSON.stringify([
-              {
-                inapplicable: [
-                ],
-                passes: [],
-                testEngine: {},
-                testEnvironment: {},
-                testRunner: {},
-                timestamp: '',
-                toolOptions: {},
-                url: '',
-                violations: []
-              }
-            ])
-          };
+        // NOTE get all checks from the updated website
+        this.hs.getAllChecks(this.websiteId).subscribe(checks => {
+          this.updateCheckId = checks;
+          for (let i = 0; i < this.checks.length; i++) {
+            const id = this.newChecks[i].id;
+            const check: NewCheck = {
+              website_name: this.newChecks[i].website_name,
+              url: this.newChecks[i].url,
+              website_id: this.websiteId,
+              result: JSON.stringify([
+                {
+                  inapplicable: [
+                  ],
+                  passes: [],
+                  testEngine: {},
+                  testEnvironment: {},
+                  testRunner: {},
+                  timestamp: '',
+                  toolOptions: {},
+                  url: '',
+                  violations: []
+                }
+              ])
+            };
 
-          // NOTE if the check not availble create else update
-          if (id === '') {
-            this.hs.createWebsiteCheck(check).subscribe();
-          } else {
-            this.hs.updateWebsiteCheck(check, id).subscribe();
+            // NOTE if the check not availble create else update
+            if (id === '') {
+              this.hs.createWebsiteCheck(check).subscribe();
+            } else {
+              this.hs.updateWebsiteCheck(check, id).subscribe();
+            }
           }
-        }
 
-        // NOTE if finished go back to the dashboard
-        this.router.navigate(['/']);
+          // NOTE if finished go back to the dashboard
+          this.router.navigate(['/']);
+        });
       });
-    });
-  }
-  else {
-    console.log('create');
+    }
+    else {
+      console.log('create');
 
-    // NOTE create the new website
-    this.hs.createWebsite(website).subscribe(() => {
+      // NOTE create the new website
+      this.hs.createWebsite(website).subscribe(() => {
 
-      // NOTE get the new website ID
-      this.hs.getSingleWebsiteId().subscribe(response => {
+        // NOTE get the new website ID
+        this.hs.getSingleWebsiteId().subscribe(response => {
 
-        this.websiteId = Object.values(response[0])[0];
+          this.websiteId = Object.values(response[0])[0];
 
-        // NOTE read all check forms
-        for (let i = 0; i < this.checks.length; i++) {
-          const check: NewCheck = {
-            website_name: this.newChecks[i].website_name,
-            url: this.newChecks[i].url,
-            website_id: this.websiteId,
-            result: JSON.stringify([
-              {
-                inapplicable: [
-                ],
-                passes: [],
-                testEngine: {},
-                testEnvironment: {},
-                testRunner: {},
-                timestamp: '',
-                toolOptions: {},
-                url: '',
-                violations: []
-              }
-            ])
-          };
+          // NOTE read all check forms
+          for (let i = 0; i < this.checks.length; i++) {
+            const check: NewCheck = {
+              website_name: this.newChecks[i].website_name,
+              url: this.newChecks[i].url,
+              website_id: this.websiteId,
+              result: JSON.stringify([
+                {
+                  inapplicable: [
+                  ],
+                  passes: [],
+                  testEngine: {},
+                  testEnvironment: {},
+                  testRunner: {},
+                  timestamp: '',
+                  toolOptions: {},
+                  url: '',
+                  violations: []
+                }
+              ])
+            };
 
-          // NOTE create the new checks
-          this.hs.createWebsiteCheck(check).subscribe();
-        }
-        // NOTE go back to dashboard
-        this.router.navigate(['/']);
+            // NOTE create the new checks
+            this.hs.createWebsiteCheck(check).subscribe();
+          }
+          // NOTE go back to dashboard
+          this.router.navigate(['/']);
+        });
       });
-    });
+    }
+    // NOTE reset the websiteform
+    this.websiteForm.reset();
   }
-  // NOTE reset the websiteform
-  this.websiteForm.reset();
-}
 }
 
   // !SECTION
