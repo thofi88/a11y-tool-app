@@ -9,10 +9,13 @@ export class FilterPipe implements PipeTransform {
         return items;
     }
     if (filter === 'Kein') {
-      return;
+      return items;
     }
     else {
-      return items.filter(item => item.category_id.indexOf(filter) !== -1);
+      return items;
+
+      // TODO implements filter by category
+      // return items.filter(item => item.category_id.indexOf(filter) !== -1);
     }
 }
 

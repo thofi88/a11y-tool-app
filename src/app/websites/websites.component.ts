@@ -48,7 +48,8 @@ export class WebsitesComponent implements OnInit {
 
  // NOTE get all categories
  this.hs.getAllCat().subscribe(cats => {
-  this.filterarray = cats;
+   this.filterarray = cats;
+   console.log(this.filterarray);
 });
     // NOTE get all websites
     this.hs.getAll().subscribe(websites => this.websites = websites);
