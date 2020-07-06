@@ -328,6 +328,7 @@ export class NewWebsiteComponent implements OnInit {
               website_name: this.newChecks[i].website_name,
               url: this.newChecks[i].url,
               website_id: this.websiteId,
+              checked: false,
               result: JSON.stringify([
                 {
                   inapplicable: [
@@ -374,6 +375,7 @@ export class NewWebsiteComponent implements OnInit {
               website_name: this.newChecks[i].website_name,
               url: this.newChecks[i].url,
               website_id: this.websiteId,
+              checked: false,
               result: JSON.stringify([
                 {
                   inapplicable: [

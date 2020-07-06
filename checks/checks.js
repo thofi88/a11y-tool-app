@@ -29,7 +29,7 @@ request('http://localhost:8000/websites/', { json: true }, (err, res, body) => {
         if (checked === 0) {
           // console.log('noch nicht gecheckt');
 
-          const cmd = 'axe ' + checkUrl.toString() + ' --save ./axe-results/' + id + '.json';
+          const cmd = 'axe ' + checkUrl.toString() + ' --save ' + id + '.json';
           // console.log(cmd);
           exec(cmd, (err, stdout, stderr) => {
             if (err) {
@@ -41,14 +41,18 @@ request('http://localhost:8000/websites/', { json: true }, (err, res, body) => {
             // console.log(`stdout: ${stdout}`);
             // console.log(`stderr: ${stderr}`);
 
-            let rawdata = fs.readFileSync('./axe-results/' + id + '.json');
+            let rawdata = fs.readFileSync( id + '.json');
             let fileResult = JSON.parse(rawdata);
             let resultAsString = JSON.stringify(fileResult)
             // console.log(resultAsString);
 
             const url = 'http://localhost:8000/websiteCheckResultPut/' + id
             // console.log(timestamp)
-            request({ url: url, method: 'put', json: true, body: { result: resultAsString, check_time: timestamp, checked: 1 } })
+
+
+            request({ url: url, method: 'put', json: true, body: { result: resultAsString, check_time: timestamp, checked: 1 } },() => {
+              fs.unlinkSync( id + '.json');
+            })
 
           });
         }

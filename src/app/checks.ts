@@ -7,6 +7,7 @@ export interface Checks {
   url: string;
   check_time: string;
   result: string;
+  checked: boolean;
 }
 
 // !SECTION

@@ -5,6 +5,7 @@ export interface NewCheck {
   website_id: number;
   url: string;
   result: string;
+  checked: boolean;
 }
 
 // !SECTION
