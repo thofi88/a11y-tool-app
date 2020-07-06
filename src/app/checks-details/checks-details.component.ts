@@ -29,6 +29,7 @@ export class ChecksDetailsComponent implements OnInit {
   checks: Checks[];
   newCheck: Checks;
   sortField = 'violations';
+  trackByFn;
 
   // !SECTION
 

@@ -52,16 +52,36 @@
       </div>
     </div>
 
+
     <!-- ANCHOR Accordion to display Checks -->
     <div *ngIf="this.check" class="mt-3">
       <mat-accordion class="example-headers-align">
-        <mat-expansion-panel *ngFor="let d of displayCheck">
+        <mat-expansion-panel *ngFor="let d of displayCheck; index as i">
           <mat-expansion-panel-header>
             <mat-panel-title class="mt-1 col-md-9">
-              {{d.id}}
+              {{i + 1}}. {{d.id}}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          {{d.description}}
+          <div class="mb-2">
+            {{d.description}}
+          </div>
+          <div class="alert alert-warning" role="alert" *ngIf="d.id === 'color-contrast'">
+            Go to Element function only works with Chrome Version 81!
+          </div>
+          <div *ngFor="let dn of d.nodes; index as i">
+            <div class="card mt-2">
+              <h4 class="card-header">{{dn.failureSummary}}</h4>
+              <div class="card-body">
+                <h4 class="card-title">{{dn.html}}</h4>
+                <p class="card-text"></p>
+
+                <!-- TODO Link to the element with barriers -->
+                <div *ngIf="d.id === 'color-contrast'">
+                <a  href="{{this.check.url}}#:~:text={{dn.html.toString() | htmlTagOnlyContent}}" target="_blank" class="btn btn-info">Go to Element</a>
+              </div>
+              </div>
+            </div>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
