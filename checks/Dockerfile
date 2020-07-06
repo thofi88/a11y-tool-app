@@ -12,5 +12,5 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-EXPOSE 8000
-CMD [ "node", "checks.js" ]
+#EXPOSE 8000
+CMD [ "forever", "checks.js" ]
