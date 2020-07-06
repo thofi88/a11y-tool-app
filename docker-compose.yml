@@ -69,17 +69,17 @@ services:
       - mysql
     command: npm start
 
-  checks:
-    container_name: a11y-tool-app-checks
-    build: ./checks
-    depends_on:
-      - mysql
-    ports:
-      - 3000:3000
-    volumes:
-      - ./checks/app
-    links:
-      - mysql
-    command: npm start
+  # checks:
+  #   container_name: a11y-tool-app-checks
+  #   build: ./checks
+  #   depends_on:
+  #     - mysql
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./checks/app
+  #   links:
+  #     - mysql
+  #   command: npm start
 
 # !SECTION

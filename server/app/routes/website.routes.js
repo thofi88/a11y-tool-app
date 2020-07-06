@@ -46,6 +46,9 @@ module.exports = app => {
   // ANCHOR Update a Check find by checkId
   app.put("/websiteCheckPut/:checkId", checks.update);
 
+  // ANCHOR Update a Checkresult find by checkId
+  app.put("/websiteCheckResultPut/:checkId", checks.updateResult);
+
   // ANCHOR Delete a Websites find by checkId
   app.delete("/websiteCheckDelete/:checksId", checks.delete);
 

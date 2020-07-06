@@ -98,6 +98,36 @@ exports.update = (req, res) => {
   );
 };
 
+// ANCHOR Update a Check identified by the ChecksId in the request
+exports.updateResult = (req, res) => {
+  // Validate Request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Request body is not empty!"
+    });
+  }
+
+  console.log(req.body);
+
+  Checks.updateResultById(
+    req.params.checkId,
+    new Checks(req.body),
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Checks with id ${req.params.checkId}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error by fetching with id " + req.params.checkId
+          });
+        }
+      } else res.send(data);
+    }
+  );
+};
+
 // ANCHOR Delete a Check find by a specified checksId
 exports.delete = (req, res) => {
   console.log('delete' + req.params.checksId);

@@ -82,6 +82,29 @@ Checks.updateById = (id, checks, result) => {
   );
 };
 
+// ANCHOR Update - Check Module
+Checks.updateResultById = (id, checks, result) => {
+  sql.query(
+    "UPDATE checks SET result = ?, check_time = ? WHERE id = ?",
+    [checks.result, checks.check_time, id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated Checks: ", { id: id, ...Checks });
+      result(null, { id: id, ...Checks });
+    }
+  );
+};
+
 // ANCHOR Remove - Check Module
 Checks.remove = (id, result) => {
   console.log( 'remove' + id);

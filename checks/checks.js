@@ -1,10 +1,14 @@
+#!/usr/bin/env node
+
 // const cors = require('cors');
 // const express = require("express");
 // const bodyParser = require("body-parser");
 
 // const app = express();
-
+const { exec } = require("child_process");
+const fs = require('fs');
 const request = require('request');
+
 request('http://localhost:8000/websites/', { json: true }, (err, res, body) => {
 
   websites = body;
@@ -19,12 +23,46 @@ request('http://localhost:8000/websites/', { json: true }, (err, res, body) => {
     requestCheck(`http://localhost:8000/websiteCheck/${websites[i].id}`, { json: true }, (err, res, body) => {
       checks = body;
       for (let i = 0; i < checks.length; i++) {
+
         console.log(checks[i].url);
+
+        const checkUrl = checks[i].url;
+        const result = checks[i].result;
+        const checked = checks[i].checked;
+        const id = checks[i].id;
+
+        if (checked === 0) {
+          console.log('noch nicht gecheckt');
+          if (i === 0) {
+
+            const cmd = 'axe ' + checkUrl.toString() + ' --save ./axe-results/' + id + '.json';
+            console.log(cmd);
+            exec(cmd, (err, stdout, stderr) => {
+              if (err) {
+                // node couldn't execute the command
+                return;
+              }
+
+              // the *entire* stdout and stderr (buffered)
+              console.log(`stdout: ${stdout}`);
+              console.log(`stderr: ${stderr}`);
+
+              let rawdata = fs.readFileSync('./axe-results/' + id + '.json');
+              let fileResult = JSON.parse(rawdata);
+              let resultAsString = JSON.stringify(fileResult)
+              console.log(resultAsString);
+
+              // FIXME PUT not work
+              request({ url: 'http://localhost:8000/websiteCheckResultPut/' + id, method: 'PUT', json: {result: resultAsString, check_time: "2025-06-28 13:26:40"}})
+
+            });
+          }
+        }
+
       }
 
 
-});
-
+    });
   }
 });
 
