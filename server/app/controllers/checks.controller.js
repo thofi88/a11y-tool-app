@@ -20,6 +20,7 @@ exports.create = (req, res) => {
     url: req.body.url,
     check_time: req.body.check_time,
     result: req.body.result,
+    checked: req.body.checked
   });
 
   // ANCHOR Save Check in the database

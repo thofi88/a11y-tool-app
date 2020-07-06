@@ -14,10 +14,11 @@ app.use(function(req, res, next) {
 
 });
 // NOTE parse the requests
-app.use(bodyParser.json());
+app.use(express.json({limit: '50mb'}));
 
 // parse requests url
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({limit: '50mb'}));
+//app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // NOTE simple route

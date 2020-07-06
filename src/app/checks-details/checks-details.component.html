@@ -65,7 +65,7 @@
           <div class="mb-2">
             {{d.description}}
           </div>
-          <div class="alert alert-warning" role="alert" *ngIf="d.id === 'color-contrast'">
+          <div class="alert alert-warning" role="alert" *ngIf="d.id === 'color-contrast' || d.id === 'heading-order'">
             Go to Element function only works with Chrome Version 81!
           </div>
           <div *ngFor="let dn of d.nodes; index as i">
@@ -76,7 +76,7 @@
                 <p class="card-text"></p>
 
                 <!-- TODO Link to the element with barriers -->
-                <div *ngIf="d.id === 'color-contrast'">
+                <div *ngIf="d.id === 'color-contrast' || d.id === 'heading-order'">
                 <a  href="{{this.check.url}}#:~:text={{dn.html.toString() | htmlTagOnlyContent}}" target="_blank" class="btn btn-info">Go to Element</a>
               </div>
               </div>
