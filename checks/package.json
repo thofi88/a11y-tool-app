@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node checks.js"
+    "start": "forever checks.js"
   },
   "keywords": [],
   "author": "",

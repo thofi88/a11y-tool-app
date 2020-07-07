@@ -2,6 +2,7 @@ module.exports = app => {
   const websites = require("../controllers/website.controller.js");
   const checks = require("../controllers/checks.controller.js");
   const cat = require("../controllers/cat.controller.js");
+  const auto = require("../controllers/auto.controller.js");
 
   // REVIEW All routes from the API Server. The Routs pointed to the controller section.
 
@@ -69,4 +70,12 @@ module.exports = app => {
 
   // !SECTION
 
+  // SECTION Auto Routes
+  // ANCHOR Return a single Websites find by websiteId
+  app.get("/auto/:autoId", auto.findOne);
+
+  // ANCHOR Update a Websites find by websiteId
+  app.put("/auto/:autoId", auto.update);
+
+  // !SECTION
 };

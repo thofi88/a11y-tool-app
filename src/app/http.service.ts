@@ -60,7 +60,12 @@ export class HttpService {
   getSingleWebsite(websiteId) {
     return this.http.get(`${this.apiUrl}/websites/` + websiteId);
   }
-
+  updateAutomation(auto, id) {
+    return this.http.put(`${this.apiUrl}/auto/${id}` , auto);
+  }
+  getAutomation(autoId) {
+    return this.http.get(`${this.apiUrl}/auto/${autoId}`);
+  }
   deleteCheck(checkId) {
     return this.http.delete(`${this.apiUrl}/websiteCheckDelete/` + checkId);
   }

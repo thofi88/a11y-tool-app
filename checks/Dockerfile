@@ -12,5 +12,5 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-#EXPOSE 8000
-CMD [ "forever", "checks.js" ]
+EXPOSE 3000
+CMD [ "forever --spinSleepTime 10000 checks.js"   ]

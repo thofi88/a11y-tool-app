@@ -12,6 +12,12 @@
       <a class="nav-item nav-link active" routerLink="/" href="#">Home<span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link active" [routerLink]="['websites/new']" href="#">Neue Website<span
           class="sr-only">(current)</span></a>
+      <div class="nav-item nav-link active" routerLink="/" href="#">
+        <label for="auto">automatische Überprüfung -> &nbsp;</label>
+        <input type="checkbox" (change)="changeCheck($event)" [checked]="this.automated" data-toggle="toggle" data-onstyle="success"
+          data-offstyle="danger" data-size="xs">
+        <span class="sr-only">(current)</span></div>
+
     </div>
   </div>
 </nav>
