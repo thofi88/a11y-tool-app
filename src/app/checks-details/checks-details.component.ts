@@ -20,10 +20,6 @@ export class ChecksDetailsComponent implements OnInit {
   incomplete;
   passes;
   violations;
-  inapplicableTrue;
-  incompleteTrue;
-  passesTrue;
-  violationsTrue;
   checkTime;
   displayCheck;
   checks: Checks[];
@@ -44,12 +40,14 @@ export class ChecksDetailsComponent implements OnInit {
       switchMap(checkId => this.hs.getSingleCheck(checkId))
     ).subscribe(check => {
       this.check = check;
+
       this.oneCheck = JSON.parse(this.check.result);
-      this.checkTime = this.oneCheck[0].timestamp;
-      this.inapplicable = this.oneCheck[0].inapplicable;
-      this.incomplete = this.oneCheck[0].incomplete;
-      this.passes = this.oneCheck[0].passes;
-      this.violations = this.oneCheck[0].violations;
+      console.log(this.oneCheck);
+      this.checkTime = this.oneCheck.timestamp;
+      this.inapplicable = this.oneCheck.inapplicable;
+      this.incomplete = this.oneCheck.incomplete;
+      this.passes = this.oneCheck.passes;
+      this.violations = this.oneCheck.violations;
       this.displayCheck = this.violations;
     });
   }

@@ -9,21 +9,23 @@ x-common-variables: &common-variables
   ANGULAR_APP_SERVER_PORT: 8000
   CHECK_SERVER_PORT: 3000
 
+
+
 services:
 
-  # client:
-  #   container_name: a11y-tool-app-client
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - server
-  #   volumes:
-  #     - '.:/app'
-  #     - '/app/node_modules'
-  #   ports:
-  #     #- '80:80' for Produktion Mode
-  #     - '4201:4200'
+  client:
+    container_name: a11y-tool-app-client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - server
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      #- '80:80' for Produktion Mode
+      - '4201:4200'
 
   mysql:
     container_name: a11y-tool-app-database

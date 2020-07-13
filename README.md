@@ -21,6 +21,8 @@ The App is only a prototype to test how to build a Accessibility Tool wich can a
 
 ### As a Development Server
 
+sudo COMPOSE_HTTP_TIMEOUT=120 docker-compose -f docker-compose.yml up -d --build
+
 Run `sudo docker-compose -f docker-compose.yml up -d --build` for a dev server. 
 Navigate to `http://localhost:4201/`. The app will automatically reload if you change any of the source files.
 

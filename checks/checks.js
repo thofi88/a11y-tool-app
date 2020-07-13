@@ -111,7 +111,7 @@ const timer = setIntervalAsync(
     await callback()
     console.log('Bye')
   },
-  1000
+  10000
 )
 
 

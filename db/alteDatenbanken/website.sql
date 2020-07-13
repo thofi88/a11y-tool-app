@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Erstellungszeit: 07. Jul 2020 um 11:57
+-- Erstellungszeit: 09. Jul 2020 um 06:27
 -- Server-Version: 5.7.30
 -- PHP-Version: 7.4.6
 
@@ -37,7 +37,7 @@ CREATE TABLE `auto` (
 --
 
 INSERT INTO `auto` (`id`, `automated`) VALUES
-(0, 0);
+(0, 1);
 
 -- --------------------------------------------------------
 
@@ -117,6 +117,12 @@ INSERT INTO `websites` (`id`, `name`, `home_url`, `last_full_test`, `category_id
 --
 
 --
+-- Indizes für die Tabelle `auto`
+--
+ALTER TABLE `auto`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indizes für die Tabelle `category`
 --
 ALTER TABLE `category`
@@ -137,6 +143,12 @@ ALTER TABLE `websites`
 --
 -- AUTO_INCREMENT für exportierte Tabellen
 --
+
+--
+-- AUTO_INCREMENT für Tabelle `auto`
+--
+ALTER TABLE `auto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `category`
