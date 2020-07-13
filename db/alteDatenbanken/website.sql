@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Erstellungszeit: 06. Jul 2020 um 18:59
+-- Erstellungszeit: 07. Jul 2020 um 11:57
 -- Server-Version: 5.7.30
 -- PHP-Version: 7.4.6
 
@@ -20,6 +20,24 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `website_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `auto`
+--
+
+CREATE TABLE `auto` (
+  `id` int(11) NOT NULL,
+  `automated` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Daten für Tabelle `auto`
+--
+
+INSERT INTO `auto` (`id`, `automated`) VALUES
+(0, 0);
 
 -- --------------------------------------------------------
 

@@ -60,6 +60,20 @@ Checks.getAll = (websiteId, result) => {
   });
 };
 
+// ANCHOR GetAll - Website Module
+Checks.getAllCheck = result => {
+  sql.query("SELECT COUNT(checked) FROM checks WHERE checked = 0", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("websites: ", res);
+    result(null, res);
+  });
+};
+
 // ANCHOR Update - Check Module
 Checks.updateById = (id, checks, result) => {
   sql.query(

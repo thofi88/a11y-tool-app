@@ -38,6 +38,9 @@ module.exports = app => {
   // ANCHOR Return all Checks from a spezial WebsiteId
   app.get("/websiteCheck/:websiteId", checks.findAllChecks);
 
+   // ANCHOR Return all Checks where must be checkded
+   app.get("/websiteCheck", checks.findAllChecksWhereChecked);
+
   // ANCHOR Return a single Check find by checkId
   app.get("/websiteOneCheck/:checkId", checks.findOneCheck);
 

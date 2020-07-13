@@ -51,7 +51,7 @@ exports.findOneCheck = (req, res) => {
   });
 };
 
-// ANCHOR Find a single Check with a checksId
+// ANCHOR Find all Checks with from a Website
 exports.findAllChecks = (req, res) => {
   Checks.getAll(req.params.websiteId, (err, data) => {
     if (err) {
@@ -65,6 +65,18 @@ exports.findAllChecks = (req, res) => {
         });
       }
     } else res.send(data);
+  });
+};
+
+// ANCHOR Return all Checks wnere be must checked
+exports.findAllChecksWhereChecked = (req, res) => {
+  Checks.getAllCheck((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Error by fetching Website."
+      });
+    else res.send(data);
   });
 };
 
