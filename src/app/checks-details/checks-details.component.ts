@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Checks } from '../checks';
 import { HttpService } from '../http.service';
 import { map, switchMap } from 'rxjs/operators';
+import { CheckResults } from '../check-results';
 
 @Component({
   selector: 'at-checks-details',
@@ -15,7 +16,7 @@ export class ChecksDetailsComponent implements OnInit {
 
   check: Checks;
   step = 0;
-  oneCheck: JSON;
+  oneCheck: CheckResults;
   inapplicable;
   incomplete;
   passes;
@@ -27,6 +28,7 @@ export class ChecksDetailsComponent implements OnInit {
   sortField = 'violations';
   trackByFn;
 
+
   // !SECTION
 
   // SECTION Start
@@ -35,6 +37,7 @@ export class ChecksDetailsComponent implements OnInit {
 
   // ANCHOR ngOnit
   ngOnInit(): void {
+
     this.route.paramMap.pipe(
       map(params => params.get('checkId')),
       switchMap(checkId => this.hs.getSingleCheck(checkId))
