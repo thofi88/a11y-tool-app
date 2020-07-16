@@ -22,7 +22,7 @@ services:
       - '.:/app'
       - '/app/node_modules'
     ports:
-      - '80:80' for Produktion Mode
+      - '80:80'
 
   mysql:
     container_name: a11y-tool-app-database
