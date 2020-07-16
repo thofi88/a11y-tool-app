@@ -8,6 +8,7 @@ export interface Checks {
   check_time: string;
   result: string;
   checked: boolean;
+  ranking: number;
 }
 
 // !SECTION

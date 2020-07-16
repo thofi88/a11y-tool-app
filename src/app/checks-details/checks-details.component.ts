@@ -27,6 +27,9 @@ export class ChecksDetailsComponent implements OnInit {
   newCheck: Checks;
   sortField = 'violations';
   trackByFn;
+  r = 255;
+  g = 0;
+  b = 0;
 
 
   // !SECTION
@@ -73,6 +76,41 @@ export class ChecksDetailsComponent implements OnInit {
       this.displayCheck = this.passes;
     }
   }
+
+  // ANCHOR changeColor
+  // NOTE change colour based on the ranking
+  changeColor(i) {
+    if (i === null) {
+      return ('rgb( ' + 0 + ',' + 0 + ',' + 0 + ')');
+    }
+    else {
+      this.r = (i <= 70) ? 255 : Math.round(255 - 255 * (i - 70) / 70);
+      this.g = (i <= 70) ? Math.round(255 - 255 * (70 - i) / 70) : 255;
+      console.log(this.r);
+      console.log(this.g);
+      console.log('--------------');
+      if (this.r > 50) {
+        this.r = this.r - 49;
+      }
+      if (this.g > 50) {
+        this.g = this.g - 49;
+      }
+      return ('rgb( ' + this.r + ',' + this.g + ',' + this.b + ')');
+    }
+
+  }
+  
+  // ANCHOR isNull if ranking = null
+  // NOTE if ranking zero write a big N inside the circle
+  isNull(ranking) {
+    if (ranking === null) {
+      return 'N';
+    }
+    else {
+      return ranking;
+    }
+  }
+
 }
 
   // !SECTION

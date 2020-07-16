@@ -83,9 +83,11 @@ export class WebsitesComponent implements OnInit {
       return ('rgb( ' + 0 + ',' + 0 + ',' + 0 + ')');
     }
     else {
-      this.r = (i <= 50) ? 255 : Math.round(255 - 255 * (i - 50) / 50);
-      this.g = (i <= 50) ? Math.round(255 - 255 * (50 - i) / 50) : 255;
-
+      this.r = (i <= 70) ? 255 : Math.round(255 - 255 * (i - 70) / 70);
+      this.g = (i <= 70) ? Math.round(255 - 255 * (70 - i) / 70) : 255;
+      console.log(this.r);
+      console.log(this.g);
+      console.log('--------------');
       if (this.r > 50) {
         this.r = this.r - 49;
       }

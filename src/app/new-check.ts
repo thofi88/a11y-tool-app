@@ -6,6 +6,7 @@ export interface NewCheck {
   url: string;
   result: string;
   checked: boolean;
+  ranking: number;
 }
 
 // !SECTION

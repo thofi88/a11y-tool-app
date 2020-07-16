@@ -329,7 +329,8 @@ export class NewWebsiteComponent implements OnInit {
               url: this.newChecks[i].url,
               website_id: this.websiteId,
               checked: false,
-              result: JSON.stringify([
+              ranking: 0,
+              result: JSON.stringify(
                 {
                   inapplicable: [
                   ],
@@ -342,7 +343,7 @@ export class NewWebsiteComponent implements OnInit {
                   url: '',
                   violations: []
                 }
-              ])
+              )
             };
 
             // NOTE if the check not availble create else update
@@ -376,7 +377,8 @@ export class NewWebsiteComponent implements OnInit {
               url: this.newChecks[i].url,
               website_id: this.websiteId,
               checked: false,
-              result: JSON.stringify([
+              ranking: 0,
+              result: JSON.stringify(
                 {
                   inapplicable: [
                   ],
@@ -389,7 +391,7 @@ export class NewWebsiteComponent implements OnInit {
                   url: '',
                   violations: []
                 }
-              ])
+              )
             };
 
             // NOTE create the new checks

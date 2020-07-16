@@ -11,6 +11,7 @@ const Checks = function(checks) {
   this.check_time = checks.check_time;
   this.result = checks.result;
   this.checked = checks.checked;
+  this.ranking = checks.ranking;
 };
 
 // ANCHOR Create - Check Module
@@ -100,8 +101,8 @@ Checks.updateById = (id, checks, result) => {
 // ANCHOR Update - Check Module
 Checks.updateResultById = (id, checks, result) => {
   sql.query(
-    "UPDATE checks SET result = ?, check_time = ?, checked = ? WHERE id = ?",
-    [checks.result, checks.check_time, checks.checked, id],
+    "UPDATE checks SET result = ?, check_time = ?, checked = ?, ranking = ? WHERE id = ?",
+    [checks.result, checks.check_time, checks.checked, checks.ranking, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

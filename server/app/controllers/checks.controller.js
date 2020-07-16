@@ -20,7 +20,8 @@ exports.create = (req, res) => {
     url: req.body.url,
     check_time: req.body.check_time,
     result: req.body.result,
-    checked: req.body.checked
+    checked: req.body.checked,
+    ranking: req.body.ranking
   });
 
   // ANCHOR Save Check in the database

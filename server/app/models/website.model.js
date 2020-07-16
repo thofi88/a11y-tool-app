@@ -26,8 +26,6 @@ Website.create = (newWebsite, result) => {
   });
 };
 
-// TODO SELECT * FROM websites WHERE category_id LIKE "%2%"
-// FIXME only one website as request but it must be two
 
 // ANCHOR FindByCatId - Website Module
 Website.findByCatId = (categoryId, result) => {
@@ -94,8 +92,8 @@ Website.getId = result => {
 // ANCHOR Update - Website Module
 Website.updateById = (id, website, result) => {
   sql.query(
-    "UPDATE websites SET name = ?, home_url = ?, category_id = ? WHERE id = ?",
-    [website.name, website.home_url, website.category_id, id],
+    "UPDATE websites SET name = ?, home_url = ?, category_id = ?, ranking = ? WHERE id = ?",
+    [website.name, website.home_url, website.category_id, website.ranking, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

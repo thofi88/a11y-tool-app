@@ -21,14 +21,12 @@ The App is only a prototype to test how to build a Accessibility Tool wich can a
 
 ### As a Development Server
 
-`sudo COMPOSE_HTTP_TIMEOUT=240 docker-compose -f docker-compose.yml up -d --build` 
-
-Run `sudo docker-compose -f docker-compose.yml up -d --build` for a dev server. 
+Run `sudo COMPOSE_HTTP_TIMEOUT=500 docker-compose -f docker-compose.yml up -d --build` for a dev server. 
 Navigate to `http://localhost:4201/`. The app will automatically reload if you change any of the source files.
 
 ### As a Production Server
 
 If you want you can use this Dockercompose File for your Productionmode. With a builded Angular App and nginx-Server to display.
-Run `sudo docker-compose -f docker-compose-prod.yml up -d --build` for production mode.
+Run `sudo COMPOSE_HTTP_TIMEOUT=500 docker-compose -f docker-compose-prod.yml up -d --build` for production mode.
 
 After building and run containers you can navigate to Navigate to `http://localhost:80/` and the App is running.
