@@ -85,9 +85,9 @@ export class WebsitesComponent implements OnInit {
     else {
       this.r = (i <= 70) ? 255 : Math.round(255 - 255 * (i - 70) / 70);
       this.g = (i <= 70) ? Math.round(255 - 255 * (70 - i) / 70) : 255;
-      console.log(this.r);
-      console.log(this.g);
-      console.log('--------------');
+      // console.log(this.r);
+      // console.log(this.g);
+      // console.log('--------------');
       if (this.r > 50) {
         this.r = this.r - 49;
       }

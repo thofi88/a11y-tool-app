@@ -78,7 +78,7 @@ module.exports = app => {
   app.get("/auto/:autoId", auto.findOne);
 
   // ANCHOR Update a Websites find by websiteId
-  app.put("/auto/:id", auto.update);
+  app.put("/auto/:autoId", auto.update);
 
   // !SECTION
 };
