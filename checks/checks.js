@@ -26,7 +26,7 @@ const timer = setIntervalAsync(
 )
 
 async function callback() {
-  await request('http://localhost:8000/auto/0', { json: true }, async (err, res, body) => { }).then(
+  await request('http://server:8000/auto/0', { json: true }, async (err, res, body) => { }).then(
 
     async function (response) {
       if (response) {
@@ -34,13 +34,13 @@ async function callback() {
         const automated = response.automated;
         // console.log(automated);
         if (automated === 1) {
-          await request('http://localhost:8000/websites/', { json: true }, async (err, res, body) => { }).then(
+          await request('http://server:8000/websites/', { json: true }, async (err, res, body) => { }).then(
             async function (response) {
               const websites = response;
 
               for await (website of websites) {
                 const websiteRankingArray = [];
-                await request(`http://localhost:8000/websiteCheck/${website.id}`, { json: true }, async (err, res, body) => { }).then(
+                await request(`http://server:8000/websiteCheck/${website.id}`, { json: true }, async (err, res, body) => { }).then(
 
                   async function (response) {
 
@@ -99,10 +99,10 @@ async function callback() {
                         websiteRankingArray.push(ranking);
                         console.log(websiteRankingArray);
 
-                        await request('http://localhost:8000/websites/', { json: true }, async (err, res, body) => { }).then(
+                        await request('http://server:8000/websites/', { json: true }, async (err, res, body) => { }).then(
                           async function (response) {
 
-                            const url = 'http://localhost:8000/websiteCheckResultPut/' + id
+                            const url = 'http://server:8000/websiteCheckResultPut/' + id
 
                             const resultAsString = JSON.stringify(results)
                             await request({ url: url, method: 'put', json: true, body: { result: resultAsString, check_time: timestamp, checked: 1, ranking: ranking } }, () => {
@@ -126,7 +126,7 @@ async function callback() {
                       summe += websiteRankingArray[i];
                     }
                     const websiteRanking = Math.round(summe / websiteRankingArray.length);
-                    const urlWebsite = 'http://localhost:8000/websites/' + website.id
+                    const urlWebsite = 'http://server:8000/websites/' + website.id
 
                     await request({ url: urlWebsite, method: 'put', json: true, body: { name: website.name, home_url: website.home_url, category_id: website.category_id ,  ranking: websiteRanking } }, () => {
                       console.log('UpdateWebsite-request');
