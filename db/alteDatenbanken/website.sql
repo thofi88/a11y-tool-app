@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Erstellungszeit: 16. Jul 2020 um 10:50
+-- Erstellungszeit: 16. Jul 2020 um 11:22
 -- Server-Version: 5.7.31
 -- PHP-Version: 7.4.6
 
@@ -104,17 +104,18 @@ CREATE TABLE `websites` (
   `name` text NOT NULL,
   `home_url` text NOT NULL,
   `last_full_test` timestamp NULL DEFAULT NULL,
-  `category_id` varchar(255) NOT NULL
+  `category_id` varchar(255) NOT NULL,
+  `ranking` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `websites`
 --
 
-INSERT INTO `websites` (`id`, `name`, `home_url`, `last_full_test`, `category_id`) VALUES
-(10, 'HTWK', 'https://www.htwk-leipzig.de/startseite/', NULL, '2,3'),
-(11, 'dzb lesen', 'https://www.dzblesen.de/', NULL, '2'),
-(12, 'Digiboard HTWK', 'https://digiboard.htwk-leipzig.de/digiboard/start/index.php', NULL, '3');
+INSERT INTO `websites` (`id`, `name`, `home_url`, `last_full_test`, `category_id`, `ranking`) VALUES
+(10, 'HTWK', 'https://www.htwk-leipzig.de/startseite/', NULL, '2,3', NULL),
+(11, 'dzb lesen', 'https://www.dzblesen.de/', NULL, '2', NULL),
+(12, 'Digiboard HTWK', 'https://digiboard.htwk-leipzig.de/digiboard/start/index.php', NULL, '3', NULL);
 
 --
 -- Indizes der exportierten Tabellen

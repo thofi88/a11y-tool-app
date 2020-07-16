@@ -1,14 +1,11 @@
-[
-  {
-    "inapplicable": [
-    ],
-    "passes": [],
-    "testEngine": {    },
-    "testEnvironment": {},
-    "testRunner": {},
-    "timestamp": "",
-    "toolOptions": {},
-    "url": "",
-    "violations": []
-  }
-]
+{
+  "inapplicable": [],
+  "passes": [],
+  "testEngine": {},
+  "testEnvironment": {},
+  "testRunner": {},
+  "timestamp": "",
+  "toolOptions": {},
+  "url": "",
+  "violations": []
+}

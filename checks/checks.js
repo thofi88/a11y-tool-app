@@ -22,7 +22,7 @@ const timer = setIntervalAsync(
     await callback()
     console.log('Bye')
   },
-  10000
+  60000
 )
 
 async function callback() {
