@@ -54,7 +54,7 @@ export class WebsitesComponent implements OnInit {
    console.log(this.filterarray);
 });
     // NOTE get all websites
-    this.hs.getAll().subscribe(websites => this.websites = websites);
+ this.hs.getAll().subscribe(websites => this.websites = websites);
   }
 
   // !SECTION

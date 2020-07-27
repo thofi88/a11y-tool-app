@@ -157,12 +157,13 @@ export class NewWebsiteComponent implements OnInit {
     const confirm = window.confirm('Soll die Kategorie wirklich gelöscht werden, es werden auch alle Querverweise zu den Webseiten gelöscht.');
     if (confirm) {
       console.log('ok');
-      console.log(id)
+      console.log(id);
       this.hs.getAllWebsiteByCatId(id).subscribe(websites => {
         this.websites = websites;
         // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < this.websites.length; i++) {
           this.categories = this.websites[i].category_id.split(',').map(x => + x);
+          // tslint:disable-next-line: prefer-for-of
           for (let i = 0; i < this.categories.length; i++) {
 
             const index = this.categories.indexOf(id);
@@ -189,7 +190,7 @@ export class NewWebsiteComponent implements OnInit {
           this.cats.splice(index, 1);
         }
         const indexWeb = this.websiteIds.indexOf(id);
-      if (indexWeb > -1) {
+        if (indexWeb > -1) {
         this.websiteIds.splice(indexWeb, 1);
       }
         // TODO remove this category from form
