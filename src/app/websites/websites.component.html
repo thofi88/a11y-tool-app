@@ -58,9 +58,6 @@
 
     <!-- NOTE all websites and possible search term and sorting -->
 
-    <div *ngFor="let ws of websites | filter:searchterm">
-      {{ ws.name }}
-    </div>
     <mat-expansion-panel *ngFor="let w of websites | sortBy:sortField | filterCategory:filterfieldId | filter:searchterm; let i = index;"
       [expanded]="step === i" (opened)="setStep(i)">
       <mat-expansion-panel-header class="row">

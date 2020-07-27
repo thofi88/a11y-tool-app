@@ -250,6 +250,9 @@ export class NewWebsiteComponent implements OnInit {
         console.log('cancel');
       }
     }
+    else {
+      this.checks.removeAt(index);
+    }
   }
 
   // ANCHOR createCat
