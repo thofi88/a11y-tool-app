@@ -7,7 +7,7 @@
     <label class="font-weight-light">
       Suche:
     </label>
-    <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="term">
+    <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="searchterm">
   </div>
 
   <!-- ANCHOR filterButton -->
@@ -58,7 +58,10 @@
 
     <!-- NOTE all websites and possible search term and sorting -->
 
-    <mat-expansion-panel *ngFor="let w of websites| filter:term | sortBy:sortField | filter:filterfieldId; let i = index;"
+    <div *ngFor="let ws of websites | filter:searchterm">
+      {{ ws.name }}
+    </div>
+    <mat-expansion-panel *ngFor="let w of websites | sortBy:sortField | filterCategory:filterfieldId | filter:searchterm; let i = index;"
       [expanded]="step === i" (opened)="setStep(i)">
       <mat-expansion-panel-header class="row">
         <mat-panel-title class="mt-1 col-md-3 ml-1">

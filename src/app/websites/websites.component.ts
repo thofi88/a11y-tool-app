@@ -18,7 +18,7 @@ export class WebsitesComponent implements OnInit {
   sendWeb: Websites;
   filterarray: Category[];
   step = 0;
-  term: string;
+  searchterm;
   sortField = 'name';
   filterfield = 'Kein';
   websiteId: any;

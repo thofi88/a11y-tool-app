@@ -1,20 +1,14 @@
 const { AxePuppeteer } = require('axe-puppeteer')
 const puppeteer = require('puppeteer')
 
-
-const { exec } = require("child_process");
-const fs = require('fs');
 const request = require('request-promise');
 const timestamp = new Date().toISOString().
   replace(/T/, ' ').      // replace T with a space
   replace(/\..+/, '')
 
 const {
-  setIntervalAsync,
-  clearIntervalAsync
+  setIntervalAsync
 } = require('set-interval-async/fixed')
-
-// TODO  await clearIntervalAsync(timer) if alle gecheckt
 
 const timer = setIntervalAsync(
   async () => {

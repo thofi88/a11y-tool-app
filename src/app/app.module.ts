@@ -29,8 +29,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FilterPipe } from './filter.pipe';
 import { HtmlTagOnlyContentPipe } from './html-tag-only-content.pipe';
+import { FilterCategoryPipe } from './filter-category.pipe';
 
 @NgModule({
   declarations: [
@@ -41,8 +41,8 @@ import { HtmlTagOnlyContentPipe } from './html-tag-only-content.pipe';
     CategoryComponent,
     SortByPipe,
     NewWebsiteComponent,
-    FilterPipe,
     HtmlTagOnlyContentPipe,
+    FilterCategoryPipe,
   ],
   imports: [
     BrowserModule,
