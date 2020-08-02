@@ -1,15 +1,15 @@
 # SECTION Docker Compose File
 
+# Docker Version
 version: '3.7'
 
+# Enviorment Variable
 x-common-variables: &common-variables
   MYSQL_USER: website_user
   MYSQL_PASSWORD: 1234ba
   MYSQL_DATABASE: website_db
   ANGULAR_APP_SERVER_PORT: 8000
   CHECK_SERVER_PORT: 3000
-
-
 
 services:
 

@@ -84,22 +84,21 @@ export class ChecksDetailsComponent implements OnInit {
       return ('rgb( ' + 0 + ',' + 0 + ',' + 0 + ')');
     }
     else {
+      // NOTE condition ? value-true: value-false
       this.r = (i <= 70) ? 255 : Math.round(255 - 255 * (i - 70) / 70);
       this.g = (i <= 70) ? Math.round(255 - 255 * (70 - i) / 70) : 255;
-      console.log(this.r);
-      console.log(this.g);
-      console.log('--------------');
-      if (this.r > 50) {
-        this.r = this.r - 49;
+      if (this.r > 80) {
+        this.r = this.r - 79;
       }
-      if (this.g > 50) {
-        this.g = this.g - 49;
+      if (this.g > 80) {
+        this.g = this.g - 79;
       }
+      // console.log('rgb( ' + this.r + ',' + this.g + ',' + this.b + ')');
       return ('rgb( ' + this.r + ',' + this.g + ',' + this.b + ')');
     }
 
   }
-  
+
   // ANCHOR isNull if ranking = null
   // NOTE if ranking zero write a big N inside the circle
   isNull(ranking) {

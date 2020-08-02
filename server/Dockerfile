@@ -21,7 +21,7 @@ COPY . .
 ## Port 8000 for the server
 EXPOSE 8000
 
-## Run with Node the server.js file with Node.js
+## Run with Node the server.js file
 CMD [ "node", "server.js" ]
 
 ## !SECTION
